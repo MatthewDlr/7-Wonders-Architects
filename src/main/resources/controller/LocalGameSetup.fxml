@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePlayerSetupController">
+   <children>
+      <ImageView fx:id="playerSetupBackground" fitHeight="914.0" fitWidth="1280.0" layoutY="-160" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="-160">
+         <image>
+            <Image url="@../images/Setup/SinglePlayerSetup.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="200.0" layoutY="140.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <ImageView fx:id="playerCard" fitHeight="400.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Setup/PlayerCard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playerCardOnHover" fitHeight="400.0" fitWidth="350.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Setup/PlayerCardSelected.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <Group layoutX="820.0" layoutY="140.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <ImageView fx:id="iACard" fitHeight="400.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Setup/AICard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="iACardOnHover" fitHeight="400.0" fitWidth="350.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Setup/AICardSelected.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fx:id="playerUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="140.0" onMouseClicked="#PlayerUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="140.0">
+         <image>
+            <Image url="@../images/Setup/Arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="playerDownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="450.0" onMouseClicked="#PlayerDownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="450.0">
+         <image>
+            <Image url="@../images/Setup/Arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="iAUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="140.0" onMouseClicked="#IAUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="140.0">
+         <image>
+            <Image url="@../images/Setup/Arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="iADownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="440.0" onMouseClicked="#IADownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="450.0">
+         <image>
+            <Image url="@../images/Setup/Arrow.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="numberOfPlayerLabel" alignment="CENTER" layoutX="75.0" layoutY="297.0" prefHeight="62.0" prefWidth="50.0" text="0" textAlignment="CENTER" textFill="#8b4519" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="295.0">
+         <font>
+            <Font name="JetBrains Mono Light" size="75.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberOfAiLabel" alignment="CENTER" layoutX="1155.0" layoutY="297.0" prefHeight="62.0" prefWidth="50.0" text="0" textAlignment="CENTER" textFill="#8b4519" textOverrun="CENTER_ELLIPSIS" AnchorPane.rightAnchor="74.88683671364106" AnchorPane.topAnchor="295.0">
+         <font>
+            <Font name="JetBrains Mono Light" size="75.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberOfWondersLabel" alignment="CENTER" layoutX="595.0" layoutY="283.0" prefHeight="62.0" prefWidth="50.0" text="0" textAlignment="CENTER" textFill="#36362e" textOverrun="CENTER_ELLIPSIS" AnchorPane.topAnchor="283.0">
+         <font>
+            <Font name="JetBrains Mono Medium" size="150.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="157.39" radius="78.275" spread="0.25" width="157.71">
+               <color>
+                  <Color red="0.20999999344348907" green="0.20999999344348907" blue="0.18060000240802765" opacity="0.6034749150276184" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Label>
+      <Group layoutX="440.0" layoutY="580.0" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="580.0">
+         <children>
+            <ImageView fx:id="StartButtonUnavailable" disable="true" fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Buttons/StartButtonUnavailable.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="StartButtonAvailable" fitHeight="100.0" fitWidth="500.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Buttons/StartButtonAvailable.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
+      <ImageView fx:id="wondersLogo" fitHeight="100.0" fitWidth="150.0" layoutX="590.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Setup/7WondersLogo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

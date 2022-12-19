@@ -1,8 +1,12 @@
-module com.example.sevenwondersv2 {
+module game {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
-    opens com.example.sevenwondersv2 to javafx.fxml;
-    exports com.example.sevenwondersv2;
+    exports game;
+    opens game to javafx.fxml;
+    exports controller;
+    opens controller to javafx.fxml;
+
 }
