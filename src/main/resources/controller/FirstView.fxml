@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FirstViewController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="720" prefWidth="1280"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="controller.FirstViewController">
 
-    <MediaView fx:id="fxmlIntroVideoFrame" fitHeight="720.0" fitWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <MediaView fx:id="fxmlVideoEffectFrame" fitHeight="720.0" fitWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <ImageView fx:id="MainTitleFrame" fitHeight="250.0" fitWidth="750.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="265.0" AnchorPane.topAnchor="50.0">
+    <MediaView fx:id="fxmlIntroVideoFrame" fitHeight="720.0" fitWidth="1280.0" smooth="false"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0"/>
+    <MediaView fx:id="fxmlVideoEffectFrame" fitHeight="720.0" fitWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+    <ImageView fx:id="MainTitleFrame" fitHeight="250.0" fitWidth="750.0" opacity="0.0" pickOnBounds="true"
+               preserveRatio="true" AnchorPane.leftAnchor="265.0" AnchorPane.topAnchor="50.0">
         <cursor>
-            <Cursor fx:constant="DEFAULT" />
+            <Cursor fx:constant="DEFAULT"/>
         </cursor>
         <effect>
             <DropShadow blurType="GAUSSIAN" height="73.58" radius="35.927499999999995" spread="0.24" width="72.13">
                 <color>
-                    <Color red="0.01140000019222498" green="0.08284000307321548" blue="0.1899999976158142" opacity="0.7121139168739319" />
+                    <Color red="0.01140000019222498" green="0.08284000307321548" blue="0.1899999976158142"
+                           opacity="0.7121139168739319"/>
                 </color>
             </DropShadow>
         </effect>
+        <Image url="@../images/Setup/MainTitle.jpg"/>
     </ImageView>
 
-    <ImageView fx:id="singlePlayerButton" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="451.0" onMouseClicked="#SinglePlayerButtonClicked" onMouseEntered="#MouseIsOverSinglePayerButton" onMouseExited="#MouseLeaveSinglePayerButton" opacity="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0" AnchorPane.topAnchor="525.0">
-        <image>
-            <Image url="@../images/Buttons/SinglePlayerButton.png" />
-        </image>
+    <ImageView fx:id="singlePlayerButton" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="451.0"
+               onMouseClicked="#SinglePlayerButtonClicked" onMouseEntered="#MouseIsOverSinglePayerButton"
+               onMouseExited="#MouseLeaveSinglePayerButton" opacity="0.0" pickOnBounds="true" preserveRatio="true"
+               AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0" AnchorPane.topAnchor="525.0">
         <cursor>
-            <Cursor fx:constant="DEFAULT" />
+            <Cursor fx:constant="DEFAULT"/>
         </cursor>
+        <Image url="@../images/Buttons/SinglePlayerButton.png"/>
     </ImageView>
 
-    <ImageView fx:id="multiPlayerButton" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="533.0" onMouseClicked="#MultiPlayerButtonClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0" AnchorPane.topAnchor="625.0">
-        <image>
-            <Image url="@../images/Buttons/MultiplayerButton.png" />
-        </image>
+    <ImageView fx:id="multiPlayerButton" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="533.0"
+               onMouseClicked="#MultiPlayerButtonClicked" opacity="0.0" pickOnBounds="true" preserveRatio="true"
+               AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0" AnchorPane.topAnchor="625.0">
         <cursor>
-            <Cursor fx:constant="DEFAULT" />
+            <Cursor fx:constant="DEFAULT"/>
         </cursor>
+        <Image url="@../images/Buttons/MultiplayerButton.png"/>
     </ImageView>
-   <ImageView fx:id="singlePlayerSetupFrame" fitHeight="914.0" fitWidth="1280.0" onMouseClicked="#MultiPlayerButtonClicked" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-         <Image url="@../images/Setup/SinglePlayerSetup.png" />
-      </image>
-      <cursor>
-         <Cursor fx:constant="DEFAULT" />
-      </cursor>
-   </ImageView>
+    <ImageView fx:id="singlePlayerSetupFrame" fitHeight="914.0" fitWidth="1280.0"
+               onMouseClicked="#MultiPlayerButtonClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+        <cursor>
+            <Cursor fx:constant="DEFAULT"/>
+        </cursor>
+        <Image url="@../images/Setup/SinglePlayerSetup.png"/>
+    </ImageView>
 
 </AnchorPane>

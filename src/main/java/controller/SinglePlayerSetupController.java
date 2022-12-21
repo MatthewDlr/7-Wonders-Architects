@@ -26,6 +26,7 @@ public class SinglePlayerSetupController {
     private int numberOfPlayers, numberOfIA;
     private boolean isStartButtonAvailable = false;
     private MediaPlayer startButtonSoundEffect;
+    private int numberOfWonders;
 
     public void initialize() {
         ShowCardsWithAnimation();
@@ -86,8 +87,8 @@ public class SinglePlayerSetupController {
         }
     }
 
-    private void UpdateNumberOfWonders() {
-        int numberOfWonders = numberOfPlayers + numberOfIA;
+    public void UpdateNumberOfWonders() {
+        numberOfWonders = numberOfPlayers + numberOfIA;
 
         while (numberOfWonders > 7) {
 

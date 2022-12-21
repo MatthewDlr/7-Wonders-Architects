@@ -6,13 +6,7 @@ import game.Game;
 public abstract class Player extends Game {
 
     protected boolean playerIsAI;
-    private String playerName;
+    protected boolean cat;
 
-    public String getPlayerName() {
-        return playerName;
-    }
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
 
 }
