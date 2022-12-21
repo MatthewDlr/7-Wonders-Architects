@@ -152,7 +152,6 @@ public class FirstViewController implements Initializable {
         singlePlayerSetupFrame.setVisible(true);
 
         ParallelTransitionWithTranslateAndFade(singlePlayerSetupFrame);
-
     }
 
     private void ParallelTransitionWithTranslateAndFade(ImageView imageView) {
