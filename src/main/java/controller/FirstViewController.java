@@ -35,7 +35,7 @@ public class FirstViewController implements Initializable {
 
         introVideo.play();
         mainThemeAudio.play();
-        mainThemeAudio.setVolume(0.5);
+        mainThemeAudio.setVolume(0.4);
 
         introVideo.setOnEndOfMedia(() -> {
             fxmlVideoEffectFrame.setMediaPlayer(backgroundVideoMedia);
@@ -105,7 +105,7 @@ public class FirstViewController implements Initializable {
     @FXML
     protected void MultiPlayerButtonClicked() {
         PlayAccessDeniedSoundEffect();
-        RotateTransition(multiPlayerButton, 500, 2, 10, true);
+        RotateTransition(multiPlayerButton);
     }
 
     private void PlayAccessDeniedSoundEffect() {
@@ -116,12 +116,12 @@ public class FirstViewController implements Initializable {
         });
     }
 
-    private void RotateTransition(ImageView imageView, int duration, int cycleCount, int byAngle, boolean autoReverse) {
+    private void RotateTransition(ImageView imageView) {
         imageView.setRotate(0);
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(duration), imageView);
-        rotateTransition.setByAngle(byAngle);
-        rotateTransition.setCycleCount(cycleCount);
-        rotateTransition.setAutoReverse(autoReverse);
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), imageView);
+        rotateTransition.setByAngle(10);
+        rotateTransition.setCycleCount(2);
+        rotateTransition.setAutoReverse(true);
         rotateTransition.setInterpolator(Interpolator.EASE_BOTH);
         rotateTransition.play();
     }
@@ -151,19 +151,19 @@ public class FirstViewController implements Initializable {
 
         singlePlayerSetupFrame.setVisible(true);
 
-        ParallelTransitionWithTranslateAndFade(singlePlayerSetupFrame, 1000, -160, 0, 1, 1250);
+        ParallelTransitionWithTranslateAndFade(singlePlayerSetupFrame);
 
     }
 
-    private void ParallelTransitionWithTranslateAndFade(ImageView imageView, double translateFromY, double translateToY, double fadeFromValue, double fadeToValue, int duration) {
-        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(duration), imageView);
-        translateTransition.setFromY(translateFromY);
-        translateTransition.setToY(translateToY);
+    private void ParallelTransitionWithTranslateAndFade(ImageView imageView) {
+        TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1250), imageView);
+        translateTransition.setFromY(1000);
+        translateTransition.setToY(-160);
         translateTransition.setInterpolator(Interpolator.EASE_OUT);
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), imageView);
-        fadeTransition.setFromValue(fadeFromValue);
-        fadeTransition.setToValue(fadeToValue);
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(1250), imageView);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
         fadeTransition.setInterpolator(Interpolator.EASE_OUT);
 
         ParallelTransition parallelTransition = new ParallelTransition(translateTransition, fadeTransition);
