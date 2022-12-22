@@ -8,7 +8,7 @@ public abstract class VictoryPointsCard extends Card {
     protected boolean hasACat ;
 
     public VictoryPointsCard(String name, int numberOfVictoryPoints, boolean hasACat) {
-        this.category = "points de victoire";
+        this.category = "victory";
         this.name = name;
         this.numberOfVictoryPoints = numberOfVictoryPoints ;
         this.hasACat = hasACat ;

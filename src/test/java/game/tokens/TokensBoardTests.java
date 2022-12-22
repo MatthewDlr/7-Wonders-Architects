@@ -1,10 +1,9 @@
 package game.tokens;
 
 import org.junit.jupiter.api.Test;
-
 import static org.testng.AssertJUnit.*;
 
-public class SetOfTokensTests {
+public class TokensBoardTests {
 
     @Test
     public void TestTokensBoardInitialization(){
@@ -32,6 +31,7 @@ public class SetOfTokensTests {
         tokensBoard.AddConflictTokenToWarFace();
         assertEquals(1, tokensBoard.GetNumberOfConflictTokensSetToWarFace());
 
+        tokensBoard.AddConflictTokenToWarFace();
         tokensBoard.AddConflictTokenToWarFace();
         tokensBoard.AddConflictTokenToWarFace();
         tokensBoard.AddConflictTokenToWarFace();

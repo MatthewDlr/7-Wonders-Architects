@@ -58,20 +58,18 @@ public class OlympieTests {
 
     @Test
     public void CardsStackTest() {
-        int numberOfGoldCards = 0, numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;
+        int numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;
         for (Card card : olympie.cardsStack) {
             switch (card.GetCardCategory()) {
-                case "pièces" -> numberOfGoldCards++;
-                case "ressources" -> numberOfResourceCard++;
+                case "resources" -> numberOfResourceCard++;
                 case "science" -> numberOfScienceCard++;
-                case "points de victoire" -> numberOfVictoryCards++;
-                case "bouclier" -> numberOfShieldsCard++;
+                case "victory" -> numberOfVictoryCards++;
+                case "shield" -> numberOfShieldsCard++;
                 default -> fail("Invalid card category");
             }
         }
-        int totalNumberOfCards = numberOfGoldCards + numberOfResourceCard + numberOfScienceCard + numberOfVictoryCards + numberOfShieldsCard;
-        assertEquals(3, numberOfGoldCards);
-        assertEquals(9, numberOfResourceCard);
+        int totalNumberOfCards = numberOfResourceCard + numberOfScienceCard + numberOfVictoryCards + numberOfShieldsCard;
+        assertEquals(12, numberOfResourceCard);
         assertEquals(4, numberOfScienceCard);
         assertEquals(4, numberOfVictoryCards);
         assertEquals(5, numberOfShieldsCard);

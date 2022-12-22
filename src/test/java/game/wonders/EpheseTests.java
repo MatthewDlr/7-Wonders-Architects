@@ -49,20 +49,18 @@ public class EpheseTests {
 
     @Test
     public void CardsStackTest() {
-        int numberOfGoldCards = 0, numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;
+        int numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;
         for (Card card : ephese.cardsStack) {
             switch (card.GetCardCategory()) {
-                case "pièces" -> numberOfGoldCards++;
-                case "ressources" -> numberOfResourceCard++;
+                case "resources" -> numberOfResourceCard++;
                 case "science" -> numberOfScienceCard++;
-                case "points de victoire" -> numberOfVictoryCards++;
-                case "bouclier" -> numberOfShieldsCard++;
+                case "victory" -> numberOfVictoryCards++;
+                case "shield" -> numberOfShieldsCard++;
                 default -> fail("Invalid card category");
             }
         }
-        int totalNumberOfCards = numberOfGoldCards + numberOfResourceCard + numberOfScienceCard + numberOfVictoryCards + numberOfShieldsCard;
-        assertEquals(3, numberOfGoldCards);
-        assertEquals(10, numberOfResourceCard);
+        int totalNumberOfCards = numberOfResourceCard + numberOfScienceCard + numberOfVictoryCards + numberOfShieldsCard;
+        assertEquals(13, numberOfResourceCard);
         assertEquals(5, numberOfScienceCard);
         assertEquals(3, numberOfVictoryCards);
         assertEquals(4, numberOfShieldsCard);

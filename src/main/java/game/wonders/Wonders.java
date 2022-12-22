@@ -1,7 +1,7 @@
 package game.wonders;
 
 import game.cards.Card;
-import game.cards.CardsStack;
+import game.cards.WonderCardsStack;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public abstract class Wonders {
             WonderFloor floor = new WonderFloor(i+1 , victoryPointsPerFloor[i], floorThatHasEffect[i] );
             listOfFloors.add(floor);
         }
-        CardsStack stackOfCards = new CardsStack(cardsTypeRepartition);
+        WonderCardsStack stackOfCards = new WonderCardsStack(cardsTypeRepartition);
         this.cardsStack = stackOfCards.GetCardsStack();
     }
 
@@ -66,6 +66,10 @@ public abstract class Wonders {
 
     public int GetNumberOfFloorsBuilt() {
         return numberOfFloorsBuilt;
+    }
+
+    public Card GetStackTopCard() {
+        return cardsStack.remove(0);
     }
 
 }

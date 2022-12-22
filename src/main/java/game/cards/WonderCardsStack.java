@@ -1,6 +1,6 @@
 package game.cards;
 
-import game.cards.coins.CoinsCard;
+import game.cards.resources.CoinsCard;
 import game.cards.resources.*;
 import game.cards.science.CompasScienceCard;
 import game.cards.science.TabletScienceCard;
@@ -14,10 +14,10 @@ import game.cards.victoryPoints.VictoryPointCardWithCat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CardsStack {
-    private final ArrayList<Card> cardsStack = new ArrayList<>();
+public class WonderCardsStack {
+    private ArrayList<Card> cardsStack = new ArrayList<>();
 
-    public CardsStack(int[] cardsRepartition) {
+    public WonderCardsStack(int[] cardsRepartition) {
         for (int i = 0; i < cardsRepartition[0]; i++) {
             cardsStack.add(new CoinsCard());
         }
@@ -66,5 +66,6 @@ public class CardsStack {
     public ArrayList<Card> GetCardsStack() {
         return cardsStack;
     }
+
 
 }
