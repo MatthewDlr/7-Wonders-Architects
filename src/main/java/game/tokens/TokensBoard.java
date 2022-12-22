@@ -47,7 +47,7 @@ public class TokensBoard {
         return 6;
     }
 
-    protected void AddConflictTokenToWarFace() {
+    public void AddConflictTokenToWarFace() {
         for (ConflictToken conflictToken : deckOfConflictTokens) {
             if (!conflictToken.IsFaceWar()) {
                 conflictToken.SetFaceToWar();

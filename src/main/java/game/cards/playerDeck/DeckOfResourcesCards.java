@@ -2,53 +2,26 @@ package game.cards.playerDeck;
 
 import game.cards.Card;
 import game.cards.resources.ResourcesCard;
-import game.cards.science.ScienceCard;
-import game.cards.shields.ShieldsCard;
-import game.cards.victoryPoints.VictoryPointsCard;
 
 import java.util.ArrayList;
 
 public class DeckOfResourcesCards {
     private ArrayList<ResourcesCard> resourcesCardsSet;
 
-
     public DeckOfResourcesCards() {
         resourcesCardsSet = new ArrayList<>();
-        scienceCardsSet = new ArrayList<>();
-        victoryPointsCardsSet = new ArrayList<>();
-        shieldsCardsSet = new ArrayList<>();
     }
 
-    public void AddCardToSet(Card cardToAdd) {
-        if (cardToAdd instanceof ResourcesCard) {
-            resourcesCardsSet.add((ResourcesCard) cardToAdd);
-            return;
-        }
-        if (cardToAdd instanceof ScienceCard) {
-            scienceCardsSet.add((ScienceCard) cardToAdd);
-            return;
-        }
-        if (cardToAdd instanceof VictoryPointsCard) {
-            victoryPointsCardsSet.add((VictoryPointsCard) cardToAdd);
-            return;
-        }
-        if (cardToAdd instanceof ShieldsCard) {
-            shieldsCardsSet.add((ShieldsCard) cardToAdd);
-            return;
-        }
-        throw new IllegalArgumentException("Unrecognized card type in DeckOfResourcesCards.AddCardToSet");
+    void AddCard(ResourcesCard cardToAdd) {
+        resourcesCardsSet.add(  cardToAdd);
     }
 
-    public int GetNumberOfShields() {
-        return shieldsCardsSet.size();
+    boolean IsResourcesCardsSetEmpty(){
+        return resourcesCardsSet.isEmpty();
     }
 
-    public int GetNumberOfVictoryPointsFromVictoryCards() {
-        int numberOfVictoryPoints = 0;
-        for (VictoryPointsCard victoryPointsCard : victoryPointsCardsSet) {
-            numberOfVictoryPoints += victoryPointsCard.GetNumberOfVictoryPoints();
-        }
-        return numberOfVictoryPoints;
+    ResourcesCard GetCardFromResourcesCardsSet(int index){
+        return resourcesCardsSet.get(index);
     }
 
     public ArrayList<String> GetListOfResourcesCombinations(){
@@ -114,11 +87,11 @@ public class DeckOfResourcesCards {
         int numberOfCardsToRemove =  Integer.parseInt(combination.substring(0, 1));
         String combinationType = combination.substring(1);
 
-        if (combinationType.equals("=")){
-            RemoveCardsOfSameResources(numberOfCardsToRemove);
-        }
         if (combinationType.equals("≠")){
             RemoveCardsOfDifferentResources(numberOfCardsToRemove);
+        }
+        if (combinationType.equals("=")){
+            RemoveCardsOfSameResources(numberOfCardsToRemove);
         }
     }
 
@@ -138,8 +111,6 @@ public class DeckOfResourcesCards {
                 throw new IllegalArgumentException("Not enough cards to remove in DeckOfResourcesCards.RemoveCardsOfDifferentResources");
             }
         }
-
-
     }
 
     void RemoveCardsOfSameResources(int numberOfCardsToRemove) {
@@ -175,13 +146,5 @@ public class DeckOfResourcesCards {
         }
     }
 
-
-    public boolean IsResourcesCardsSetEmpty(){
-        return resourcesCardsSet.isEmpty();
-    }
-
-    ResourcesCard GetCardFromResourcesCardsSet(int index){
-        return resourcesCardsSet.get(index);
-    }
 }
 

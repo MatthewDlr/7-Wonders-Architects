@@ -1,15 +1,14 @@
 package game.cards.playerDeck;
 
 import game.cards.resources.*;
-import game.wonders.Alexandrie;
+import game.wonders.*;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
-import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
-public class DeckOfResourcesCardsTests {
+import static org.testng.AssertJUnit.*;
+
+public class playerCardsDeckTests {
 
     Alexandrie alexandrie = new Alexandrie();
     PlayerDeck playerCardsDeck = new PlayerDeck();
@@ -25,14 +24,14 @@ public class DeckOfResourcesCardsTests {
     }
 
     @Test
-    public void TestGetListOfResourcesCombinationsFunctions() {
+    public void TestGetListOfResourcesCombinationsFunctions(){
         for (int i = 0; i < 25; i++) {
             playerCardsDeck.AddCard(alexandrie.GetStackTopCard());
         }
         int[] numberOfEachResources = playerCardsDeck.deckOfResourcesCards.CountNumberOfEachResources();
         assertArrayEquals(new int[]{4, 2, 2, 2, 1, 2}, numberOfEachResources);
 
-        int numberOfDifferentResources = playerCardsDeck.deckOfResourcesCards.GetNumberOfDifferentResources(numberOfEachResources);
+        int numberOfDifferentResources = playerCardsDeck.deckOfResourcesCards.GetNumberOfDifferentResources(numberOfEachResources) ;
         assertEquals(6, numberOfDifferentResources);
 
         int maxNumberOfTheSameResources = playerCardsDeck.deckOfResourcesCards.GetMaxNumberOfTheSameResources(numberOfEachResources);
@@ -40,17 +39,17 @@ public class DeckOfResourcesCardsTests {
     }
 
     @Test
-    public void TestGetListOfResourcesCombinations() {
-        playerCardsDeck.AddCard(new BrickResourceCard());
+    public void TestGetListOfResourcesCombinations(){
+        playerCardsDeck.AddCard(new BrickResourceCard() );
         assertEquals(new ArrayList<>(List.of()), playerCardsDeck.deckOfResourcesCards.GetListOfResourcesCombinations());
 
-        playerCardsDeck.AddCard(new BrickResourceCard());
+        playerCardsDeck.AddCard(new BrickResourceCard() );
         assertEquals(new ArrayList<>(List.of("2=")), playerCardsDeck.deckOfResourcesCards.GetListOfResourcesCombinations());
 
-        playerCardsDeck.AddCard(new WoodResourceCard());
+        playerCardsDeck.AddCard(new WoodResourceCard() );
         assertEquals(new ArrayList<>(List.of("2=", "2≠")), playerCardsDeck.deckOfResourcesCards.GetListOfResourcesCombinations());
 
-        playerCardsDeck.AddCard(new CoinsCard());
+        playerCardsDeck.AddCard(new CoinsCard() );
         assertEquals(new ArrayList<>(List.of("2=", "2≠", "3=", "3≠")), playerCardsDeck.deckOfResourcesCards.GetListOfResourcesCombinations());
 
         playerCardsDeck.AddCard(new ExperienceResourceCard());
@@ -64,15 +63,15 @@ public class DeckOfResourcesCardsTests {
     }
 
     @Test
-    public void TestRemoveCardsOfDifferentResources() {
-        playerCardsDeck.AddCard(new BrickResourceCard());
-        playerCardsDeck.AddCard(new BrickResourceCard());
-        playerCardsDeck.AddCard(new WoodResourceCard());
+    public void TestRemoveCardsOfDifferentResources(){
+        playerCardsDeck.AddCard(new BrickResourceCard() );
+        playerCardsDeck.AddCard(new BrickResourceCard() );
+        playerCardsDeck.AddCard(new WoodResourceCard() );
         playerCardsDeck.deckOfResourcesCards.RemoveCardsOfDifferentResources(2);
         assertEquals("Brick", playerCardsDeck.deckOfResourcesCards.GetCardFromResourcesCardsSet(0).GetCardName());
 
         //+ the brick left from the previous test
-        playerCardsDeck.AddCard(new CoinsCard());
+        playerCardsDeck.AddCard(new CoinsCard() );
         playerCardsDeck.AddCard(new ExperienceResourceCard());
         playerCardsDeck.AddCard(new ExperienceResourceCard());
         playerCardsDeck.deckOfResourcesCards.RemoveCardsOfDifferentResources(3);
@@ -94,15 +93,15 @@ public class DeckOfResourcesCardsTests {
     }
 
     @Test
-    public void TestRemoveCardsOfSameResources() {
-        playerCardsDeck.AddCard(new BrickResourceCard());
-        playerCardsDeck.AddCard(new BrickResourceCard());
-        playerCardsDeck.AddCard(new WoodResourceCard());
+    public void TestRemoveCardsOfSameResources(){
+        playerCardsDeck.AddCard(new BrickResourceCard() );
+        playerCardsDeck.AddCard(new BrickResourceCard() );
+        playerCardsDeck.AddCard(new WoodResourceCard() );
         playerCardsDeck.deckOfResourcesCards.RemoveCardsOfSameResources(2);
         assertEquals("Wood", playerCardsDeck.deckOfResourcesCards.GetCardFromResourcesCardsSet(0).GetCardName());
 
         //+ the wood left from the previous test
-        playerCardsDeck.AddCard(new CoinsCard());
+        playerCardsDeck.AddCard(new CoinsCard() );
         playerCardsDeck.AddCard(new WoodResourceCard());
         playerCardsDeck.AddCard(new ExperienceResourceCard());
         playerCardsDeck.deckOfResourcesCards.RemoveCardsOfSameResources(3);
@@ -128,7 +127,7 @@ public class DeckOfResourcesCardsTests {
     }
 
     @Test
-    public void TestRemoveCardsFromDeckWithCombination() {
+    public void TestRemoveCardsFromDeckWithCombination(){
 
         playerCardsDeck.AddCard(new StoneResourceCard());
         playerCardsDeck.AddCard(new StoneResourceCard());

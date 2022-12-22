@@ -4,7 +4,7 @@ import game.cards.resources.CoinsCard;
 import game.cards.resources.*;
 import game.cards.science.CompasScienceCard;
 import game.cards.science.TabletScienceCard;
-import game.cards.science.WheelScienceCard;
+import game.cards.science.GearScienceCard;
 import game.cards.shields.ClassicShieldCard;
 import game.cards.shields.ShieldCard1Trumpet;
 import game.cards.shields.ShieldCard2Trumpets;
@@ -37,7 +37,7 @@ public class WonderCardsStack {
             cardsStack.add(new PaperResourceCard());
         }
         for (int i = 0; i < cardsRepartition[6]; i++) {
-            cardsStack.add(new WheelScienceCard());
+            cardsStack.add(new GearScienceCard());
         }
         for (int i = 0; i < cardsRepartition[7]; i++) {
             cardsStack.add(new CompasScienceCard());
