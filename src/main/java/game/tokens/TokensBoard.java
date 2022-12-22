@@ -1,40 +1,22 @@
 package game.tokens;
 
-import game.tokens.conflict.ConflictToken;
+import game.tokens.conflict.ConflictTokenSet;
 import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class TokensBoard {
-    private ArrayList<ConflictToken> deckOfConflictTokens = new ArrayList<>();
+    ConflictTokenSet conflictTokenSet;
     private ArrayList<ProgressToken> deckOfProgressTokens;
+    private int numberOfWarTokens;
+    private boolean hasTheCat ;
 
     public TokensBoard(int numberOfPlayers) {
-        for (int i = 0; i < DetermineNumberOfWarTokens(numberOfPlayers) ; i++) {
-            deckOfConflictTokens.add(new ConflictToken());
-
-        }
-        deckOfProgressTokens = ProgressToken.CreateInstanceOfAllTokens();
+        this.numberOfWarTokens = 0;
+        this.hasTheCat = false;
+        this.conflictTokenSet = new ConflictTokenSet(DetermineNumberOfWarTokens(numberOfPlayers));
+        this.deckOfProgressTokens = ProgressToken.CreateInstanceOfAllTokens();
         Collections.shuffle(deckOfProgressTokens);
-    }
-
-    public ProgressToken GetProgressToken() {
-        if (deckOfProgressTokens.size() == 0) {
-            //TODO: Figure out how to handle this
-        }
-        return deckOfProgressTokens.remove(0);
-    }
-
-    public boolean IsProgressTokenDeckEmpty() {
-        return deckOfProgressTokens.isEmpty();
-    }
-
-    public int GetNumberOfProgressTokensLeft() {
-        return deckOfProgressTokens.size();
-    }
-
-    //TODO: Figure out why this function is needed
-    protected TokensBoard() {
     }
 
     private int DetermineNumberOfWarTokens(int numberOfPlayers) {
@@ -47,44 +29,32 @@ public class TokensBoard {
         return 6;
     }
 
-    public void AddConflictTokenToWarFace() {
-        for (ConflictToken conflictToken : deckOfConflictTokens) {
-            if (!conflictToken.IsFaceWar()) {
-                conflictToken.SetFaceToWar();
-                break;
-            }
+    public void AddWarWon() {
+        numberOfWarTokens++;
+    }
+
+    public int GetWarTokensVictoryPoints() {
+        return numberOfWarTokens * 3;
+    }
+
+    public ProgressToken GetProgressToken() {
+        if (deckOfProgressTokens.size() == 0) {
+            throw new IllegalStateException("Error: GetProgressToken should not be called when the deck of progress tokens is empty");
         }
+        return deckOfProgressTokens.remove(0);
     }
 
-    protected boolean IsTimeForWar() {
-        int numberOfWarTokensSetToWarFace = 0;
-        for (ConflictToken conflictToken : deckOfConflictTokens) {
-            if (conflictToken.IsFaceWar()) {
-                numberOfWarTokensSetToWarFace++;
-            }
-        }
-        return numberOfWarTokensSetToWarFace == deckOfConflictTokens.size();
+    public boolean IsProgressTokenDeckEmpty() {
+        return deckOfProgressTokens.isEmpty();
     }
 
-    protected void SetConflictTokensToPeace() {
-        for (ConflictToken conflictToken : deckOfConflictTokens) {
-            conflictToken.SetFaceToPeace();
-        }
+    public int GetNumberOfProgressTokensLeft() {
+        return deckOfProgressTokens.size();
     }
 
-    protected int GetNumberOfConflictTokens() {
-        return deckOfConflictTokens.size();
+    public void GetTheCat() {
+        //TODO : set the cat to false for all other players
+        hasTheCat = true;
     }
-
-    protected int GetNumberOfConflictTokensSetToWarFace() {
-        int numberOfWarTokensSetToWarFace = 0;
-        for (ConflictToken conflictToken : deckOfConflictTokens) {
-            if (conflictToken.IsFaceWar()) {
-                numberOfWarTokensSetToWarFace++;
-            }
-        }
-        return numberOfWarTokensSetToWarFace;
-    }
-
 
 }

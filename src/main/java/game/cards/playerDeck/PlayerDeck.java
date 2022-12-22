@@ -38,7 +38,7 @@ public class PlayerDeck {
             deckOfShieldsCards.AddCard((ShieldsCard) cardToAdd);
             return;
         }
-        throw new IllegalArgumentException("Unrecognized card type in PlayerDeck.AddCardToSet");
+        throw new IllegalArgumentException("Unrecognized card type in PlayerDeck.AddCard");
     }
 
 

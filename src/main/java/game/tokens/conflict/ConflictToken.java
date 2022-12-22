@@ -1,14 +1,13 @@
 package game.tokens.conflict;
-import game.tokens.TokensBoard;
 
-public class ConflictToken extends TokensBoard {
-
-    boolean faceWar = false;
+public class ConflictToken  {
+    boolean faceWar ;
 
     public ConflictToken() {
+        this.faceWar = false;
     }
 
-    public boolean IsFaceWar() {
+    public boolean IsFaceToWar() {
         return faceWar;
     }
 

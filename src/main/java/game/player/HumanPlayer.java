@@ -1,9 +1,11 @@
 package game.player;
 
+import game.wonders.Wonders;
+
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String playerName) {
-        this.playerIsAI = false;
+    public HumanPlayer(Wonders playerWonder) {
+        super(playerWonder);
     }
 
 }

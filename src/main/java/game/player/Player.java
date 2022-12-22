@@ -1,12 +1,14 @@
 package game.player;
 
-import game.Game;
 
+import game.wonders.Wonders;
 
-public abstract class Player extends Game {
+public abstract class Player {
+    Wonders wonders;
 
-    protected boolean playerIsAI;
-    protected boolean cat;
+    public Player(Wonders playerWonder) {
+        this.wonders = playerWonder;
+    }
 
 
 }
