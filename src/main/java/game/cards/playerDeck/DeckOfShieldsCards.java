@@ -7,7 +7,7 @@ import game.cards.shields.ShieldsCard;
 import java.util.ArrayList;
 
 public class DeckOfShieldsCards {
-    private ArrayList<ShieldsCard> shieldsCardsSet;
+    private final ArrayList<ShieldsCard> shieldsCardsSet;
 
     public DeckOfShieldsCards() {
         shieldsCardsSet = new ArrayList<>();
@@ -15,11 +15,11 @@ public class DeckOfShieldsCards {
 
     void AddCard(ShieldsCard cardToAdd) {
         shieldsCardsSet.add(cardToAdd);
-        if (cardToAdd instanceof ShieldCard1Trumpet){
+        if (cardToAdd instanceof ShieldCard1Trumpet) {
             //TODO TokensBoard.AddConflictTokenToWarFace();
             return;
         }
-        if (cardToAdd instanceof ShieldCard2Trumpets){
+        if (cardToAdd instanceof ShieldCard2Trumpets) {
             //TODO TokensBoard.AddConflictTokenToWarFace();
         }
     }

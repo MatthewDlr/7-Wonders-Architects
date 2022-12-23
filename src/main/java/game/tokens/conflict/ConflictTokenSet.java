@@ -3,8 +3,8 @@ package game.tokens.conflict;
 import java.util.ArrayList;
 
 public class ConflictTokenSet {
-    private ArrayList<ConflictToken> listOfConflictTokens;
-    private int numberOfConflictTokens;
+    private final ArrayList<ConflictToken> listOfConflictTokens;
+    private final int numberOfConflictTokens;
 
     public ConflictTokenSet(int numberOfConflictTokens) {
         this.listOfConflictTokens = new ArrayList<>();

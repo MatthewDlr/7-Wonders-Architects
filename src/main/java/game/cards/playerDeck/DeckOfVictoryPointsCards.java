@@ -2,10 +2,11 @@ package game.cards.playerDeck;
 
 import game.cards.victoryPoints.VictoryPointCardWithCat;
 import game.cards.victoryPoints.VictoryPointsCard;
+
 import java.util.ArrayList;
 
 public class DeckOfVictoryPointsCards {
-    private ArrayList<VictoryPointsCard> victoryPointsCardsSet;
+    private final ArrayList<VictoryPointsCard> victoryPointsCardsSet;
     private int numberOfVictoryPoints;
 
     public DeckOfVictoryPointsCards() {
@@ -16,7 +17,7 @@ public class DeckOfVictoryPointsCards {
     void AddCard(VictoryPointsCard cardToAdd) {
         victoryPointsCardsSet.add(cardToAdd);
         numberOfVictoryPoints += cardToAdd.GetNumberOfVictoryPoints();
-        if (cardToAdd instanceof VictoryPointCardWithCat){
+        if (cardToAdd instanceof VictoryPointCardWithCat) {
             //TODO Move the cat to the player’s board
         }
     }

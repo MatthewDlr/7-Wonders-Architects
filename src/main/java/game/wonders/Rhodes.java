@@ -15,7 +15,7 @@ public class Rhodes extends Wonders {
     @Override
     protected void UpdateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
-            return ;
+            return;
         }
         if (numberOfFloorsBuilt >= 2) {
             listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);

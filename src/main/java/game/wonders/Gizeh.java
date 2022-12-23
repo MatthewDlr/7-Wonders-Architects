@@ -1,6 +1,6 @@
 package game.wonders;
 
-public class    Gizeh extends Wonders {
+public class Gizeh extends Wonders {
 
     public Gizeh() {
         super("Gizeh"

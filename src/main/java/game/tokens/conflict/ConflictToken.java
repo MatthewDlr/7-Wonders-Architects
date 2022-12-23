@@ -1,7 +1,7 @@
 package game.tokens.conflict;
 
-public class ConflictToken  {
-    boolean faceWar ;
+public class ConflictToken {
+    boolean faceWar;
 
     public ConflictToken() {
         this.faceWar = false;

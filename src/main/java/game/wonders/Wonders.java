@@ -10,17 +10,17 @@ public abstract class Wonders {
     String wonderName, wonderDescription;
     ArrayList<WonderFloor> listOfFloors = new ArrayList<>();
     int numberOfFloorsBuilt = 0, victoryPoints = 0, floor2 = 1, floor3 = 2, floor4 = 3, floor5 = 4;
-    ArrayList<Card> cardsStack ;
+    ArrayList<Card> cardsStack;
 
 
-    public Wonders(String wonderName, String wonderDescription, int[] victoryPointsPerFloor, boolean[] floorThatHasEffect, int[] cardsTypeRepartition ) {
+    public Wonders(String wonderName, String wonderDescription, int[] victoryPointsPerFloor, boolean[] floorThatHasEffect, int[] cardsStackRepartition) {
         this.wonderName = wonderName;
         this.wonderDescription = wonderDescription;
         for (int i = 0; i < 5; i++) {
-            WonderFloor floor = new WonderFloor(i+1 , victoryPointsPerFloor[i], floorThatHasEffect[i] );
+            WonderFloor floor = new WonderFloor(i + 1, victoryPointsPerFloor[i], floorThatHasEffect[i]);
             listOfFloors.add(floor);
         }
-        WonderCardsStack stackOfCards = new WonderCardsStack(cardsTypeRepartition);
+        WonderCardsStack stackOfCards = new WonderCardsStack(cardsStackRepartition);
         this.cardsStack = stackOfCards.GetCardsStack();
     }
 
@@ -50,7 +50,7 @@ public abstract class Wonders {
     }
 
     protected void UpdateBuildableFloors() {
-        if (numberOfFloorsBuilt > floor5){
+        if (numberOfFloorsBuilt > floor5) {
             return;
         }
         listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);

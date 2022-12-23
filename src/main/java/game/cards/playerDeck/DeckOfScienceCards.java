@@ -5,10 +5,10 @@ import game.cards.science.ScienceCard;
 import java.util.ArrayList;
 
 public class DeckOfScienceCards {
-    private ArrayList<ScienceCard> scienceCardsSet;
-    private ArrayList<ScienceCard> compasCardsSet;
-    private ArrayList<ScienceCard> gearCardsSet;
-    private ArrayList<ScienceCard> tabletCardsSet;
+    private final ArrayList<ScienceCard> scienceCardsSet;
+    private final ArrayList<ScienceCard> compasCardsSet;
+    private final ArrayList<ScienceCard> gearCardsSet;
+    private final ArrayList<ScienceCard> tabletCardsSet;
 
     private boolean CombinationExist;
 
@@ -26,7 +26,8 @@ public class DeckOfScienceCards {
             case "Compas" -> compasCardsSet.add(cardToAdd);
             case "Gear" -> gearCardsSet.add(cardToAdd);
             case "Tablet" -> tabletCardsSet.add(cardToAdd);
-            default -> throw new IllegalArgumentException("Unrecognized Science Card Symbol in DeckOfScienceCards.AddCard");
+            default ->
+                    throw new IllegalArgumentException("Unrecognized Science Card Symbol in DeckOfScienceCards.AddCard");
         }
         CombinationExist = CheckForCombinations();
     }
@@ -39,7 +40,7 @@ public class DeckOfScienceCards {
         return CombinationExist;
     }
 
-    boolean CheckForCombinations(){
+    boolean CheckForCombinations() {
 
         if (scienceCardsSet.size() < 2) {
             return false;
@@ -71,7 +72,7 @@ public class DeckOfScienceCards {
         if (compasCardsSet.size() > 2 || gearCardsSet.size() > 2 || tabletCardsSet.size() > 2) {
             throw new IllegalArgumentException("Unexpected exceed of Science cards in DeckOfScienceCards.CheckForCombinations");
         }
-    return false;
+        return false;
     }
 
     private void RemoveFromSet(ArrayList<ScienceCard> setToRemoveFrom) {
@@ -79,8 +80,6 @@ public class DeckOfScienceCards {
             scienceCardsSet.remove(cardToRemove);
         }
     }
-
-
 
 
 }

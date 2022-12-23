@@ -10,16 +10,17 @@ public class Babylone extends Wonders {
                 , new boolean[]{false, true, false, false, true}
                 , new int[]{3, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1}
         );
-        }
+    }
+
     @Override
     protected void UpdateBuildableFloors() {
-        if (numberOfFloorsBuilt > floor5){
-            return ;
+        if (numberOfFloorsBuilt > floor5) {
+            return;
         }
         if (numberOfFloorsBuilt < 3) {
-            listOfFloors.get(numberOfFloorsBuilt ).SetBuildable(true);
+            listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
         }
-        if (numberOfFloorsBuilt == 3){
+        if (numberOfFloorsBuilt == 3) {
             listOfFloors.get(floor4).SetBuildable(true);
             listOfFloors.get(floor5).SetBuildable(true);
         }

@@ -14,7 +14,7 @@ public class Halicarnasse extends Wonders {
     @Override
     protected void UpdateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
-            return ;
+            return;
         }
         if (numberOfFloorsBuilt == 1) {
             listOfFloors.get(floor2).SetBuildable(true);

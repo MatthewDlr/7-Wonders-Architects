@@ -1,7 +1,9 @@
 package game.tokens;
 
+
 import org.junit.jupiter.api.Test;
 import static org.testng.AssertJUnit.*;
+
 
 public class TokensBoardTests {
 
@@ -11,7 +13,7 @@ public class TokensBoardTests {
         assertEquals(3, tokensBoard.conflictTokenSet.GetNumberOfConflictTokens());
         assertFalse(tokensBoard.conflictTokenSet.IsTimeForWar());
         assertEquals(0, tokensBoard.conflictTokenSet.GetNumberOfConflictTokensSetToWarFace());
-        assertEquals(15, tokensBoard.GetNumberOfProgressTokensLeft());
+        assertEquals(15, tokensBoard.progressTokenStack.GetNumberOfProgressTokensLeft());
     }
 
     @Test
@@ -47,16 +49,16 @@ public class TokensBoardTests {
     public void TestProgressToken(){
         TokensBoard tokensBoard = new TokensBoard(4);
 
-        tokensBoard.GetProgressToken();
-        assertEquals(14, tokensBoard.GetNumberOfProgressTokensLeft());
+        tokensBoard.progressTokenStack.GetProgressToken();
+        assertEquals(14, tokensBoard.progressTokenStack.GetNumberOfProgressTokensLeft());
 
         RemoveAllProgressTokens(tokensBoard);
-        assertTrue(tokensBoard.IsProgressTokenDeckEmpty());
+        assertTrue(tokensBoard.progressTokenStack.ProgressTokenDeckIsEmpty());
     }
 
     public void RemoveAllProgressTokens(TokensBoard tokensBoard){
         for (int i = 0; i < 14; i++) {
-            tokensBoard.GetProgressToken();
+            tokensBoard.progressTokenStack.GetProgressToken();
         }
     }
 

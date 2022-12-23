@@ -13,7 +13,6 @@ public class PlayerDeck {
     DeckOfVictoryPointsCards deckOfVictoryPointsCards;
     DeckOfShieldsCards deckOfShieldsCards;
 
-
     public PlayerDeck() {
         deckOfResourcesCards = new DeckOfResourcesCards();
         deckOfScienceCards = new DeckOfScienceCards();

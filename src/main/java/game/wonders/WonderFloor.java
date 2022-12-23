@@ -1,9 +1,11 @@
 package game.wonders;
 
 public class WonderFloor {
-    private int floorNumber, victoryPoints ;
-    private boolean hasSpecialEffect, isBuildable ;
-    private String ressourceRequirement;
+    private final int floorNumber;
+    private final int victoryPoints;
+    private final boolean hasSpecialEffect;
+    private final String ressourceRequirement;
+    private boolean isBuildable;
 
     public WonderFloor(int floorNumber, int victoryPoints, boolean hasSpecialEffect) {
         this.floorNumber = floorNumber;
@@ -45,10 +47,6 @@ public class WonderFloor {
     public String GetRessourceRequirement() {
         return ressourceRequirement;
     }
-
-
-
-
 
 
 }

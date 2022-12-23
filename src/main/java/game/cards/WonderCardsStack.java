@@ -1,10 +1,9 @@
 package game.cards;
 
-import game.cards.resources.CoinsCard;
 import game.cards.resources.*;
 import game.cards.science.CompasScienceCard;
-import game.cards.science.TabletScienceCard;
 import game.cards.science.GearScienceCard;
+import game.cards.science.TabletScienceCard;
 import game.cards.shields.ClassicShieldCard;
 import game.cards.shields.ShieldCard1Trumpet;
 import game.cards.shields.ShieldCard2Trumpets;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class WonderCardsStack {
-    private ArrayList<Card> cardsStack = new ArrayList<>();
+    private final ArrayList<Card> cardsStack = new ArrayList<>();
 
     public WonderCardsStack(int[] cardsRepartition) {
         for (int i = 0; i < cardsRepartition[0]; i++) {
