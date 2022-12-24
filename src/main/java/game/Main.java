@@ -23,6 +23,7 @@ public class Main extends Application {
         stage.setTitle("7 Wonders Architect Legends Edition");
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Setup/7WondersLogo.png"))));
         stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.setAlwaysOnTop(true);
         stage.setScene(scene);
         stage.show();
     }

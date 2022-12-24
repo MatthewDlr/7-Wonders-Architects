@@ -25,8 +25,10 @@ public class FirstViewController implements Initializable {
 
     @FXML
     private ImageView MainTitleFrame, singlePlayerButton, multiPlayerButton, singlePlayerSetupFrame;
-    private MediaPlayer introVideo, backgroundVideoMedia, accessDeniedSoundEffect, mainThemeAudio;
-
+    private static MediaPlayer introVideo;
+    private static MediaPlayer backgroundVideoMedia;
+    private static MediaPlayer accessDeniedSoundEffect;
+    private static MediaPlayer mainThemeAudio;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +37,7 @@ public class FirstViewController implements Initializable {
 
         introVideo.play();
         mainThemeAudio.play();
-        mainThemeAudio.setVolume(0.4);
+        mainThemeAudio.setVolume(0.2);
 
         introVideo.setOnEndOfMedia(() -> {
             fxmlVideoEffectFrame.setMediaPlayer(backgroundVideoMedia);
@@ -181,4 +183,12 @@ public class FirstViewController implements Initializable {
         Scene scene = fxmlVideoEffectFrame.getScene();
         scene.setRoot(singlePlayerSetup);
     }
+
+    public static void StopAllMedia() {
+        introVideo.stop();
+        backgroundVideoMedia.stop();
+        mainThemeAudio.stop();
+        accessDeniedSoundEffect.stop();
+    }
+
 }

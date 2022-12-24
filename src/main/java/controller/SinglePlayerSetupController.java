@@ -2,14 +2,20 @@ package controller;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -18,27 +24,95 @@ import static java.lang.Math.min;
 public class SinglePlayerSetupController {
 
     @FXML
-    private ImageView playerCard, iACard, playerCardOnHover, iACardOnHover, playerUpArrow, playerDownArrow, iAUpArrow, iADownArrow, StartButtonAvailable;
+    private ImageView playerCard, iACard, playerCardOnHover, iACardOnHover, playerUpArrow, playerDownArrow, iAUpArrow, iADownArrow, StartButtonAvailable, StartButtonUnavailable;
 
     @FXML
     private Label numberOfAiLabel, numberOfPlayerLabel, numberOfWondersLabel;
+    @FXML
+    Rectangle WhiteForeground;
 
-    private int numberOfPlayers, numberOfIA;
+    private int numberOfHumansPlayer, numberOfIAPlayer;
     private boolean isStartButtonAvailable = false;
-    private MediaPlayer startButtonSoundEffect;
-    private int numberOfWonders;
+    private MediaPlayer startButtonSoundEffect, gameStartSoundEffect;
 
     public void initialize() {
         ShowCardsWithAnimation();
         File startButtonSoundEffectFile = new File("src/main/resources/musics/whoosh1.mp3");
         Media startButtonSoundEffectMedia = new Media(startButtonSoundEffectFile.toURI().toString());
         startButtonSoundEffect = new MediaPlayer(startButtonSoundEffectMedia);
+        File gameStartSoundEffectFile = new File("src/main/resources/musics/StartSound.mp3");
+        Media gameStartSoundEffectMedia = new Media(gameStartSoundEffectFile.toURI().toString());
+        gameStartSoundEffect = new MediaPlayer(gameStartSoundEffectMedia);
+    }
+
+    @FXML
+    protected void StartButtonClicked() {
+        if (isStartButtonAvailable) {
+
+            FirstViewController.StopAllMedia();
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(1500), WhiteForeground);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(1);
+            fadeTransition.setInterpolator(Interpolator.EASE_BOTH);
+
+            gameStartSoundEffect.stop();
+            gameStartSoundEffect.seek(Duration.ZERO);
+            gameStartSoundEffect.play();
+
+            fadeTransition.play();
+            fadeTransition.setOnFinished(event -> {
+                Stage stage = (Stage) StartButtonAvailable.getScene().getWindow();
+                stage.setWidth(1920);
+                stage.setHeight(1080);
+
+                try {
+                    SwitchController();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+        }
+    }
+
+    private void SwitchController() throws IOException {
+        Parent GameController = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/controller/GameView.fxml")));
+        Scene scene = StartButtonAvailable.getScene();
+        scene.setRoot(GameController);
+    }
+
+    @FXML
+    protected void MouseIsOverStartButton() {
+        if (!isStartButtonAvailable){
+            return;
+        }
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), StartButtonAvailable);
+        scaleTransition.setInterpolator(Interpolator.EASE_OUT);
+        scaleTransition.setByX(0.10);
+        scaleTransition.setByY(0.10);
+        scaleTransition.play();
+    }
+
+    @FXML
+    protected void MouseLeaveStartButton() {
+        if (!isStartButtonAvailable){
+            return;
+        }
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), StartButtonAvailable);
+        scaleTransition.setInterpolator(Interpolator.EASE_OUT);
+        scaleTransition.setByX(-0.10);
+        scaleTransition.setByY(-0.10);
+        scaleTransition.play();
+        scaleTransition.setOnFinished(event -> {
+            StartButtonAvailable.setScaleX(1);
+            StartButtonAvailable.setScaleY(1);
+        });
     }
 
     @FXML
     protected void PlayerUpArrowClicked() {
         ArrowClickedAnimation(playerUpArrow, 1, 0.85);
-        numberOfPlayers = min(numberOfPlayers + 1, 7);
+        numberOfHumansPlayer = min(numberOfHumansPlayer + 1, 7);
         UpdateNumberOfWonders();
         UpdatePlayerCardBackground();
         ArrowClickedAnimation(playerUpArrow, 0.85, 1);
@@ -47,14 +121,14 @@ public class SinglePlayerSetupController {
     @FXML
     protected void PlayerDownArrowClicked() {
         ArrowClickedAnimation(playerDownArrow, 1, 0.85);
-        numberOfPlayers = max(numberOfPlayers - 1, 0);
+        numberOfHumansPlayer = max(numberOfHumansPlayer - 1, 0);
         UpdateNumberOfWonders();
         UpdatePlayerCardBackground();
         ArrowClickedAnimation(playerDownArrow, 0.85, 1);
     }
 
     private void UpdatePlayerCardBackground() {
-        if (numberOfPlayers > 0) {
+        if (numberOfHumansPlayer > 0) {
             ImageFadeTransition(playerCardOnHover, playerCardOnHover.getOpacity(), 1);
         } else {
             ImageFadeTransition(playerCardOnHover, playerCardOnHover.getOpacity(), 0);
@@ -64,7 +138,7 @@ public class SinglePlayerSetupController {
     @FXML
     protected void IAUpArrowClicked() {
         ArrowClickedAnimation(iAUpArrow, 1, 0.85);
-        numberOfIA = min(numberOfIA + 1, 7);
+        numberOfIAPlayer = min(numberOfIAPlayer + 1, 7);
         UpdateNumberOfWonders();
         UpdateIACardBackground();
         ArrowClickedAnimation(iAUpArrow, 0.85, 1);
@@ -73,14 +147,14 @@ public class SinglePlayerSetupController {
     @FXML
     protected void IADownArrowClicked() {
         ArrowClickedAnimation(iADownArrow, 1, 0.85);
-        numberOfIA = max(numberOfIA - 1, 0);
+        numberOfIAPlayer = max(numberOfIAPlayer - 1, 0);
         UpdateNumberOfWonders();
         UpdateIACardBackground();
         ArrowClickedAnimation(iADownArrow, 0.85, 1);
     }
 
     private void UpdateIACardBackground() {
-        if (numberOfIA > 0) {
+        if (numberOfIAPlayer > 0) {
             ImageFadeTransition(iACardOnHover, iACardOnHover.getOpacity(), 1);
         } else {
             ImageFadeTransition(iACardOnHover, iACardOnHover.getOpacity(), 0);
@@ -88,19 +162,19 @@ public class SinglePlayerSetupController {
     }
 
     public void UpdateNumberOfWonders() {
-        numberOfWonders = numberOfPlayers + numberOfIA;
+        int numberOfWonders = numberOfHumansPlayer + numberOfIAPlayer;
 
         while (numberOfWonders > 7) {
 
-            if (numberOfPlayers > numberOfIA) {
-                numberOfPlayers--;
+            if (numberOfHumansPlayer > numberOfIAPlayer) {
+                numberOfHumansPlayer--;
             } else {
-                numberOfIA--;
+                numberOfIAPlayer--;
             }
-            numberOfWonders = numberOfPlayers + numberOfIA;
+            numberOfWonders = numberOfHumansPlayer + numberOfIAPlayer;
         }
-        numberOfPlayerLabel.setText(Integer.toString(numberOfPlayers));
-        numberOfAiLabel.setText(Integer.toString(numberOfIA));
+        numberOfPlayerLabel.setText(Integer.toString(numberOfHumansPlayer));
+        numberOfAiLabel.setText(Integer.toString(numberOfIAPlayer));
         numberOfWondersLabel.setText(Integer.toString(numberOfWonders));
         UpdateStartButton(numberOfWonders);
     }
@@ -111,13 +185,17 @@ public class SinglePlayerSetupController {
                 startButtonSoundEffect.stop();
                 startButtonSoundEffect.seek(Duration.ZERO);
                 startButtonSoundEffect.play();
+
+                ImageFadeTransition(StartButtonUnavailable, StartButtonUnavailable.getOpacity(), 0);
                 ImageFadeTransition(StartButtonAvailable, StartButtonAvailable.getOpacity(), 1);
                 numberOfWondersLabel.setTextFill(javafx.scene.paint.Color.web("#ffe503"));
                 ((DropShadow) numberOfWondersLabel.getEffect()).setColor(javafx.scene.paint.Color.web("#ffe503"));
             }
             isStartButtonAvailable = true;
 
+
         } else {
+            StartButtonUnavailable.setOpacity(1);
             numberOfWondersLabel.setTextFill(javafx.scene.paint.Color.web("#36362E"));
             ((DropShadow) numberOfWondersLabel.getEffect()).setColor(javafx.scene.paint.Color.web("#36362E"));
             ImageFadeTransition(StartButtonAvailable, StartButtonAvailable.getOpacity(), 0);
@@ -130,7 +208,7 @@ public class SinglePlayerSetupController {
         imageView.setVisible(true);
         fadeTransition.setFromValue(fromValue);
         fadeTransition.setToValue(toValue);
-        fadeTransition.setInterpolator(Interpolator.EASE_OUT);
+        fadeTransition.setInterpolator(Interpolator.EASE_BOTH);
         fadeTransition.play();
     }
 

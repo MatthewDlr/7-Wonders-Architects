@@ -10,5 +10,7 @@ module game {
     opens controller to javafx.fxml;
     exports game.board;
     opens game.board to javafx.fxml;
+    exports controller.game;
+    opens controller.game to javafx.fxml;
 
 }
