@@ -24,7 +24,7 @@ public class PlayerDeck {
         deckOfScienceCards = new DeckOfScienceCards();
         deckOfVictoryPointsCards = new DeckOfVictoryPointsCards();
         deckOfShieldsCards = new DeckOfShieldsCards();
-        this.catPath = "src/main/resources/game/Tokens/Cat.png";
+        this.catPath = "src/main/resources/game/tokens/Cat.png";
         this.hasTheCat = false;
     }
 

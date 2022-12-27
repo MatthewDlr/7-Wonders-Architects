@@ -30,20 +30,20 @@ public abstract class Wonders {
     }
 
     private String FindCardPath() {
-        String path = "src/main/resources/game/Cards/Back/" + wonderName + "Card.png"; // @Copilot
+        String path = "src/main/resources/game/cards/Back/" + wonderName + "Card.png"; // @Copilot
         CheckIfFileExist(path);
         return path ;
     }
 
     private String FindDeckPath() {
-        String path = "src/main/resources/game/WondersDeck/" + wonderName + "Deck.png"; // @Copilot
+        String path = "src/main/resources/game/wondersDeck/" + wonderName + "Deck.png"; // @Copilot
         CheckIfFileExist(path);
         return path;
     }
 
     private void CheckIfFileExist(String path) {
         if (!new File(path).exists()) {
-            throw new IllegalArgumentException("Error in Wonders Cards Files Check : Failed to load " + path );
+            throw new IllegalArgumentException("Error in Wonders cards Files Check : Failed to load " + path );
         }
     }
 

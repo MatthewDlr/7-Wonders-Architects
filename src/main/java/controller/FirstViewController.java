@@ -162,6 +162,7 @@ public class FirstViewController implements Initializable {
     public void SinglePlayerButtonClicked() {
 
         singlePlayerButton.setDisable(true);
+        multiPlayerButton.setDisable(true);
         singlePlayerSetupFrame.setVisible(true);
 
         ParallelTransitionWithTranslateAndFade(singlePlayerSetupFrame);

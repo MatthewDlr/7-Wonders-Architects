@@ -7,8 +7,8 @@ public class ConflictToken {
 
     public ConflictToken() {
         this.faceWar = false;
-        this.WarFacePath = "src/main/resources/game/Tokens/ConflictTokenWarFace.png";
-        this.PeaceFacePath = "src/main/resources/game/Tokens/ConflictTokenPeaceFace.png";
+        this.WarFacePath = "src/main/resources/game/tokens/ConflictTokenWarFace.png";
+        this.PeaceFacePath = "src/main/resources/game/tokens/ConflictTokenPeaceFace.png";
     }
 
     public boolean IsFaceToWar() {

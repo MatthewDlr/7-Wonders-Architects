@@ -19,11 +19,9 @@ public class GameController {
     Rectangle WhiteForeground;
     @FXML
     Label StartingTest;
-    private int numberOfHumans , numberOfAI ;
-
     MediaPlayer LoadingAnimationMedia;
-    public void Initialize() {
-        this.numberOfHumans = this.numberOfAI = 0;
+
+    public void Initialize(int numberOfHumans, int numberOfAI) {
         File loadingAnimationFile = new File("src/main/resources/videos/LoadingAnimation.mp4");
         ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(loadingAnimationFile));
         Media loadingAnimationMedia = new Media(loadingAnimationFile.toURI().toString());
@@ -31,26 +29,23 @@ public class GameController {
         LoadingAnimationFrame.setMediaPlayer(LoadingAnimationMedia);
 
         ShowLoadingAnimation();
-    }
-
-    private void SetupGame() {
         System.out.println("Number of Humans : " + numberOfHumans);
         System.out.println("Number of AI : " + numberOfAI);
+
+        int time1 = (int) System.nanoTime();
         Game game = new Game(numberOfHumans, numberOfAI);
         System.out.println("Game Started");
+        int time2 = (int) System.nanoTime();
+        System.out.println("Elapsed time : " + (time2 - time1)/1000000 + " ms");
     }
+
 
     public void ShowLoadingAnimation() {
         LoadingAnimationMedia.setAutoPlay(true);
         LoadingAnimationMedia.setCycleCount(1);
-        LoadingAnimationMedia.setOnEndOfMedia(() -> SetupGame());
         LoadingAnimationMedia.play();
         ErrorsHandler.CheckForMediaErrors(LoadingAnimationMedia);
 
     }
 
-    public void SetNumberOfPlayers(int humans, int aI) {
-        numberOfHumans = humans;
-        numberOfAI = aI;
-    }
 }

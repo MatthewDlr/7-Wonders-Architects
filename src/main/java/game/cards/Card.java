@@ -21,14 +21,14 @@ public abstract class Card {
     }
 
     protected String FindCardPath() {
-        String path = "src/main/resources/game/Cards/" + name + "Card.png";
+        String path = "src/main/resources/game/cards/" + name + "Card.png";
         CheckIfFileExist(path);
         return path;
     }
 
     private void CheckIfFileExist(String path) {
         if (!new File(path).exists()) {
-            throw new IllegalArgumentException("Error in Cards Files Check : Failed to load " + path);
+            throw new IllegalArgumentException("Error in cards Files Check : Failed to load " + path);
         }
     }
 }

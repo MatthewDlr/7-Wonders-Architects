@@ -26,7 +26,7 @@ public class WonderFloor {
     }
 
     private String FindFloorPath(String wonderName, int floorNumber) {
-        return "src/main/resources/game/WondersFloors/" + wonderName + "/Floor" + floorNumber +".png";
+        return "src/main/resources/game/wondersFloors/" + wonderName + "/Floor" + floorNumber +".png";
     }
 
     public String GetFloorPath() {
@@ -64,7 +64,7 @@ public class WonderFloor {
     }
 
     public void SetAsBuilt() {
-        wonderFloorPath = "src/main/resources/game/WondersFloors/" + wonderFloorPath.substring(39, wonderFloorPath.length() - 4) + "Built.png"; //Written By @Copilot
+        wonderFloorPath = "src/main/resources/game/wondersFloors/" + wonderFloorPath.substring(39, wonderFloorPath.length() - 4) + "Built.png"; //Written By @Copilot
         isBuilt = true;
     }
 }

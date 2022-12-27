@@ -1,6 +1,5 @@
 package controller;
 
-import controller.game.GameController;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,8 +89,7 @@ public class SinglePlayerSetupController {
         Scene scene = StartButtonAvailable.getScene();
         scene.setRoot(GameView);
         GameController gameController = loader.getController(); // @OpenAI
-        gameController.Initialize();
-        gameController.SetNumberOfPlayers(numberOfHumansPlayer, numberOfIAPlayer);
+        gameController.Initialize(numberOfHumansPlayer, numberOfIAPlayer);
     }
 
     @FXML

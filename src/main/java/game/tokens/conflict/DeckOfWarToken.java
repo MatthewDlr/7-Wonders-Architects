@@ -8,7 +8,7 @@ public class DeckOfWarToken {
 
     public DeckOfWarToken() {
         this.warTokensSet = new ArrayList<>();
-        this.WarTokenPath = "src/main/resources/game/Tokens/WarToken.png";
+        this.WarTokenPath = "src/main/resources/game/tokens/WarToken.png";
     }
 
     public void AddWarToken(DeckOfWarToken warToken) {

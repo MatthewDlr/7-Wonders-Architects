@@ -11,8 +11,8 @@ public abstract class ProgressToken {
     public ProgressToken(String name, String description) {
         this.name = name;
         this.description = description;
-        this.progressTokenPath = "src/main/resources/game/ProgressTokens/" + name + ".png";
-        this.progressTokenBackPath = "src/main/resources/game/ProgressTokens/Back.png";
+        this.progressTokenPath = "src/main/resources/game/progressTokens/" + name + ".png";
+        this.progressTokenBackPath = "src/main/resources/game/progressTokens/Back.png";
         CheckIfFileExist(progressTokenPath);
         CheckIfFileExist(progressTokenBackPath);
 
