@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class PlayerQueue {
 
-    private final ArrayList<Player> playersQueue;
-    private final ArrayList<Player> listOfHumansPlayers;
-    private final ArrayList<Player> listOfAIPlayers;
+    public static ArrayList<Player> playersQueue; // TODO: figure out how to make this private and non static
+    private ArrayList<Player> listOfHumansPlayers;
+    private ArrayList<Player> listOfAIPlayers;
     private int indexOfActualPlayer;
 
     public PlayerQueue(ArrayList<Player> listOfPlayersToAdd) {
-        this.playersQueue = new ArrayList<>();
+        playersQueue = new ArrayList<>();
         this.listOfHumansPlayers = new ArrayList<>();
         this.listOfAIPlayers = new ArrayList<>();
 
@@ -67,5 +67,10 @@ public class PlayerQueue {
         indexOfActualPlayer = (indexOfActualPlayer - 1) % playersQueue.size();
     }
 
+    public void RemoveTheCatFromAllPlayers() {
+        for (Player player : playersQueue) {
+            player.RemoveTheCat();
+        }
+    }
 
 }

@@ -62,7 +62,7 @@ public class Game {
         return returnWonder;
     }
 
-    GameBoard GetGameBoard() {
+    public GameBoard GetGameBoard() {
         return gameBoard;
     }
 

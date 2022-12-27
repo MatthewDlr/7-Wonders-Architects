@@ -1,6 +1,10 @@
 package game.cards.playerDeck;
 
+import game.Game;
+import game.board.GameBoard;
+import game.board.PlayerQueue;
 import game.cards.resources.*;
+import game.player.Player;
 import game.wonders.*;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -8,7 +12,7 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.*;
 
-public class playerCardsDeckTests {
+public class playerDeckTests {
 
     Alexandrie alexandrie = new Alexandrie();
     PlayerDeck playerCardsDeck = new PlayerDeck();
@@ -167,5 +171,23 @@ public class playerCardsDeckTests {
 
     }
 
+    Game game = new Game(4, 3);
+    GameBoard gameBoard = game.GetGameBoard();
+    PlayerQueue playerQueue = gameBoard.GetPlayerQueue();
+    Player player = playerQueue.GetActualPlayer();
+
+    @Test
+    public void testCatFunction() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+        assertFalse(player.HasTheCat());
+        player.GotTheCat();
+
+        for (int i = 0; i < 6; i++) {
+            playerQueue.NextPlayer();
+            Player player = playerQueue.GetActualPlayer();
+            assertFalse("Error in Cat Test function : Player " + playerQueue.GetActualPlayer() + " shouldn't have the cat", player.HasTheCat());
+        }
+        playerQueue.NextPlayer();
+        assertTrue("Error in Cat Test function : Player " + playerQueue.GetActualPlayer() + " should have the cat", playerQueue.GetActualPlayer().HasTheCat());
+    }
 
 }

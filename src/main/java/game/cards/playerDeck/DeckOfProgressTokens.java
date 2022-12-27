@@ -5,14 +5,18 @@ import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
 
 public class DeckOfProgressTokens {
-    private final ArrayList<ProgressToken> progressTokens;
+    private final ArrayList<ProgressToken> progressTokensSet;
 
     public DeckOfProgressTokens() {
-        this.progressTokens = new ArrayList<>();
+        this.progressTokensSet = new ArrayList<>();
     }
 
     public void AddProgressToken(ProgressToken progressToken) {
-        progressTokens.add(progressToken);
+        progressTokensSet.add(progressToken);
+    }
+
+    public void RemoveProgressToken(ProgressToken progressToken) {
+        progressTokensSet.remove(progressToken);
     }
 
 

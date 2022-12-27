@@ -1,8 +1,10 @@
 package controller;
 
+import controller.game.GameController;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -11,14 +13,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import controller.game.GameController;
 
 
 public class SinglePlayerSetupController {
@@ -38,9 +41,12 @@ public class SinglePlayerSetupController {
     public void initialize() {
         ShowCardsWithAnimation();
         File startButtonSoundEffectFile = new File("src/main/resources/musics/whoosh1.mp3");
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(startButtonSoundEffectFile));
         Media startButtonSoundEffectMedia = new Media(startButtonSoundEffectFile.toURI().toString());
         startButtonSoundEffect = new MediaPlayer(startButtonSoundEffectMedia);
+
         File gameStartSoundEffectFile = new File("src/main/resources/musics/StartSound.mp3");
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(gameStartSoundEffectFile));
         Media gameStartSoundEffectMedia = new Media(gameStartSoundEffectFile.toURI().toString());
         gameStartSoundEffect = new MediaPlayer(gameStartSoundEffectMedia);
     }
@@ -62,23 +68,30 @@ public class SinglePlayerSetupController {
             fadeTransition.play();
             fadeTransition.setOnFinished(event -> {
                 Stage stage = (Stage) StartButtonAvailable.getScene().getWindow();
-                stage.setWidth(1920);
-                stage.setHeight(1080);
+                Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                stage.setWidth(screenBounds.getWidth());
+                stage.setHeight(screenBounds.getHeight());
+                System.out.println("Width: " + screenBounds.getWidth() + " Height: " + screenBounds.getHeight());
+                stage.setMaximized(true);
+                stage.setResizable(true);
 
                 try {
                     SwitchController();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
             });
         }
     }
 
     private void SwitchController() throws IOException {
-        Parent GameController = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/controller/GameView.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/controller/GameView.fxml"))); // @Copilot
+        Parent GameView = loader.load();
         Scene scene = StartButtonAvailable.getScene();
-        scene.setRoot(GameController);
+        scene.setRoot(GameView);
+        GameController gameController = loader.getController(); // @OpenAI
+        gameController.Initialize();
+        gameController.SetNumberOfPlayers(numberOfHumansPlayer, numberOfIAPlayer);
     }
 
     @FXML
@@ -255,5 +268,6 @@ public class SinglePlayerSetupController {
         });
         parallelTransition.play();
     }
+
 
 }

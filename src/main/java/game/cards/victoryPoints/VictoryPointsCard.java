@@ -12,6 +12,7 @@ public abstract class VictoryPointsCard extends Card {
         this.name = name;
         this.numberOfVictoryPoints = numberOfVictoryPoints;
         this.hasACat = hasACat;
+        this.cardPath = FindCardPath();
     }
 
     public int GetNumberOfVictoryPoints() {

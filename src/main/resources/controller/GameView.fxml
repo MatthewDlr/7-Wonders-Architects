@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.game.MainController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.game.GameController">
    <children>
-      <Rectangle fx:id="WhiteForeground" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1080.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <MediaView fx:id="LoadingAnimationFrame" fitHeight="640.0" fitWidth="640.0" layoutX="640.0" layoutY="100.0" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="640.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="100.0" />
+      <Rectangle fx:id="WhiteForeground" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="978" width="1739" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <MediaView fx:id="LoadingAnimationFrame" fitHeight="640.0" fitWidth="640.0" layoutX="569.0" layoutY="85.0" AnchorPane.bottomAnchor="270.62325314299574" AnchorPane.leftAnchor="549.0" AnchorPane.rightAnchor="549.0" AnchorPane.topAnchor="85.0" />
+      <Label fx:id="StartingTest" alignment="CENTER" contentDisplay="CENTER" layoutX="520.0" layoutY="775.0" text="We're currently building the game board" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="122.50946626157463" AnchorPane.leftAnchor="518.0" AnchorPane.rightAnchor="517.5094317133717" AnchorPane.topAnchor="775.0">
+         <font>
+            <Font name="JetBrains Mono Medium" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

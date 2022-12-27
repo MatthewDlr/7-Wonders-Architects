@@ -5,13 +5,15 @@ public class WonderFloor {
     private final int victoryPoints;
     private final boolean hasSpecialEffect;
     private final String ressourceRequirement;
-    private boolean isBuildable;
+    private boolean isBuildable, isBuilt;
+    private String wonderFloorPath;
 
-    public WonderFloor(int floorNumber, int victoryPoints, boolean hasSpecialEffect) {
+    public WonderFloor(String wonderName,  int floorNumber, int victoryPoints, boolean hasSpecialEffect) {
         this.floorNumber = floorNumber;
         this.victoryPoints = victoryPoints;
         this.hasSpecialEffect = hasSpecialEffect;
         this.isBuildable = floorNumber == 1;
+        this.isBuilt = false;
         this.ressourceRequirement = switch (floorNumber) {
             case 1 -> "2≠";
             case 2 -> "2=";
@@ -20,6 +22,15 @@ public class WonderFloor {
             case 5 -> "4≠";
             default -> throw new IllegalArgumentException("Unexpected value: " + floorNumber);
         };
+        this.wonderFloorPath = FindFloorPath(wonderName, floorNumber);
+    }
+
+    private String FindFloorPath(String wonderName, int floorNumber) {
+        return "src/main/resources/game/WondersFloors/" + wonderName + "/Floor" + floorNumber +".png";
+    }
+
+    public String GetFloorPath() {
+        return wonderFloorPath;
     }
 
     /* Following methods are getters and setters */
@@ -48,6 +59,13 @@ public class WonderFloor {
         return ressourceRequirement;
     }
 
+    public boolean IsBuilt() {
+        return isBuilt;
+    }
 
+    public void SetAsBuilt() {
+        wonderFloorPath = "src/main/resources/game/WondersFloors/" + wonderFloorPath.substring(39, wonderFloorPath.length() - 4) + "Built.png"; //Written By @Copilot
+        isBuilt = true;
+    }
 }
 

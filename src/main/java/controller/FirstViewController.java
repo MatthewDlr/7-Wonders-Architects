@@ -56,6 +56,11 @@ public class FirstViewController implements Initializable {
         File musicThemeFile = new File("src/main/resources/musics/7Wonders - Main Theme.mp3");
         File accessdeniedSoundFile = new File("src/main/resources/musics/AccessDenied.mp3");
 
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(introVideoFile));
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(titleVideoFile));
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(musicThemeFile));
+        ErrorsHandler.CheckIfFileIsCorrect(String.valueOf(accessdeniedSoundFile));
+
         Media introVideoMedia = new Media(introVideoFile.toURI().toString());
         Media titleVideoMedia = new Media(titleVideoFile.toURI().toString());
         Media musicThemeMedia = new Media(musicThemeFile.toURI().toString());
@@ -65,6 +70,11 @@ public class FirstViewController implements Initializable {
         backgroundVideoMedia = new MediaPlayer(titleVideoMedia);
         mainThemeAudio = new MediaPlayer(musicThemeMedia);
         accessDeniedSoundEffect = new MediaPlayer(accessdeniedSoundMedia);
+
+        ErrorsHandler.CheckForMediaErrors(introVideo);
+        ErrorsHandler.CheckForMediaErrors(backgroundVideoMedia);
+        ErrorsHandler.CheckForMediaErrors(mainThemeAudio);
+        ErrorsHandler.CheckForMediaErrors(accessDeniedSoundEffect);
 
         fxmlIntroVideoFrame.setMediaPlayer(introVideo);
         backgroundVideoMedia.setAutoPlay(true);
@@ -151,6 +161,7 @@ public class FirstViewController implements Initializable {
     @FXML
     public void SinglePlayerButtonClicked() {
 
+        singlePlayerButton.setDisable(true);
         singlePlayerSetupFrame.setVisible(true);
 
         ParallelTransitionWithTranslateAndFade(singlePlayerSetupFrame);

@@ -10,6 +10,7 @@ public abstract class ShieldsCard extends Card {
         this.category = "shield";
         this.name = name;
         this.numberOfTrumpet = numberOfTrumpet;
+        this.cardPath = FindCardPath();
     }
 
     public int getNumberOfTrumpet() {

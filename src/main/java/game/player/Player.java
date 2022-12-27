@@ -2,34 +2,32 @@ package game.player;
 
 import game.cards.playerDeck.DeckOfProgressTokens;
 import game.cards.playerDeck.PlayerDeck;
+import game.tokens.conflict.DeckOfWarToken;
 import game.wonders.Wonders;
 
 public abstract class Player {
     Wonders wonders;
     PlayerDeck playerDeck;
     DeckOfProgressTokens deckOfProgressTokens;
-    private int numberOfWarTokens;
-    private boolean hasTheCat;
+    DeckOfWarToken deckOfWarToken;
 
     public Player(Wonders playerWonder) {
         this.wonders = playerWonder;
         this.playerDeck = new PlayerDeck();
-        this.numberOfWarTokens = 0;
-        this.hasTheCat = false;
         this.deckOfProgressTokens = new DeckOfProgressTokens();
+        this.deckOfWarToken = new DeckOfWarToken();
     }
 
-    public void AddWarWon() {
-        numberOfWarTokens++;
+    public boolean HasTheCat(){
+        return playerDeck.HasTheCat();
     }
 
-    public int GetWarTokensVictoryPoints() {
-        return numberOfWarTokens * 3;
+    public void RemoveTheCat(){
+        playerDeck.RemoveTheCat();
     }
 
-    public void GetTheCat() {
-        //TODO : set the cat to false for all other players
-        hasTheCat = true;
+    public void GotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+        playerDeck.GotTheCat();
     }
 
 }
