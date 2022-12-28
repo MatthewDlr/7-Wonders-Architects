@@ -1,7 +1,7 @@
 package game.wonders;
 
 public class Rhodes extends Wonders {
-
+    
     public Rhodes() {
         super("Rhodes"
                 , "Ajoutez 1 Bouclier à votre total de Boucliers."
@@ -11,9 +11,9 @@ public class Rhodes extends Wonders {
         );
         listOfFloors.get(floor2).SetBuildable(true);
     }
-
+    
     @Override
-    protected void UpdateBuildableFloors() {
+    protected void updateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
@@ -21,6 +21,6 @@ public class Rhodes extends Wonders {
             listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
         }
     }
-
+    
 }
 

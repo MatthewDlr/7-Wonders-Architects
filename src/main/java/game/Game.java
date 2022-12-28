@@ -4,71 +4,78 @@ import game.board.GameBoard;
 import game.player.AIPlayer;
 import game.player.HumanPlayer;
 import game.player.Player;
-import game.wonders.*;
-
+import game.wonders.Alexandrie;
+import game.wonders.Babylone;
+import game.wonders.Ephese;
+import game.wonders.Gizeh;
+import game.wonders.Halicarnasse;
+import game.wonders.Olympie;
+import game.wonders.Rhodes;
+import game.wonders.Wonders;
 import java.util.ArrayList;
 
 public class Game {
+    
     private final ArrayList<Player> listOfPlayers;
     private final GameBoard gameBoard;
     private ArrayList<Integer> listOfTakenWonders;
-
+    
     public Game(int numberOfHumanPlayers, int numberOfAIPlayers) {
-        this.listOfPlayers = new ArrayList<>();
-        this.listOfTakenWonders = new ArrayList<>();
-
-        CreatePlayersInstance(numberOfHumanPlayers, numberOfAIPlayers);
-
-        this.gameBoard = new GameBoard(listOfPlayers);
-
-        this.listOfTakenWonders.clear();
-        this.listOfTakenWonders = null;
+        listOfPlayers = new ArrayList<>();
+        listOfTakenWonders = new ArrayList<>();
+        
+        createPlayersInstance(numberOfHumanPlayers, numberOfAIPlayers);
+        
+        gameBoard = new GameBoard(listOfPlayers);
+        
+        listOfTakenWonders.clear();
+        listOfTakenWonders = null;
     }
-
-    private void CreatePlayersInstance(int numberOfHumanPlayers, int numberOfAIPlayers) {
+    
+    private void createPlayersInstance(int numberOfHumanPlayers, int numberOfAIPlayers) {
         for (int i = 0; i < numberOfHumanPlayers; i++) {
-            Player newPlayer = new HumanPlayer(GetRandomWonders());
+            Player newPlayer = new HumanPlayer(getRandomWonders());
             listOfPlayers.add(newPlayer);
         }
         for (int i = 0; i < numberOfAIPlayers; i++) {
-            Player newPlayer = new AIPlayer(GetRandomWonders());
+            Player newPlayer = new AIPlayer(getRandomWonders());
             listOfPlayers.add(newPlayer);
         }
     }
-
-    private Wonders GetRandomWonders() {
-
+    
+    private Wonders getRandomWonders() {
+        
         int randomIndex;
         do {
             randomIndex = (int) (Math.random() * 7);
             if (listOfTakenWonders.size() > 7) {
-                throw new RuntimeException("Error in GetRandomWonders() method : wonders number should never exceed 7");
+                throw new RuntimeException(
+                        "Error in GetRandomWonders() method : wonders number should never exceed 7");
             }
         } while (listOfTakenWonders.contains(randomIndex));
-
+        
         listOfTakenWonders.add(randomIndex);
-        Wonders returnWonder;
-        switch (randomIndex) {
-            case 0 -> returnWonder = new Alexandrie();
-            case 1 -> returnWonder = new Babylone();
-            case 2 -> returnWonder = new Ephese();
-            case 3 -> returnWonder = new Gizeh();
-            case 4 -> returnWonder = new Halicarnasse();
-            case 5 -> returnWonder = new Olympie();
-            case 6 -> returnWonder = new Rhodes();
-            default ->
-                    throw new IllegalStateException("Error in GetRandomWonders() method : randomIndex is not between 0 and 7");
-        }
-        return returnWonder;
+        return switch (randomIndex) {
+            case 0 -> new Alexandrie();
+            case 1 -> new Babylone();
+            case 2 -> new Ephese();
+            case 3 -> new Gizeh();
+            case 4 -> new Halicarnasse();
+            case 5 -> new Olympie();
+            case 6 -> new Rhodes();
+            default -> throw new IllegalStateException(
+                    "Error in GetRandomWonders() method : randomIndex is not between 0 and 7");
+        };
     }
-
-    public GameBoard GetGameBoard() {
+    
+    
+    public GameBoard getGameBoard() {
         return gameBoard;
     }
-
-    ArrayList<Player> GetListOfPlayers() {
+    
+    ArrayList<Player> getListOfPlayers() {
         return listOfPlayers;
     }
-
-
+    
+    
 }

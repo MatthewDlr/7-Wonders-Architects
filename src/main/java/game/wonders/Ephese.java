@@ -1,7 +1,7 @@
 package game.wonders;
 
 public class Ephese extends Wonders {
-
+    
     public Ephese() {
         super("Éphèse",
                 "Prenez la première carte de la pioche centrale et posez-la devant vous."
@@ -10,9 +10,9 @@ public class Ephese extends Wonders {
                 , new int[]{3, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1}
         );
     }
-
+    
     @Override
-    protected void UpdateBuildableFloors() {
+    protected void updateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
             return;
         }

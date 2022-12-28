@@ -3,28 +3,27 @@ package game.board;
 import game.player.AIPlayer;
 import game.player.HumanPlayer;
 import game.player.Player;
-
 import java.util.ArrayList;
 
 public class PlayerQueue {
-
+    
     public static ArrayList<Player> playersQueue; // TODO: figure out how to make this private and non static
-    private ArrayList<Player> listOfHumansPlayers;
-    private ArrayList<Player> listOfAIPlayers;
+    private final ArrayList<Player> listOfHumansPlayers;
+    private final ArrayList<Player> listOfAIPlayers;
     private int indexOfActualPlayer;
-
+    
     public PlayerQueue(ArrayList<Player> listOfPlayersToAdd) {
         playersQueue = new ArrayList<>();
-        this.listOfHumansPlayers = new ArrayList<>();
-        this.listOfAIPlayers = new ArrayList<>();
-
+        listOfHumansPlayers = new ArrayList<>();
+        listOfAIPlayers = new ArrayList<>();
+        
         for (Player player : listOfPlayersToAdd) {
-            this.playersQueue.add(player);
+            playersQueue.add(player);
         }
-        this.indexOfActualPlayer = (int) (Math.random() * playersQueue.size());
+        indexOfActualPlayer = (int) (Math.random() * playersQueue.size());
         ParsePlayers(listOfPlayersToAdd);
     }
-
+    
     private void ParsePlayers(ArrayList<Player> listOfPlayersToAdd) {
         for (Player player : listOfPlayersToAdd) {
             if (player instanceof HumanPlayer) {
@@ -36,41 +35,41 @@ public class PlayerQueue {
             }
         }
     }
-
+    
     public ArrayList<Player> GetListOfHumanPlayers() {
         return listOfHumansPlayers;
     }
-
+    
     public ArrayList<Player> GetListOfAIPlayers() {
         return listOfAIPlayers;
     }
-
+    
     public Player GetRightPlayer() {
         int indexToGet = (indexOfActualPlayer + 1) % playersQueue.size();
         return playersQueue.get(indexToGet);
     }
-
+    
     public Player GetLeftPlayer() {
         int indexToGet = (indexOfActualPlayer - 1) % playersQueue.size();
         return playersQueue.get(indexToGet);
     }
-
+    
     public Player GetActualPlayer() {
         return playersQueue.get(indexOfActualPlayer);
     }
-
+    
     public void NextPlayer() {
         indexOfActualPlayer = (indexOfActualPlayer + 1) % playersQueue.size();
     }
-
+    
     public void PreviousPlayer() {
         indexOfActualPlayer = (indexOfActualPlayer - 1) % playersQueue.size();
     }
-
+    
     public void RemoveTheCatFromAllPlayers() {
         for (Player player : playersQueue) {
             player.RemoveTheCat();
         }
     }
-
+    
 }

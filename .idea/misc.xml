@@ -3,6 +3,9 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="ExcludeFromValidation">
+    <file url="file://$PROJECT_DIR$/src/main/java/module-info.java" />
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">

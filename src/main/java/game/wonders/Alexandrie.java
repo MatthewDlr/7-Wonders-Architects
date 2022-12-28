@@ -1,7 +1,7 @@
 package game.wonders;
 
 public class Alexandrie extends Wonders {
-
+    
     public Alexandrie() {
         super("Alexandrie"
                 , "Prenez la première carte d'une pioche au choix, n'importe où sur la table, et posez-la devant vous."
@@ -10,7 +10,7 @@ public class Alexandrie extends Wonders {
                 , new int[]{4, 2, 2, 2, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1}
         );
     }
-
-
+    
+    
 }
 

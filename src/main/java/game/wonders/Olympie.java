@@ -1,7 +1,7 @@
 package game.wonders;
 
 public class Olympie extends Wonders {
-
+    
     public Olympie() {
         super("Olympie"
                 , "Prenez la première carte de la pioche à votre gauche et de celle à votre droite, et posez-les devant vous."
@@ -10,9 +10,9 @@ public class Olympie extends Wonders {
                 , new int[]{3, 2, 2, 1, 2, 2, 1, 1, 2, 1, 3, 2, 1, 2}
         );
     }
-
+    
     @Override
-    protected void UpdateBuildableFloors() {
+    protected void updateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
             return;
         }

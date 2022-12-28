@@ -1,76 +1,69 @@
 package game.wonders;
 
+import errorsCenter.DataChecking;
 import game.cards.Card;
 import game.cards.WonderCardsStack;
-
-import java.io.File;
 import java.util.ArrayList;
 
 public abstract class Wonders {
-
+    
     String wonderName, wonderDescription;
     ArrayList<WonderFloor> listOfFloors = new ArrayList<>();
-    int numberOfFloorsBuilt = 0, victoryPoints = 0, floor2 = 1, floor3 = 2, floor4 = 3, floor5 = 4;
+    int numberOfFloorsBuilt, victoryPoints, floor2 = 1, floor3 = 2, floor4 = 3, floor5 = 4;
     ArrayList<Card> cardsStack;
-    private String BackCardPath ;
-    private String WonderDeckPath;
-
-
+    private final String BackCardPath;
+    private final String WonderDeckPath;
+    
+    
     public Wonders(String wonderName, String wonderDescription, int[] victoryPointsPerFloor, boolean[] floorThatHasEffect, int[] cardsStackRepartition) {
         this.wonderName = wonderName;
         this.wonderDescription = wonderDescription;
-        this.BackCardPath = FindCardPath();
-        this.WonderDeckPath = FindDeckPath();
+        BackCardPath = findCardPath();
+        WonderDeckPath = findDeckPath();
         for (int i = 0; i < 5; i++) {
-            WonderFloor floor = new WonderFloor(wonderName ,i + 1, victoryPointsPerFloor[i], floorThatHasEffect[i]);
+            WonderFloor floor = new WonderFloor(wonderName, i + 1, victoryPointsPerFloor[i], floorThatHasEffect[i]);
             listOfFloors.add(floor);
         }
         WonderCardsStack stackOfCards = new WonderCardsStack(cardsStackRepartition);
-        this.cardsStack = stackOfCards.GetCardsStack();
+        cardsStack = stackOfCards.GetCardsStack();
     }
-
-    private String FindCardPath() {
+    
+    private String findCardPath() {
         String path = "src/main/resources/game/cards/Back/" + wonderName + "Card.png"; // @Copilot
-        CheckIfFileExist(path);
-        return path ;
-    }
-
-    private String FindDeckPath() {
-        String path = "src/main/resources/game/wondersDeck/" + wonderName + "Deck.png"; // @Copilot
-        CheckIfFileExist(path);
+        DataChecking.checkIfFileIsCorrect(path);
         return path;
     }
-
-    private void CheckIfFileExist(String path) {
-        if (!new File(path).exists()) {
-            throw new IllegalArgumentException("Error in Wonders cards Files Check : Failed to load " + path );
-        }
+    
+    private String findDeckPath() {
+        String path = "src/main/resources/game/wondersDeck/" + wonderName + "Deck.png"; // @Copilot
+        DataChecking.checkIfFileIsCorrect(path);
+        return path;
     }
-
-    public String GetBackCardPath() {
+    
+    public String getBackCardPath() {
         return BackCardPath;
     }
-
-    public String GetWonderDeckPath() {
+    
+    public String getWonderDeckPath() {
         return WonderDeckPath;
     }
-
-    public boolean FloorHasSpecialEffect(int floorNumber) {
+    
+    public boolean floorHasSpecialEffect(int floorNumber) {
         return listOfFloors.get(floorNumber - 1).HasSpecialEffect();
     }
-
-    public void AddBuiltFloor(int floorNumber) {
+    
+    public void addBuiltFloor(int floorNumber) {
         listOfFloors.get(floorNumber - 1).SetBuildable(false);
         victoryPoints += listOfFloors.get(floorNumber - 1).GetVictoryPoints();
         numberOfFloorsBuilt++;
-        UpdateBuildableFloors();
+        updateBuildableFloors();
     }
-
-    public WonderFloor GetFloor(int floorNumber) {
+    
+    public WonderFloor getFloor(int floorNumber) {
         return listOfFloors.get(floorNumber - 1);
     }
-
-    public ArrayList<Integer> GetBuildableFloors() {
+    
+    public ArrayList<Integer> getBuildableFloors() {
         ArrayList<Integer> buildableFloors = new ArrayList<>();
         for (WonderFloor floor : listOfFloors) {
             if (floor.IsBuildable()) {
@@ -79,32 +72,32 @@ public abstract class Wonders {
         }
         return buildableFloors;
     }
-
-    protected void UpdateBuildableFloors() {
+    
+    protected void updateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
         listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
     }
-
-    public int GetVictoryPoints() {
+    
+    public int getVictoryPoints() {
         return victoryPoints;
     }
-
-    public String GetName() {
+    
+    public String getName() {
         return wonderName;
     }
-
-    public int GetNumberOfFloorsBuilt() {
+    
+    public int getNumberOfFloorsBuilt() {
         return numberOfFloorsBuilt;
     }
-
-    public Card GetStackTopCard() {
+    
+    public Card getStackTopCard() {
         return cardsStack.remove(0);
     }
-
-    public void SetFloorAsBuilt(int floorNumber) {
+    
+    public void setFloorAsBuilt(int floorNumber) {
         listOfFloors.get(floorNumber - 1).SetAsBuilt(); // Written by @Copilot
     }
-
+    
 }

@@ -1,52 +1,54 @@
 package game.wonders;
 
-import game.cards.Card;
-import org.junit.jupiter.api.Test;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertFalse;
+import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.fail;
 
+import game.cards.Card;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.testng.AssertJUnit.*;
+import org.junit.jupiter.api.Test;
 
 public class EpheseTests {
     
     Wonders ephese = new Ephese();
-
+    
     @Test
     public void InitializingTest() {
-        assertEquals("Built number of floor is invalid",0, ephese.GetNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, ephese.GetVictoryPoints());
+        assertEquals("Built number of floor is invalid", 0, ephese.getNumberOfFloorsBuilt());
+        assertEquals("Victory points is invalid", 0, ephese.getVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, ephese.listOfFloors.size());
-        assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), ephese.GetBuildableFloors());
+        assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), ephese.getBuildableFloors());
     }
-
+    
     @Test
     public void BuildingFloor1Test() {
-        ephese.AddBuiltFloor(1);
-        assertEquals(1, ephese.GetNumberOfFloorsBuilt());
-        assertEquals(4, ephese.GetVictoryPoints());
-        assertEquals("2≠",  ephese.GetFloor(1).GetRessourceRequirement());
-        assertFalse(ephese.GetFloor(1).IsBuildable());
-        assertTrue(ephese.GetFloor(4).IsBuildable());
-        assertTrue(ephese.GetFloor(2).HasSpecialEffect());
-        assertEquals(new ArrayList<>(List.of(2, 3, 4)), ephese.GetBuildableFloors());
+        ephese.addBuiltFloor(1);
+        assertEquals(1, ephese.getNumberOfFloorsBuilt());
+        assertEquals(4, ephese.getVictoryPoints());
+        assertEquals("2≠", ephese.getFloor(1).GetRessourceRequirement());
+        assertFalse(ephese.getFloor(1).IsBuildable());
+        assertTrue(ephese.getFloor(4).IsBuildable());
+        assertTrue(ephese.getFloor(2).HasSpecialEffect());
+        assertEquals(new ArrayList<>(List.of(2, 3, 4)), ephese.getBuildableFloors());
     }
-
+    
     @Test
     public void BuildingFloor4Test() {
-        ephese.AddBuiltFloor(1);
-        ephese.AddBuiltFloor(3);
-        ephese.AddBuiltFloor(4);
-
-        assertEquals(3, ephese.GetNumberOfFloorsBuilt());
-        assertEquals(13, ephese.GetVictoryPoints());
-        assertEquals("4≠",  ephese.GetFloor(5).GetRessourceRequirement());
-        assertFalse(ephese.GetFloor(5).IsBuildable());
-        assertTrue(ephese.GetFloor(2).IsBuildable());
-        assertTrue(ephese.GetFloor(4).HasSpecialEffect());
-        assertEquals(new ArrayList<>(List.of(2)), ephese.GetBuildableFloors());
+        ephese.addBuiltFloor(1);
+        ephese.addBuiltFloor(3);
+        ephese.addBuiltFloor(4);
+        
+        assertEquals(3, ephese.getNumberOfFloorsBuilt());
+        assertEquals(13, ephese.getVictoryPoints());
+        assertEquals("4≠", ephese.getFloor(5).GetRessourceRequirement());
+        assertFalse(ephese.getFloor(5).IsBuildable());
+        assertTrue(ephese.getFloor(2).IsBuildable());
+        assertTrue(ephese.getFloor(4).HasSpecialEffect());
+        assertEquals(new ArrayList<>(List.of(2)), ephese.getBuildableFloors());
     }
-
+    
     @Test
     public void CardsStackTest() {
         int numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;

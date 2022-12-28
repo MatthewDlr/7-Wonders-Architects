@@ -1,8 +1,8 @@
 package game.wonders;
 
 public class Babylone extends Wonders {
-
-
+    
+    
     public Babylone() {
         super("Babylone"
                 , "Choisissez 1 jeton Progrès parmi les 4 disponibles, et posez-le devant vous."
@@ -11,9 +11,9 @@ public class Babylone extends Wonders {
                 , new int[]{3, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1}
         );
     }
-
+    
     @Override
-    protected void UpdateBuildableFloors() {
+    protected void updateBuildableFloors() {
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
@@ -25,6 +25,6 @@ public class Babylone extends Wonders {
             listOfFloors.get(floor5).SetBuildable(true);
         }
     }
-
+    
 }
 

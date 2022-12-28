@@ -1,6 +1,11 @@
 package game.cards;
 
-import game.cards.resources.*;
+import game.cards.resources.BrickResourceCard;
+import game.cards.resources.CoinsCard;
+import game.cards.resources.ExperienceResourceCard;
+import game.cards.resources.PaperResourceCard;
+import game.cards.resources.StoneResourceCard;
+import game.cards.resources.WoodResourceCard;
 import game.cards.science.CompasScienceCard;
 import game.cards.science.GearScienceCard;
 import game.cards.science.TabletScienceCard;
@@ -9,13 +14,13 @@ import game.cards.shields.ShieldCard1Trumpet;
 import game.cards.shields.ShieldCard2Trumpets;
 import game.cards.victoryPoints.ClassicVictoryPointsCard;
 import game.cards.victoryPoints.VictoryPointCardWithCat;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class WonderCardsStack {
+    
     private final ArrayList<Card> cardsStack = new ArrayList<>();
-
+    
     public WonderCardsStack(int[] cardsRepartition) {
         for (int i = 0; i < cardsRepartition[0]; i++) {
             cardsStack.add(new CoinsCard());
@@ -61,10 +66,10 @@ public class WonderCardsStack {
         }
         Collections.shuffle(cardsStack);
     }
-
+    
     public ArrayList<Card> GetCardsStack() {
         return cardsStack;
     }
-
-
+    
+    
 }

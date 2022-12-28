@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
 <!--suppress ALL -->
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="719.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SinglePlayerSetupController">
     <ImageView fx:id="playerSetupBackground" fitHeight="914.0" fitWidth="1280.0" layoutY="-160" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="-160">
         <Image url="@../images/Setup/SinglePlayerSetup.png" />
@@ -30,16 +30,16 @@
             <Image url="@../images/Setup/AICardSelected.png" />
         </ImageView>
     </Group>
-    <ImageView fx:id="playerUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="140.0" onMouseClicked="#PlayerUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="140.0">
+    <ImageView fx:id="playerUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="140.0" onMouseClicked="#playerUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="140.0">
         <Image url="@../images/Setup/Arrow.png" />
     </ImageView>
-    <ImageView fx:id="playerDownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="450.0" onMouseClicked="#PlayerDownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="450.0">
+    <ImageView fx:id="playerDownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="50.0" layoutY="450.0" onMouseClicked="#playerDownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="450.0">
         <Image url="@../images/Setup/Arrow.png" />
     </ImageView>
-    <ImageView fx:id="iAUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="140.0" onMouseClicked="#IAUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="140.0">
+    <ImageView fx:id="iAUpArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="140.0" onMouseClicked="#iaUpArrowClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="140.0">
         <Image url="@../images/Setup/Arrow.png" />
     </ImageView>
-    <ImageView fx:id="iADownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="440.0" onMouseClicked="#IADownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="450.0">
+    <ImageView fx:id="iADownArrow" fitHeight="100.0" fitWidth="100.0" layoutX="1130.0" layoutY="440.0" onMouseClicked="#iaDownArrowClicked" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="450.0">
         <Image url="@../images/Setup/Arrow.png" />
     </ImageView>
     <Label fx:id="numberOfPlayerLabel" alignment="CENTER" layoutX="75.0" layoutY="297.0" prefHeight="62.0" prefWidth="50.0" text="0" textAlignment="CENTER" textFill="#8b4519" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="295.0">
@@ -67,11 +67,11 @@
     <ImageView fx:id="wondersLogo" fitHeight="100.0" fitWidth="150.0" layoutX="590.0" layoutY="197.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/Setup/7WondersLogo.png" />
     </ImageView>
-     <ImageView fx:id="StartButtonUnavailable" disable="true" fitHeight="100.0" fitWidth="500.0" layoutX="440.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="84.71701405064618" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.6038196709046" AnchorPane.topAnchor="570.0">
+     <ImageView fx:id="startButtonUnavailable" disable="true" fitHeight="100.0" fitWidth="500.0" layoutX="440.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="84.71701405064618" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.6038196709046" AnchorPane.topAnchor="570.0">
          <Image url="@../images/Buttons/StartButtonUnavailable.png" />
      </ImageView>
-     <ImageView fx:id="StartButtonAvailable" fitHeight="100.0" fitWidth="500.0" layoutX="440.0" layoutY="579.0" onMouseClicked="#StartButtonClicked" onMouseEntered="#MouseIsOverStartButton" onMouseExited="#MouseLeaveStartButton" opacity="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="84.71701405064618" AnchorPane.leftAnchor="439.6980988015984" AnchorPane.rightAnchor="440.6038196709046" AnchorPane.topAnchor="570.0">
+     <ImageView fx:id="startButtonAvailable" fitHeight="100.0" fitWidth="500.0" layoutX="440.0" layoutY="579.0" onMouseClicked="#startButtonClicked" onMouseEntered="#mouseIsOverStartButton" onMouseExited="#mouseLeaveStartButton" opacity="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="84.71701405064618" AnchorPane.leftAnchor="439.6980988015984" AnchorPane.rightAnchor="440.6038196709046" AnchorPane.topAnchor="570.0">
          <Image url="@../images/Buttons/StartButtonAvailable.png" />
      </ImageView>
-   <Rectangle fx:id="WhiteForeground" arcHeight="5.0" arcWidth="5.0" disable="true" fill="WHITE" focusTraversable="true" height="720.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle fx:id="whiteForeground" arcHeight="5.0" arcWidth="5.0" disable="true" fill="WHITE" focusTraversable="true" height="720.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>
