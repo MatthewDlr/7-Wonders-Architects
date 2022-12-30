@@ -52,7 +52,7 @@ public class GameController extends GameConnect {
 
         System.out.println("Game Started");
         int time2 = (int) System.nanoTime();
-        System.out.println("Elapsed time : " + (time2 - time1) / 1000000 + " ms");
+        System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms");
 
     }
 
