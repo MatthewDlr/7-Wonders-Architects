@@ -99,11 +99,11 @@ public class GameController extends GameConnect {
                 alexandrie.setOpacity(1);
                 playedWonders.add(alexandrie);
             }
-            case "Babylon" -> {
+            case "Babylone" -> {
                 babylon.setOpacity(1);
                 playedWonders.add(babylon);
             }
-            case "Ephese" -> {
+            case "Éphèse" -> {
                 ephese.setOpacity(1);
                 playedWonders.add(ephese);
             }
@@ -123,6 +123,7 @@ public class GameController extends GameConnect {
                 gizeh.setOpacity(1);
                 playedWonders.add(gizeh);
             }
+            default -> throw new IllegalStateException("Error in UI setup : Unrecognized wonder (" + wonderName + ")");
         }
     }
 
