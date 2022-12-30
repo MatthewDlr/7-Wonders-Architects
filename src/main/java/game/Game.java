@@ -25,7 +25,6 @@ public class Game {
         listOfTakenWonders = new ArrayList<>();
         
         createPlayersInstance(numberOfHumanPlayers, numberOfAIPlayers);
-        
         gameBoard = new GameBoard(listOfPlayers);
         
         listOfTakenWonders.clear();
@@ -67,7 +66,6 @@ public class Game {
                     "Error in GetRandomWonders() method : randomIndex is not between 0 and 7");
         };
     }
-    
     
     public GameBoard getGameBoard() {
         return gameBoard;

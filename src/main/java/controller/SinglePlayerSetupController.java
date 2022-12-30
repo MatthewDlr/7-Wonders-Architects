@@ -95,7 +95,10 @@ public class SinglePlayerSetupController {
         Scene scene = startButtonAvailable.getScene();
         scene.setRoot(gameView);
         GameController gameController = loader.getController(); // @OpenAI
-        gameController.Initialize(numberOfHumansPlayer, numberOfIAPlayer);
+        gameController.initialize(numberOfHumansPlayer, numberOfIAPlayer);
+        
+        
+        
     }
     
     @FXML

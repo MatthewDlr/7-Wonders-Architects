@@ -31,4 +31,7 @@ public abstract class Player {
         playerDeck.GotTheCat();
     }
     
+    public String getWonderName() {
+        return wonders.getName();
+    }
 }

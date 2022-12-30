@@ -181,7 +181,7 @@ public class playerDeckTests {
     
     Game game = new Game(4, 3);
     GameBoard gameBoard = game.getGameBoard();
-    PlayerQueue playerQueue = gameBoard.GetPlayerQueue();
+    PlayerQueue playerQueue = gameBoard.getPlayerQueue();
     Player player = playerQueue.GetActualPlayer();
     
     @Test

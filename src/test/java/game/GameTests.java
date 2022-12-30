@@ -15,11 +15,11 @@ public class GameTests {
     Game game = new Game(3, 4);
     ArrayList<Player> players = game.getListOfPlayers();
     GameBoard gameBoard = game.getGameBoard();
-    PlayerQueue playerQueue = gameBoard.GetPlayerQueue();
+    PlayerQueue playerQueue = gameBoard.getPlayerQueue();
     ArrayList<Player> AIPlayers = playerQueue.GetListOfAIPlayers();
     ArrayList<Player> humanPlayers = playerQueue.GetListOfHumanPlayers();
     
-    TokensBoard tokensBoard = gameBoard.GetTokensBoard();
+    TokensBoard tokensBoard = gameBoard.getTokensBoard();
     
     @Test
     public void GameInitializationTest() {
