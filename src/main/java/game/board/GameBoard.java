@@ -24,7 +24,9 @@ public class GameBoard {
     
     public void initializeUI() {
         gameUIBridge.setListOfPlayers(listOfPlayers);
-        gameUIBridge.displayUIOfChosenPlayer();
+        gameUIBridge.setPlaceOfChosenWonders();
+        gameUIBridge.displayFirstCardOfWonderCardsStack();
+        
     }
     
     public TokensBoard getTokensBoard() {

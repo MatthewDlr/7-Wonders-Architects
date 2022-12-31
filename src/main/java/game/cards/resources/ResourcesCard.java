@@ -7,7 +7,7 @@ public abstract class ResourcesCard extends Card {
     public ResourcesCard(String name) {
         this.name = name;
         category = "resources";
-        cardPath = FindCardPath();
+        cardPath = findCardPath();
     }
     
     

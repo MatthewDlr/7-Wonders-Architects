@@ -37,6 +37,10 @@ public abstract class Player {
         return wonders.getName();
     }
     
+    public String getWonderTopCardPath() {
+        return wonders.getStackTopCardPath();
+    }
+    
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         playerDeck.setGameBoard(gameBoard);

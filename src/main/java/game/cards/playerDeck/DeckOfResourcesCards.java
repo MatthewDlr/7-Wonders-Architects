@@ -50,7 +50,7 @@ public class DeckOfResourcesCards {
         int[] numberOfEachRessource = new int[6];
         
         for (ResourcesCard resourcesCard : resourcesCardsSet) {
-            numberOfEachRessource[switch (resourcesCard.GetCardName()) {
+            numberOfEachRessource[switch (resourcesCard.getCardName()) {
                 case "Coins" -> 0;
                 case "Stone" -> 1;
                 case "Brick" -> 2;
@@ -103,9 +103,9 @@ public class DeckOfResourcesCards {
         
         while (cardsToRemove > 0) {
             for (ResourcesCard resourcesCard : resourcesCardsSet) {
-                if (!listOfRemovedCards.contains(resourcesCard.GetCardName()) || resourcesCard.GetCardName().equals("Coins")) {
+                if (!listOfRemovedCards.contains(resourcesCard.getCardName()) || resourcesCard.getCardName().equals("Coins")) {
                     resourcesCardsSet.remove(resourcesCard);
-                    listOfRemovedCards.add(resourcesCard.GetCardName());
+                    listOfRemovedCards.add(resourcesCard.getCardName());
                     cardsToRemove--;
                     break;
                 }
@@ -136,7 +136,7 @@ public class DeckOfResourcesCards {
                 
                 Iterable<ResourcesCard> resourcesCardsCopy = (ArrayList<ResourcesCard>) resourcesCardsSet.clone();
                 for (ResourcesCard resourcesCard : resourcesCardsCopy) {
-                    if (resourcesCard.GetCardName().equals(resourceTypeToRemove) || resourcesCard.GetCardName().equals("Coins")) {
+                    if (resourcesCard.getCardName().equals(resourceTypeToRemove) || resourcesCard.getCardName().equals("Coins")) {
                         resourcesCardsSet.remove(resourcesCard);
                         cardsToRemove--;
                         if (cardsToRemove == 0) {

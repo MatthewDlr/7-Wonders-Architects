@@ -8,19 +8,19 @@ public abstract class Card {
     protected String category;
     protected String cardPath;
     
-    public String GetCardName() {
+    public String getCardName() {
         return name;
     }
     
-    public String GetCardCategory() {
+    public String getCardCategory() {
         return category;
     }
     
-    public String GetCardPath() {
+    public String getCardPath() {
         return cardPath;
     }
     
-    protected String FindCardPath() {
+    protected String findCardPath() {
         String path = "src/main/resources/game/cards/" + name + "Card.png";
         DataChecking.checkIfFileIsCorrect(path);
         return path;

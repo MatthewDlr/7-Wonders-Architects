@@ -3,7 +3,7 @@ package game.wonders;
 public class Ephese extends Wonders {
     
     public Ephese() {
-        super("Éphèse",
+        super("Ephese",
                 "Prenez la première carte de la pioche centrale et posez-la devant vous."
                 , new int[]{4, 3, 5, 4, 7}
                 , new boolean[]{false, true, true, true, false}

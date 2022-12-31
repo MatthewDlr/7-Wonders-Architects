@@ -7,7 +7,7 @@ public abstract class ScienceCard extends Card {
     public ScienceCard(String name) {
         this.name = name;
         category = "science";
-        cardPath = FindCardPath();
+        cardPath = findCardPath();
     }
 }
 

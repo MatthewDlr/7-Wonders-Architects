@@ -12,6 +12,9 @@
   <ImageView disable="true" fitHeight="1121.0" fitWidth="1758.0" layoutX="-11.0" layoutY="-132.0" pickOnBounds="true">
     <Image url="@../images/Background.jpg" />
   </ImageView>
+  <ImageView fx:id="gameCardsStack" fitHeight="150.0" fitWidth="200.0" layoutX="850.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+    <Image url="@../game/cards/Back/SecretCard.png" />
+  </ImageView>
   <Group fx:id="alexandrie" layoutX="-77.0" layoutY="-77.0" opacity="0.0">
     <Group fx:id="AlexandrieWonder" layoutX="20.0" layoutY="-125.0">
       <ImageView fx:id="AlexandrieWonder1" fitHeight="63.0" fitWidth="250.0" layoutX="739.0" layoutY="1115.0" pickOnBounds="true" preserveRatio="true">
@@ -78,7 +81,7 @@
         <Image url="@../game/tokens/WarToken.png" />
       </ImageView>
     </Group>
-    <ImageView fx:id="AlexandrieCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="947.0" layoutY="732.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="alexandrieCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="947.0" layoutY="732.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../game/cards/Back/AlexandrieCard.png" />
     </ImageView>
     <ImageView fx:id="AlexandrieCat" fitHeight="84.0" fitWidth="40.0" layoutX="775.0" layoutY="850.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
@@ -181,7 +184,7 @@
         </ImageView>
       </children>
     </Group>
-    <ImageView fx:id="BabylonCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="954.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="babylonCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="954.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@../game/cards/Back/BabyloneCard.png" />
       </image>
@@ -194,111 +197,111 @@
   </Group>
   <Group fx:id="ephese" layoutX="487.0" layoutY="-71.0" opacity="0.0">
     <children>
-      <Group fx:id="ÉphèseWonder" layoutX="801.0" layoutY="852.0">
+      <Group fx:id="EpheseWonder" layoutX="801.0" layoutY="852.0">
         <children>
-          <ImageView fx:id="ÉphèseWonder2" fitHeight="110.0" fitWidth="61.0" layoutX="-10.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWonder2" fitHeight="110.0" fitWidth="61.0" layoutX="-10.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
             <image>
-              <Image url="@../game/wondersFloors/Éphèse/Floor2.png" />
+              <Image url="@../game/wondersFloors/Ephese/Floor2.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseWonder3" fitHeight="108.0" fitWidth="67.0" layoutX="53.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWonder3" fitHeight="108.0" fitWidth="67.0" layoutX="53.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
             <image>
-              <Image url="@../game/wondersFloors/Éphèse/Floor3.png" />
+              <Image url="@../game/wondersFloors/Ephese/Floor3.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseWonder4" fitHeight="108.0" fitWidth="69.0" layoutX="117.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWonder4" fitHeight="108.0" fitWidth="69.0" layoutX="117.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
             <image>
-              <Image url="@../game/wondersFloors/Éphèse/Floor4.png" />
+              <Image url="@../game/wondersFloors/Ephese/Floor4.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseWonder5" fitHeight="97.0" fitWidth="235.0" layoutX="-39.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWonder5" fitHeight="97.0" fitWidth="235.0" layoutX="-39.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true">
             <image>
-              <Image url="@../game/wondersFloors/Éphèse/Floor5.png" />
+              <Image url="@../game/wondersFloors/Ephese/Floor5.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseWonder1" fitHeight="63.0" fitWidth="250.0" layoutX="-41.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWonder1" fitHeight="63.0" fitWidth="250.0" layoutX="-41.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
             <image>
-              <Image url="@../game/wondersFloors/Éphèse/Floor1.png" />
+              <Image url="@../game/wondersFloors/Ephese/Floor1.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <Group fx:id="ÉphèseCardsResources" layoutX="1171.0" layoutY="941.0">
+      <Group fx:id="EpheseCardsResources" layoutX="1171.0" layoutY="941.0">
         <children>
-          <ImageView fx:id="ÉphèseCardsResources1" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsResources1" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/WoodCard.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseCardsResources2" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsResources2" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/BrickCard.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <Group fx:id="ÉphèseCardsScience" layoutX="1095.0" layoutY="942.0">
+      <Group fx:id="EpheseCardsScience" layoutX="1095.0" layoutY="942.0">
         <children>
-          <ImageView fx:id="ÉphèseCardsScience2" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsScience2" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/CompasCard.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseCardsScience1" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsScience1" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/GearCard.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <Group fx:id="ÉphèseCardsShield" layoutX="1020.0" layoutY="941.0">
+      <Group fx:id="EpheseCardsShield" layoutX="1020.0" layoutY="941.0">
         <children>
-          <ImageView fx:id="ÉphèseCardsShield2" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsShield2" fitHeight="100.0" fitWidth="68.0" layoutY="-40.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/Shield2TrumpetsCard.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseCardsShield1" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseCardsShield1" fitHeight="100.0" fitWidth="68.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/cards/ShieldCard.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <Group fx:id="ÉphèseProgressTokens" layoutX="1031.0" layoutY="732.0">
+      <Group fx:id="EpheseProgressTokens" layoutX="1031.0" layoutY="732.0">
         <children>
-          <ImageView fx:id="ÉphèseProgressTokens1" fitHeight="50.0" fitWidth="46.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseProgressTokens1" fitHeight="50.0" fitWidth="46.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/progressTokens/Architecture.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseProgressTokens2" fitHeight="50.0" fitWidth="46.0" layoutX="52.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseProgressTokens2" fitHeight="50.0" fitWidth="46.0" layoutX="52.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/progressTokens/Artisanat.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <Group fx:id="ÉphèseWarTokens" layoutX="1034.0" layoutY="786.0">
+      <Group fx:id="EpheseWarTokens" layoutX="1034.0" layoutY="786.0">
         <children>
-          <ImageView fx:id="ÉphèseWarTokens1" fitHeight="42.0" fitWidth="41.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWarTokens1" fitHeight="42.0" fitWidth="41.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/tokens/WarToken.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="ÉphèseWarTokens2" fitHeight="42.0" fitWidth="41.0" layoutX="52.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="EpheseWarTokens2" fitHeight="42.0" fitWidth="41.0" layoutX="52.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/tokens/WarToken.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="ÉphèseCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="946.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="epheseCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="946.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
         <image>
-          <Image url="@../game/cards/Back/ÉphèseCard.png" />
+          <Image url="@../game/cards/Back/EpheseCard.png" />
         </image>
       </ImageView>
-      <ImageView fx:id="ÉphèseCat" fitHeight="84.0" fitWidth="40.0" layoutX="780.0" layoutY="744.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="EpheseCat" fitHeight="84.0" fitWidth="40.0" layoutX="780.0" layoutY="744.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/tokens/Cat.png" />
         </image>
@@ -406,7 +409,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="GizehCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="943.0" layoutY="733.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="gizehCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="943.0" layoutY="733.0" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/GizehCard.png" />
         </image>
@@ -519,7 +522,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="HalicarnasseCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="935.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="halicarnasseCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="935.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/HalicarnasseCard.png" />
         </image>
@@ -632,7 +635,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="OlympieCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="950.0" layoutY="732.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="olympieCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="950.0" layoutY="732.0" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/OlympieCard.png" />
         </image>
@@ -750,7 +753,7 @@
           <Image url="@../game/tokens/Cat.png" />
         </image>
       </ImageView>
-      <ImageView fx:id="RhodesCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="947.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rhodesCardsStack" fitHeight="100.0" fitWidth="73.0" layoutX="947.0" layoutY="734.0" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/RhodesCard.png" />
         </image>
@@ -759,11 +762,11 @@
   </Group>
   <Group fx:id="loadingGroup" visible="false">
     <Rectangle fx:id="whiteForeground" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="1003.0" width="1753.0" />
-    <MediaView fx:id="loadingAnimationFrame" fitHeight="640.0" fitWidth="640.0" layoutX="550.0" layoutY="100.0" />
     <Label fx:id="startingTest" alignment="CENTER" contentDisplay="CENTER" layoutX="550.0" layoutY="800.0" prefHeight="45.0" prefWidth="640.0" text="Building the game board..." textAlignment="CENTER" wrapText="true">
       <font>
         <Font name="JetBrains Mono Medium" size="30.0" />
       </font>
     </Label>
+    <MediaView fx:id="loadingAnimationFrame" fitHeight="640.0" fitWidth="640.0" layoutX="550.0" layoutY="100.0" />
   </Group>
 </AnchorPane>

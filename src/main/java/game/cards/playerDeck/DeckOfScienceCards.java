@@ -23,11 +23,11 @@ public class DeckOfScienceCards {
     
     void addCard(ScienceCard cardToAdd) {
         scienceCardsSet.add(cardToAdd);
-        (switch (cardToAdd.GetCardName()) {
+        (switch (cardToAdd.getCardName()) {
             case "Compas" -> compasCardsSet;
             case "Gear" -> gearCardsSet;
             case "Tablet" -> tabletCardsSet;
-            default -> throw new IllegalArgumentException("Error in ScienceCard.addCard : " + cardToAdd.GetCardName() + " is not a valid card");
+            default -> throw new IllegalArgumentException("Error in ScienceCard.addCard : " + cardToAdd.getCardName() + " is not a valid card");
         }).add(cardToAdd);
         combinationExist = checkForCombinations();
     }

@@ -38,7 +38,7 @@ public class GizehTests {
     public void CardsStackTest() {
         int numberOfResourceCard = 0, numberOfScienceCard = 0, numberOfVictoryCards = 0, numberOfShieldsCard = 0;
         for (Card card : gizeh.cardsStack) {
-            switch (card.GetCardCategory()) {
+            switch (card.getCardCategory()) {
                 case "resources" -> numberOfResourceCard++;
                 case "science" -> numberOfScienceCard++;
                 case "victory" -> numberOfVictoryCards++;

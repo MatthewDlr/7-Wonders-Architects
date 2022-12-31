@@ -11,15 +11,15 @@ public abstract class Wonders {
     ArrayList<WonderFloor> listOfFloors = new ArrayList<>();
     int numberOfFloorsBuilt, victoryPoints, floor2 = 1, floor3 = 2, floor4 = 3, floor5 = 4;
     ArrayList<Card> cardsStack;
-    private final String BackCardPath;
-    private final String WonderDeckPath;
+    private final String backCardPath;
+    private final String wonderDeckPath;
     
     
     public Wonders(String wonderName, String wonderDescription, int[] victoryPointsPerFloor, boolean[] floorThatHasEffect, int[] cardsStackRepartition) {
         this.wonderName = wonderName;
         this.wonderDescription = wonderDescription;
-        BackCardPath = findCardPath();
-        WonderDeckPath = findDeckPath();
+        backCardPath = findCardPath();
+        wonderDeckPath = findDeckPath();
         for (int i = 0; i < 5; i++) {
             WonderFloor floor = new WonderFloor(wonderName, i + 1, victoryPointsPerFloor[i], floorThatHasEffect[i]);
             listOfFloors.add(floor);
@@ -41,11 +41,11 @@ public abstract class Wonders {
     }
     
     public String getBackCardPath() {
-        return BackCardPath;
+        return backCardPath;
     }
     
     public String getWonderDeckPath() {
-        return WonderDeckPath;
+        return wonderDeckPath;
     }
     
     public boolean floorHasSpecialEffect(int floorNumber) {
@@ -94,6 +94,10 @@ public abstract class Wonders {
     
     public Card getStackTopCard() {
         return cardsStack.remove(0);
+    }
+    
+    public String getStackTopCardPath() {
+        return cardsStack.get(0).getCardPath();
     }
     
     public void setFloorAsBuilt(int floorNumber) {
