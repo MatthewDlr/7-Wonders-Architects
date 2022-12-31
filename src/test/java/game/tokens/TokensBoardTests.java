@@ -13,39 +13,39 @@ public class TokensBoardTests {
     @Test
     public void TestTokensBoardInitialization() {
         TokensBoard tokensBoard = new TokensBoard(3);
-        assertEquals(3, tokensBoard.conflictTokenSet.GetNumberOfConflictTokens());
-        assertFalse(tokensBoard.conflictTokenSet.IsTimeForWar());
-        assertEquals(0, tokensBoard.conflictTokenSet.GetNumberOfConflictTokensSetToWarFace());
+        assertEquals(3, tokensBoard.conflictTokenSet.getNumberOfConflictTokens());
+        assertFalse(tokensBoard.conflictTokenSet.isTimeForWar());
+        assertEquals(0, tokensBoard.conflictTokenSet.getNumberOfConflictTokensSetToWarFace());
         assertEquals(15, tokensBoard.progressTokenStack.GetNumberOfProgressTokensLeft());
     }
     
     @Test
     public void TestNumberOfConflictTokenFunction() {
         TokensBoard tokensBoard = new TokensBoard(2);
-        assertEquals(3, tokensBoard.conflictTokenSet.GetNumberOfConflictTokens());
+        assertEquals(3, tokensBoard.conflictTokenSet.getNumberOfConflictTokens());
         TokensBoard tokensBoard2 = new TokensBoard(5);
-        assertEquals(5, tokensBoard2.conflictTokenSet.GetNumberOfConflictTokens());
+        assertEquals(5, tokensBoard2.conflictTokenSet.getNumberOfConflictTokens());
         TokensBoard tokensBoard3 = new TokensBoard(7);
-        assertEquals(6, tokensBoard3.conflictTokenSet.GetNumberOfConflictTokens());
+        assertEquals(6, tokensBoard3.conflictTokenSet.getNumberOfConflictTokens());
     }
     
     @Test
     public void TestConflictTokenWar() {
         TokensBoard tokensBoard = new TokensBoard(4);
         
-        tokensBoard.conflictTokenSet.AddConflictTokenToWarFace();
-        assertEquals(1, tokensBoard.conflictTokenSet.GetNumberOfConflictTokensSetToWarFace());
+        tokensBoard.conflictTokenSet.addConflictTokenToWarFace();
+        assertEquals(1, tokensBoard.conflictTokenSet.getNumberOfConflictTokensSetToWarFace());
         
-        tokensBoard.conflictTokenSet.AddConflictTokenToWarFace();
-        tokensBoard.conflictTokenSet.AddConflictTokenToWarFace();
-        tokensBoard.conflictTokenSet.AddConflictTokenToWarFace();
-        tokensBoard.conflictTokenSet.AddConflictTokenToWarFace();
-        assertEquals(4, tokensBoard.conflictTokenSet.GetNumberOfConflictTokensSetToWarFace());
+        tokensBoard.conflictTokenSet.addConflictTokenToWarFace();
+        tokensBoard.conflictTokenSet.addConflictTokenToWarFace();
+        tokensBoard.conflictTokenSet.addConflictTokenToWarFace();
+        tokensBoard.conflictTokenSet.addConflictTokenToWarFace();
+        assertEquals(4, tokensBoard.conflictTokenSet.getNumberOfConflictTokensSetToWarFace());
         
-        assertTrue(tokensBoard.conflictTokenSet.IsTimeForWar());
-        tokensBoard.conflictTokenSet.SetConflictTokensToPeace();
-        assertFalse(tokensBoard.conflictTokenSet.IsTimeForWar());
-        assertEquals(0, tokensBoard.conflictTokenSet.GetNumberOfConflictTokensSetToWarFace());
+        assertTrue(tokensBoard.conflictTokenSet.isTimeForWar());
+        tokensBoard.conflictTokenSet.setConflictTokensToPeace();
+        assertFalse(tokensBoard.conflictTokenSet.isTimeForWar());
+        assertEquals(0, tokensBoard.conflictTokenSet.getNumberOfConflictTokensSetToWarFace());
     }
     
     @Test

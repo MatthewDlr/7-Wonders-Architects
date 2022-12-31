@@ -11,11 +11,11 @@ public class DeckOfProgressTokens {
         progressTokensSet = new ArrayList<>();
     }
     
-    public void AddProgressToken(ProgressToken progressToken) {
+    public void addProgressToken(ProgressToken progressToken) {
         progressTokensSet.add(progressToken);
     }
     
-    public void RemoveProgressToken(ProgressToken progressToken) {
+    public void removeProgressToken(ProgressToken progressToken) {
         progressTokensSet.remove(progressToken);
     }
     

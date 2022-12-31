@@ -9,60 +9,61 @@ public class DeckOfScienceCards {
     private final ArrayList<ScienceCard> compasCardsSet;
     private final ArrayList<ScienceCard> gearCardsSet;
     private final ArrayList<ScienceCard> tabletCardsSet;
+    private boolean combinationExist;
+    private PlayerDeck playerDeck;
     
-    private boolean CombinationExist;
-    
-    public DeckOfScienceCards() {
+    public DeckOfScienceCards(PlayerDeck playerDeck) {
         scienceCardsSet = new ArrayList<>();
         compasCardsSet = new ArrayList<>();
         gearCardsSet = new ArrayList<>();
         tabletCardsSet = new ArrayList<>();
-        CombinationExist = false;
+        combinationExist = false;
+        this.playerDeck = playerDeck;
     }
     
-    void AddCard(ScienceCard cardToAdd) {
+    void addCard(ScienceCard cardToAdd) {
         scienceCardsSet.add(cardToAdd);
-        switch (cardToAdd.GetCardName()) {
-            case "Compas" -> compasCardsSet.add(cardToAdd);
-            case "Gear" -> gearCardsSet.add(cardToAdd);
-            case "Tablet" -> tabletCardsSet.add(cardToAdd);
-            default -> throw new IllegalArgumentException("Unrecognized Science Card Symbol in DeckOfScienceCards.AddCard");
-        }
-        CombinationExist = CheckForCombinations();
+        (switch (cardToAdd.GetCardName()) {
+            case "Compas" -> compasCardsSet;
+            case "Gear" -> gearCardsSet;
+            case "Tablet" -> tabletCardsSet;
+            default -> throw new IllegalArgumentException("Error in ScienceCard.addCard : " + cardToAdd.GetCardName() + " is not a valid card");
+        }).add(cardToAdd);
+        combinationExist = checkForCombinations();
     }
     
-    int GetNumberOfScienceCards() {
+    int getNumberOfScienceCards() {
         return scienceCardsSet.size();
     }
     
-    public boolean GetIfCombinationExist() {
-        return CombinationExist;
+    public boolean doesCombinationExist() {
+        return combinationExist;
     }
     
-    boolean CheckForCombinations() {
+    private boolean checkForCombinations() {
         
         if (scienceCardsSet.size() < 2) {
             return false;
         }
         if (compasCardsSet.size() == 2) {
-            RemoveFromSet(compasCardsSet);
+            removeFromSet(compasCardsSet);
             compasCardsSet.clear();
             return true;
         }
         if (gearCardsSet.size() == 2) {
-            RemoveFromSet(gearCardsSet);
+            removeFromSet(gearCardsSet);
             gearCardsSet.clear();
             return true;
         }
         if (tabletCardsSet.size() == 2) {
-            RemoveFromSet(tabletCardsSet);
+            removeFromSet(tabletCardsSet);
             tabletCardsSet.clear();
             return true;
         }
         if ((compasCardsSet.size() == 1) && (gearCardsSet.size() == 1) && (tabletCardsSet.size() == 1)) {
-            RemoveFromSet(compasCardsSet);
-            RemoveFromSet(gearCardsSet);
-            RemoveFromSet(tabletCardsSet);
+            removeFromSet(compasCardsSet);
+            removeFromSet(gearCardsSet);
+            removeFromSet(tabletCardsSet);
             compasCardsSet.clear();
             gearCardsSet.clear();
             tabletCardsSet.clear();
@@ -74,7 +75,7 @@ public class DeckOfScienceCards {
         return false;
     }
     
-    private void RemoveFromSet(ArrayList<ScienceCard> setToRemoveFrom) {
+    private void removeFromSet(Iterable<ScienceCard> setToRemoveFrom) {
         for (ScienceCard cardToRemove : setToRemoveFrom) {
             scienceCardsSet.remove(cardToRemove);
         }

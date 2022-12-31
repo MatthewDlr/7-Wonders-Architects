@@ -60,26 +60,27 @@ public class SinglePlayerSetupController {
     protected void startButtonClicked() {
         if (isStartButtonAvailable) {
             
-            FirstViewController.stopAllMedia();
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(1500), whiteForeground);
             fadeTransition.setFromValue(0);
             fadeTransition.setToValue(1);
             fadeTransition.setInterpolator(Interpolator.EASE_BOTH);
+            fadeTransition.play();
             
             gameStartSoundEffect.stop();
             gameStartSoundEffect.seek(Duration.ZERO);
             gameStartSoundEffect.play();
             
-            fadeTransition.play();
+            Stage stage = (Stage) startButtonAvailable.getScene().getWindow();
+            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+            System.out.println("Width: " + screenBounds.getWidth() + " Height: " + screenBounds.getHeight());
+            
             fadeTransition.setOnFinished(event -> {
-                Stage stage = (Stage) startButtonAvailable.getScene().getWindow();
-                Rectangle2D screenBounds = Screen.getPrimary().getBounds();
                 stage.setWidth(screenBounds.getWidth());
                 stage.setHeight(screenBounds.getHeight());
-                System.out.println("Width: " + screenBounds.getWidth() + " Height: " + screenBounds.getHeight());
-                stage.setMaximized(true);
                 stage.setResizable(true);
+                stage.setMaximized(true);
                 
+                FirstViewController.stopAllMedia();
                 try {
                     switchController();
                 } catch (IOException e) {
@@ -92,13 +93,10 @@ public class SinglePlayerSetupController {
     private void switchController() throws IOException {
         FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/controller/GameView.fxml"))); // @Copilot
         Parent gameView = loader.load();
-        Scene scene = startButtonAvailable.getScene();
-        scene.setRoot(gameView);
         GameController gameController = loader.getController(); // @OpenAI
         gameController.initialize(numberOfHumansPlayer, numberOfIAPlayer);
-        
-        
-        
+        Scene scene = startButtonAvailable.getScene();
+        scene.setRoot(gameView);
     }
     
     @FXML

@@ -16,14 +16,13 @@ import java.util.ArrayList;
 
 public class Game {
     
-    private final ArrayList<Player> listOfPlayers;
+    private final ArrayList<Player> listOfPlayers; //TODO : is it necessary to have these attributes in final?
     private final GameBoard gameBoard;
     private ArrayList<Integer> listOfTakenWonders;
     
     public Game(int numberOfHumanPlayers, int numberOfAIPlayers) {
         listOfPlayers = new ArrayList<>();
         listOfTakenWonders = new ArrayList<>();
-        
         createPlayersInstance(numberOfHumanPlayers, numberOfAIPlayers);
         gameBoard = new GameBoard(listOfPlayers);
         
@@ -33,23 +32,22 @@ public class Game {
     
     private void createPlayersInstance(int numberOfHumanPlayers, int numberOfAIPlayers) {
         for (int i = 0; i < numberOfHumanPlayers; i++) {
-            Player newPlayer = new HumanPlayer(getRandomWonders());
+            Player newPlayer = new HumanPlayer(getARandomWonder());
             listOfPlayers.add(newPlayer);
         }
         for (int i = 0; i < numberOfAIPlayers; i++) {
-            Player newPlayer = new AIPlayer(getRandomWonders());
+            Player newPlayer = new AIPlayer(getARandomWonder());
             listOfPlayers.add(newPlayer);
         }
     }
     
-    private Wonders getRandomWonders() {
+    private Wonders getARandomWonder() {
         
         int randomIndex;
         do {
             randomIndex = (int) (Math.random() * 7);
             if (listOfTakenWonders.size() > 7) {
-                throw new RuntimeException(
-                        "Error in GetRandomWonders() method : wonders number should never exceed 7");
+                throw new RuntimeException("Error in GetARandomWonder() method : wonders number should never exceed 7");
             }
         } while (listOfTakenWonders.contains(randomIndex));
         
@@ -62,8 +60,7 @@ public class Game {
             case 4 -> new Halicarnasse();
             case 5 -> new Olympie();
             case 6 -> new Rhodes();
-            default -> throw new IllegalStateException(
-                    "Error in GetRandomWonders() method : randomIndex is not between 0 and 7");
+            default -> throw new IllegalStateException("Error in GetARandomWonder() method : randomIndex is not between 0 and 7");
         };
     }
     
@@ -75,5 +72,7 @@ public class Game {
         return listOfPlayers;
     }
     
-    
+    public void launchGame() {
+        gameBoard.initializeUI();
+    }
 }

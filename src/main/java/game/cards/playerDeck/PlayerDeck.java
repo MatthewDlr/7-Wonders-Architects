@@ -1,5 +1,6 @@
 package game.cards.playerDeck;
 
+import game.board.GameBoard;
 import game.board.PlayerQueue;
 import game.cards.Card;
 import game.cards.resources.ResourcesCard;
@@ -10,61 +11,65 @@ import game.player.Player;
 
 public class PlayerDeck {
     
-    private final String catPath;
     DeckOfResourcesCards deckOfResourcesCards;
     DeckOfScienceCards deckOfScienceCards;
     DeckOfVictoryPointsCards deckOfVictoryPointsCards;
     DeckOfShieldsCards deckOfShieldsCards;
     private boolean hasTheCat;
+    private GameBoard gameBoard;
     
     public PlayerDeck() {
-        deckOfResourcesCards = new DeckOfResourcesCards();
-        deckOfScienceCards = new DeckOfScienceCards();
-        deckOfVictoryPointsCards = new DeckOfVictoryPointsCards();
-        deckOfShieldsCards = new DeckOfShieldsCards();
-        catPath = "src/main/resources/game/tokens/Cat.png";
+        deckOfResourcesCards = new DeckOfResourcesCards(this);
+        deckOfScienceCards = new DeckOfScienceCards(this);
+        deckOfVictoryPointsCards = new DeckOfVictoryPointsCards(this);
+        deckOfShieldsCards = new DeckOfShieldsCards(this);
         hasTheCat = false;
     }
     
-    public void AddCard(Card cardToAdd) {
+    public void addCard(Card cardToAdd) {
         if (cardToAdd instanceof ResourcesCard) {
-            deckOfResourcesCards.AddCard((ResourcesCard) cardToAdd);
+            deckOfResourcesCards.addCard((ResourcesCard) cardToAdd);
             return;
         }
         if (cardToAdd instanceof ScienceCard) {
-            deckOfScienceCards.AddCard((ScienceCard) cardToAdd);
+            deckOfScienceCards.addCard((ScienceCard) cardToAdd);
             return;
         }
         if (cardToAdd instanceof VictoryPointsCard) {
-            deckOfVictoryPointsCards.AddCard((VictoryPointsCard) cardToAdd);
+            deckOfVictoryPointsCards.addCard((VictoryPointsCard) cardToAdd);
             return;
         }
         if (cardToAdd instanceof ShieldsCard) {
-            deckOfShieldsCards.AddCard((ShieldsCard) cardToAdd);
+            deckOfShieldsCards.addCard((ShieldsCard) cardToAdd);
             return;
         }
         throw new IllegalArgumentException("Error in PlayerDeck.AddCard: cardToAdd is not a valid card");
     }
     
-    public String GetCatPath() {
-        return catPath;
-    }
-    
-    public void GotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+    public void gotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+        
         Class<PlayerQueue> playerQueueClass = (Class<PlayerQueue>) Class.forName("game.board.PlayerQueue");
         Iterable<Player> playersQueue = (Iterable<Player>) playerQueueClass.getField("playersQueue").get(null);
         for (Player player : playersQueue) {
-            player.RemoveTheCat();
+            player.removeTheCat();
         }
         hasTheCat = true;
     }
     
-    public boolean HasTheCat() {
+    public boolean hasTheCat() {
         return hasTheCat;
     }
     
-    public void RemoveTheCat() {
+    public void removeTheCat() {
         hasTheCat = false;
+    }
+    
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+    
+    GameBoard getGameBoard() {
+        return gameBoard;
     }
     
     

@@ -8,24 +8,27 @@ import java.util.ArrayList;
 public class DeckOfShieldsCards {
     
     private final ArrayList<ShieldsCard> shieldsCardsSet;
+    private PlayerDeck playerDeck;
     
-    public DeckOfShieldsCards() {
+    public DeckOfShieldsCards(PlayerDeck playerDeck) {
         shieldsCardsSet = new ArrayList<>();
+        this.playerDeck = playerDeck;
     }
     
-    void AddCard(ShieldsCard cardToAdd) {
+    void addCard(ShieldsCard cardToAdd) {
         shieldsCardsSet.add(cardToAdd);
         if (cardToAdd instanceof ShieldCard1Trumpet) {
-            //TODO TokensBoard.AddConflictTokenToWarFace();
+            playerDeck.getGameBoard().addConflictTokenToWarFace();
             return;
         }
         if (cardToAdd instanceof ShieldCard2Trumpets) {
-            //TODO TokensBoard.AddConflictTokenToWarFace();
+            playerDeck.getGameBoard().addConflictTokenToWarFace();
+            playerDeck.getGameBoard().addConflictTokenToWarFace();
         }
     }
     
-    public int GetNumberOfShields() {
+    public int getNumberOfShields() {
         return shieldsCardsSet.size();
     }
-    
+
 }

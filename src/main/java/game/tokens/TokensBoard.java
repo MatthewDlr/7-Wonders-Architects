@@ -4,16 +4,16 @@ import game.tokens.conflict.ConflictTokenSet;
 import game.tokens.progress.ProgressTokenStack;
 
 public class TokensBoard {
-    
-    ConflictTokenSet conflictTokenSet;
+
+    ConflictTokenSet conflictTokenSet; // TODO : figure out how to make these variables private (and can still be accessed by tests classes)
     ProgressTokenStack progressTokenStack;
-    
+
     public TokensBoard(int numberOfPlayers) {
-        conflictTokenSet = new ConflictTokenSet(DetermineNumberOfWarTokens(numberOfPlayers));
+        conflictTokenSet = new ConflictTokenSet(determineNumberOfWarTokens(numberOfPlayers));
         progressTokenStack = new ProgressTokenStack();
     }
-    
-    private int DetermineNumberOfWarTokens(int numberOfPlayers) {
+
+    private int determineNumberOfWarTokens(int numberOfPlayers) {
         if (numberOfPlayers <= 3) {
             return 3;
         }
@@ -22,5 +22,9 @@ public class TokensBoard {
         }
         return 6;
     }
-    
+
+    public void addConflictTokenToWarFace() {
+        conflictTokenSet.addConflictTokenToWarFace();
+    }
+
 }

@@ -8,13 +8,15 @@ public class DeckOfVictoryPointsCards {
     
     private final ArrayList<VictoryPointsCard> victoryPointsCardsSet;
     private int numberOfVictoryPoints;
+    PlayerDeck playerDeck;
     
-    public DeckOfVictoryPointsCards() {
+    public DeckOfVictoryPointsCards(PlayerDeck playerDeck) {
         victoryPointsCardsSet = new ArrayList<>();
         numberOfVictoryPoints = 0;
+        this.playerDeck = playerDeck;
     }
     
-    void AddCard(VictoryPointsCard cardToAdd) {
+    void addCard(VictoryPointsCard cardToAdd) {
         victoryPointsCardsSet.add(cardToAdd);
         numberOfVictoryPoints += cardToAdd.GetNumberOfVictoryPoints();
         if (cardToAdd instanceof VictoryPointCardWithCat) {
@@ -22,7 +24,7 @@ public class DeckOfVictoryPointsCards {
         }
     }
     
-    public int GetNumberOfVictoryPoints() {
+    public int getNumberOfVictoryPoints() {
         return numberOfVictoryPoints;
     }
 }

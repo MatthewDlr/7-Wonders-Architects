@@ -3,20 +3,20 @@ package game.tokens.conflict;
 import java.util.ArrayList;
 
 public class ConflictTokenSet {
-    
+
     private final ArrayList<ConflictToken> listOfConflictTokens;
     private final int numberOfConflictTokens;
-    
+
     public ConflictTokenSet(int numberOfConflictTokens) {
         listOfConflictTokens = new ArrayList<>();
         this.numberOfConflictTokens = numberOfConflictTokens;
-        
+
         for (int i = 0; i < numberOfConflictTokens; i++) {
             listOfConflictTokens.add(new ConflictToken());
         }
     }
-    
-    public void AddConflictTokenToWarFace() {
+
+    public void addConflictTokenToWarFace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
             if (!conflictToken.IsFaceToWar()) {
                 conflictToken.SetFaceToWar();
@@ -24,10 +24,10 @@ public class ConflictTokenSet {
             }
         }
     }
-    
-    public boolean IsTimeForWar() {
+
+    public boolean isTimeForWar() {
         int numberOfWarTokensSetToWarFace = 0;
-        
+
         for (ConflictToken conflictToken : listOfConflictTokens) {
             if (conflictToken.IsFaceToWar()) {
                 numberOfWarTokensSetToWarFace++;
@@ -37,18 +37,18 @@ public class ConflictTokenSet {
         //TODO : do the war for the players
         //TODO : remove player's shields cards with trumpets
     }
-    
-    public void SetConflictTokensToPeace() {
+
+    public void setConflictTokensToPeace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
             conflictToken.SetFaceToPeace();
         }
     }
-    
-    public int GetNumberOfConflictTokens() {
+
+    public int getNumberOfConflictTokens() {
         return numberOfConflictTokens;
     }
-    
-    public int GetNumberOfConflictTokensSetToWarFace() {
+
+    public int getNumberOfConflictTokensSetToWarFace() {
         int numberOfWarTokensSetToWarFace = 0;
         for (ConflictToken conflictToken : listOfConflictTokens) {
             if (conflictToken.IsFaceToWar()) {

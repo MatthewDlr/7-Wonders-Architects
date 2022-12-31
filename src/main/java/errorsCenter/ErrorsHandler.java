@@ -18,7 +18,7 @@ public abstract class ErrorsHandler {
         }
         
         mediaPlayer.setOnError(() -> {
-            System.out.println("Video Error in " + path + " : Rebooting Video...");
+            System.out.println("Video Error avoided : " + path );
             
             File file = new File(path);
             Media media = new Media(file.toURI().toString());

@@ -1,5 +1,6 @@
 package game.player;
 
+import game.board.GameBoard;
 import game.cards.playerDeck.DeckOfProgressTokens;
 import game.cards.playerDeck.PlayerDeck;
 import game.tokens.conflict.DeckOfWarToken;
@@ -11,6 +12,7 @@ public abstract class Player {
     PlayerDeck playerDeck;
     DeckOfProgressTokens deckOfProgressTokens;
     DeckOfWarToken deckOfWarToken;
+    private GameBoard gameBoard;
     
     public Player(Wonders playerWonder) {
         wonders = playerWonder;
@@ -19,19 +21,28 @@ public abstract class Player {
         deckOfWarToken = new DeckOfWarToken();
     }
     
-    public boolean HasTheCat() {
-        return playerDeck.HasTheCat();
+    public boolean hasTheCat() {
+        return playerDeck.hasTheCat();
     }
     
-    public void RemoveTheCat() {
-        playerDeck.RemoveTheCat();
+    public void removeTheCat() {
+        playerDeck.removeTheCat();
     }
     
-    public void GotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
-        playerDeck.GotTheCat();
+    public void gotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
+        playerDeck.gotTheCat();
     }
     
     public String getWonderName() {
         return wonders.getName();
+    }
+    
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+        playerDeck.setGameBoard(gameBoard);
+    }
+    
+    public PlayerDeck getPlayerDeck() {
+        return playerDeck;
     }
 }

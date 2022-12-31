@@ -2,34 +2,37 @@ package game.cards.playerDeck;
 
 import game.cards.resources.ResourcesCard;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DeckOfResourcesCards {
     
     private final ArrayList<ResourcesCard> resourcesCardsSet;
+    private PlayerDeck playerDeck;
     
-    public DeckOfResourcesCards() {
+    public DeckOfResourcesCards(PlayerDeck playerDeck) {
         resourcesCardsSet = new ArrayList<>();
+        this.playerDeck = playerDeck;
     }
     
-    void AddCard(ResourcesCard cardToAdd) {
+    void addCard(ResourcesCard cardToAdd) {
         resourcesCardsSet.add(cardToAdd);
     }
     
-    boolean IsResourcesCardsSetEmpty() {
+    boolean isResourcesCardsSetEmpty() {
         return resourcesCardsSet.isEmpty();
     }
     
-    ResourcesCard GetCardFromResourcesCardsSet(int index) {
+    ResourcesCard getCardFromResourcesCardsSet(int index) {
         return resourcesCardsSet.get(index);
     }
     
-    public ArrayList<String> GetListOfResourcesCombinations() {
+    public ArrayList<String> getListOfResourcesCombinations() {
         
         ArrayList<String> listOfResourcesCombinations = new ArrayList<>();
-        int[] numberOfEachResource = CountNumberOfEachResources();
+        int[] numberOfEachResource = countNumberOfEachResources();
         int numberOfResourcesCards = resourcesCardsSet.size();
-        int numberOfDifferentResources = GetNumberOfDifferentResources(numberOfEachResource);
-        int maxNumberOfSameResources = GetMaxNumberOfTheSameResources(numberOfEachResource);
+        int numberOfDifferentResources = getNumberOfDifferentResources(numberOfEachResource);
+        int maxNumberOfSameResources = getMaxNumberOfTheSameResources(numberOfEachResource);
         
         for (int i = 2; i <= numberOfResourcesCards; i++) {
             
@@ -43,24 +46,24 @@ public class DeckOfResourcesCards {
         return listOfResourcesCombinations;
     }
     
-    int[] CountNumberOfEachResources() {
+    int[] countNumberOfEachResources() {
         int[] numberOfEachRessource = new int[6];
         
         for (ResourcesCard resourcesCard : resourcesCardsSet) {
-            switch (resourcesCard.GetCardName()) {
-                case "Coins" -> numberOfEachRessource[0]++;
-                case "Stone" -> numberOfEachRessource[1]++;
-                case "Brick" -> numberOfEachRessource[2]++;
-                case "Wood" -> numberOfEachRessource[3]++;
-                case "Experience" -> numberOfEachRessource[4]++;
-                case "Paper" -> numberOfEachRessource[5]++;
+            numberOfEachRessource[switch (resourcesCard.GetCardName()) {
+                case "Coins" -> 0;
+                case "Stone" -> 1;
+                case "Brick" -> 2;
+                case "Wood" -> 3;
+                case "Experience" -> 4;
+                case "Paper" -> 5;
                 default -> throw new IllegalArgumentException("Unrecognized resource type in DeckOfResourcesCards.resourcesCardsSet ");
-            }
+            }]++;
         }
         return numberOfEachRessource;
     }
     
-    int GetNumberOfDifferentResources(int[] numberOfEachRessource) {
+    int getNumberOfDifferentResources(int[] numberOfEachRessource) {
         int numberOfDifferentResources = 0;
         for (int j : numberOfEachRessource) {
             if (j > 0) {
@@ -70,7 +73,7 @@ public class DeckOfResourcesCards {
         return numberOfDifferentResources;
     }
     
-    int GetMaxNumberOfTheSameResources(int[] numberOfEachRessource) {
+    int getMaxNumberOfTheSameResources(int[] numberOfEachRessource) {
         int maxNumberOfTheSameResources = 0;
         int numberOfCoins = numberOfEachRessource[0];
         
@@ -82,66 +85,68 @@ public class DeckOfResourcesCards {
         return Math.max(numberOfCoins, maxNumberOfTheSameResources + numberOfCoins);
     }
     
-    public void RemoveCardsFromDeckWithCombination(String combination) {
+    public void removeCardsFromDeckWithCombination(String combination) {
         int numberOfCardsToRemove = Integer.parseInt(combination.substring(0, 1));
         String combinationType = combination.substring(1);
         
         if (combinationType.equals("≠")) {
-            RemoveCardsOfDifferentResources(numberOfCardsToRemove);
+            removeCardsOfDifferentResources(numberOfCardsToRemove);
         }
         if (combinationType.equals("=")) {
-            RemoveCardsOfSameResources(numberOfCardsToRemove);
+            removeCardsOfSameResources(numberOfCardsToRemove);
         }
     }
     
-    void RemoveCardsOfDifferentResources(int numberOfCardsToRemove) {
-        ArrayList<String> listOfRemovedCards = new ArrayList<>();
+    void removeCardsOfDifferentResources(int numberOfCardsToRemove) {
+        int cardsToRemove = numberOfCardsToRemove;
+        Collection<String> listOfRemovedCards = new ArrayList<>();
         
-        while (numberOfCardsToRemove > 0) {
+        while (cardsToRemove > 0) {
             for (ResourcesCard resourcesCard : resourcesCardsSet) {
                 if (!listOfRemovedCards.contains(resourcesCard.GetCardName()) || resourcesCard.GetCardName().equals("Coins")) {
                     resourcesCardsSet.remove(resourcesCard);
                     listOfRemovedCards.add(resourcesCard.GetCardName());
-                    numberOfCardsToRemove--;
+                    cardsToRemove--;
                     break;
                 }
             }
-            if (IsResourcesCardsSetEmpty() && (numberOfCardsToRemove > 0)) {
+            if (isResourcesCardsSetEmpty() && (cardsToRemove > 0)) {
                 throw new IllegalArgumentException("Not enough cards to remove in DeckOfResourcesCards.RemoveCardsOfDifferentResources");
             }
         }
     }
     
-    void RemoveCardsOfSameResources(int numberOfCardsToRemove) {
-        int[] numberOfEachResource = CountNumberOfEachResources();
+    void removeCardsOfSameResources(int numberOfCardsToRemove) {
+        int cardsToRemove = numberOfCardsToRemove;
+        int[] numberOfEachResource = countNumberOfEachResources();
         int numberOfGoldCoins = numberOfEachResource[0];
         
         for (int i = 1; i < numberOfEachResource.length; i++) {
-            if ((numberOfEachResource[i] + numberOfGoldCoins) >= numberOfCardsToRemove) {
+            if ((numberOfEachResource[i] + numberOfGoldCoins) >= cardsToRemove) {
                 String resourceTypeToRemove;
-                switch (i) {
-                    case 1 -> resourceTypeToRemove = "Stone";
-                    case 2 -> resourceTypeToRemove = "Brick";
-                    case 3 -> resourceTypeToRemove = "Wood";
-                    case 4 -> resourceTypeToRemove = "Experience";
-                    case 5 -> resourceTypeToRemove = "Paper";
+                resourceTypeToRemove = switch (i) {
+                    case 1 -> "Stone";
+                    case 2 -> "Brick";
+                    case 3 -> "Wood";
+                    case 4 -> "Experience";
+                    case 5 -> "Paper";
                     default -> throw new IllegalArgumentException(
                             "Unable to retrieve back the resource name from the index in DeckOfResourcesCards.RemoveCardsOfSameResources");
-                }
+                };
                 
-                ArrayList<ResourcesCard> resourcesCardsCopy = (ArrayList<ResourcesCard>) resourcesCardsSet.clone();
+                Iterable<ResourcesCard> resourcesCardsCopy = (ArrayList<ResourcesCard>) resourcesCardsSet.clone();
                 for (ResourcesCard resourcesCard : resourcesCardsCopy) {
                     if (resourcesCard.GetCardName().equals(resourceTypeToRemove) || resourcesCard.GetCardName().equals("Coins")) {
                         resourcesCardsSet.remove(resourcesCard);
-                        numberOfCardsToRemove--;
-                        if (numberOfCardsToRemove == 0) {
+                        cardsToRemove--;
+                        if (cardsToRemove == 0) {
                             return;
                         }
                     }
                 }
             }
         }
-        if (numberOfCardsToRemove > 0) {
+        if (cardsToRemove > 0) {
             throw new IllegalArgumentException("Not enough cards to remove in DeckOfResourcesCards.RemoveCardsOfSameResources");
         }
     }

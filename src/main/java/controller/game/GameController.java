@@ -3,7 +3,7 @@ package controller.game;
 import errorsCenter.DataChecking;
 import errorsCenter.ErrorsHandler;
 import game.Game;
-import game.board.GameConnect;
+import game.board.gameUIBridge;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -18,8 +18,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 
-public class GameController extends GameConnect {
-
+public class GameController extends gameUIBridge {
+    
     @FXML
     Group loadingGroup;
     @FXML
@@ -32,31 +32,31 @@ public class GameController extends GameConnect {
     @FXML
     Group alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh;
     ArrayList<Group> playedWonders = new ArrayList<>();
-
-
+    private Game game;
+    
+    
     public void initialize(int numberOfHumans, int numberOfAI) {
-
+        
         File loadingAnimationFile = new File("src/main/resources/videos/LoadingAnimation.mp4");
         DataChecking.checkIfFileIsCorrect(String.valueOf(loadingAnimationFile));
         Media loadingAnimationMedia = new Media(loadingAnimationFile.toURI().toString());
         this.loadingAnimationMedia = new MediaPlayer(loadingAnimationMedia);
         loadingAnimationFrame.setMediaPlayer(this.loadingAnimationMedia);
-
         showLoadingAnimation();
+        
         System.out.println("Number of Humans : " + numberOfHumans);
         System.out.println("Number of AI : " + numberOfAI);
-
+        
         int time1 = (int) System.nanoTime();
         setGameController(this);
-        Game game = new Game(numberOfHumans, numberOfAI);
-
+        game = new Game(numberOfHumans, numberOfAI);
+        game.launchGame();
+        
         System.out.println("Game Started");
         int time2 = (int) System.nanoTime();
         System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms");
-
     }
-
-
+    
     private void showLoadingAnimation() {
         loadingGroup.setVisible(true);
         loadingAnimationMedia.setAutoPlay(true);
@@ -65,35 +65,33 @@ public class GameController extends GameConnect {
         loadingAnimationMedia.setOnEndOfMedia(() -> {
             hideLoadingAnimation();
         });
-        ErrorsHandler.handleErrorsInVideo(loadingAnimationMedia,
-                "src/main/resources/videos/LoadingAnimation.mp4",
-                loadingAnimationFrame);
+        ErrorsHandler.handleErrorsInVideo(loadingAnimationMedia, "src/main/resources/videos/LoadingAnimation.mp4", loadingAnimationFrame);
     }
-
+    
     private void hideLoadingAnimation() {
         FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(550), whiteForeground);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
         fadeTransition.interpolatorProperty().set(Interpolator.EASE_BOTH);
-
+        
         FadeTransition fadeTransition2 = new FadeTransition(javafx.util.Duration.millis(500), startingTest);
         fadeTransition2.setFromValue(1);
         fadeTransition2.interpolatorProperty().set(Interpolator.EASE_BOTH);
-
+        
         FadeTransition fadeTransition3 = new FadeTransition(javafx.util.Duration.millis(300), loadingAnimationFrame);
         fadeTransition3.setFromValue(1);
         fadeTransition3.setToValue(0);
         fadeTransition3.interpolatorProperty().set(Interpolator.EASE_BOTH);
-
+        
         ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, fadeTransition2, fadeTransition3);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
             loadingGroup.setVisible(false);
         });
     }
-
+    
     public void showWonderElements(String wonderName) {
-
+        
         switch (wonderName) {
             case "Alexandrie" -> {
                 alexandrie.setOpacity(1);
@@ -126,8 +124,8 @@ public class GameController extends GameConnect {
             default -> throw new IllegalStateException("Error in UI setup : Unrecognized wonder (" + wonderName + ")");
         }
     }
-
-
+    
+    
     public Parent getGameView() {
         return loadingGroup;
     }
