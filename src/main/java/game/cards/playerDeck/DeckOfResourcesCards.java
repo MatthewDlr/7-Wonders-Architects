@@ -7,11 +7,11 @@ import java.util.Collection;
 public class DeckOfResourcesCards {
     
     private final ArrayList<ResourcesCard> resourcesCardsSet;
-    private PlayerDeck playerDeck;
+    private PlayerCardsDeck playerCardsDeck;
     
-    public DeckOfResourcesCards(PlayerDeck playerDeck) {
+    public DeckOfResourcesCards(PlayerCardsDeck playerCardsDeck) {
         resourcesCardsSet = new ArrayList<>();
-        this.playerDeck = playerDeck;
+        this.playerCardsDeck = playerCardsDeck;
     }
     
     void addCard(ResourcesCard cardToAdd) {

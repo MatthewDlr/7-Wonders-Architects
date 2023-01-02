@@ -10,11 +10,11 @@ public class ProgressTokenStack {
     public ProgressTokenStack() {
         deckOfProgressTokens = new ArrayList<>();
         
-        CreateInstanceOfAllTokens();
+        createInstanceOfAllTokens();
         Collections.shuffle(deckOfProgressTokens);
     }
     
-    private void CreateInstanceOfAllTokens() {
+    private void createInstanceOfAllTokens() {
         deckOfProgressTokens.add(new Architecture());
         deckOfProgressTokens.add(new Artisanat());
         deckOfProgressTokens.add(new Culture());
@@ -32,21 +32,23 @@ public class ProgressTokenStack {
         deckOfProgressTokens.add(new Urbanisme());
     }
     
-    public ProgressToken GetProgressToken() {
-        if (ProgressTokenDeckIsEmpty()) {
-            throw new IllegalStateException(
-                    "Error in TokensBoard.GetProgressToken : this function should never be called when the deck of progress tokens is empty");
+    public ProgressToken getProgressToken() {
+        if (progressTokenDeckIsEmpty()) {
+            throw new IllegalStateException("Error in TokensBoard.GetProgressToken : this function should never be called when the deck of progress tokens is empty");
         }
         return deckOfProgressTokens.remove(0);
     }
     
-    public boolean ProgressTokenDeckIsEmpty() {
+    public boolean progressTokenDeckIsEmpty() {
         return deckOfProgressTokens.isEmpty();
     }
     
-    public int GetNumberOfProgressTokensLeft() {
+    public int getNumberOfProgressTokensLeft() {
         return deckOfProgressTokens.size();
     }
     
+    public ArrayList<ProgressToken> getDeckOfProgressTokens() {
+        return deckOfProgressTokens;
+    }
     
 }

@@ -1,20 +1,22 @@
 package controller.game;
 
+import controller.AnimationsManager;
 import errorsCenter.DataChecking;
 import errorsCenter.ErrorsHandler;
 import game.Game;
 import game.board.gameUIBridge;
+import game.player.Player;
+import game.tokens.progress.ProgressToken;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -29,16 +31,20 @@ public class GameController extends gameUIBridge {
     @FXML
     Rectangle whiteForeground;
     @FXML
-    Label startingTest;
+    Label startingText;
     @FXML
-    Group alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh;
+    Group alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh, progressTokensBoard, warTokensBoard;
     @FXML
-    ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStack;
+    ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStack, progressTokenDeck;
+    @FXML
+    ImageView alexandrieProgressTokens1, babylonProgressTokens1, epheseProgressTokens1, halicarnasseProgressTokens1, olympieProgressTokens1, rhodesProgressTokens1, gizehProgressTokens1, background;
+    @FXML
+    AnchorPane pane;
     
     MediaPlayer loadingAnimationMedia;
     ArrayList<Group> playedWonders = new ArrayList<>();
     private Game game;
-    
+    private Player currentPlayer;
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
@@ -52,112 +58,85 @@ public class GameController extends gameUIBridge {
         System.out.println("Number of Humans : " + numberOfHumans);
         System.out.println("Number of AI : " + numberOfAI);
         
-        int time1 = (int) System.nanoTime();
+        int time1 = (int) System.nanoTime(); //@Copilot
         setGameController(this);
         game = new Game(numberOfHumans, numberOfAI);
         game.launchGame();
         
         System.out.println("Game Started");
         int time2 = (int) System.nanoTime();
-        System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms");
+        System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms \n"); // @Copliot
     }
     
     private void showLoadingAnimation() {
         loadingGroup.setVisible(true);
         loadingAnimationMedia.setAutoPlay(true);
+        loadingAnimationMedia.setRate(1.2);
         loadingAnimationMedia.setCycleCount(1);
-        loadingAnimationMedia.play();
         loadingAnimationMedia.setOnEndOfMedia(() -> {
             hideLoadingAnimation();
         });
         ErrorsHandler.handleErrorsInVideo(loadingAnimationMedia, "src/main/resources/videos/LoadingAnimation.mp4", loadingAnimationFrame);
+        loadingAnimationMedia.play();
     }
     
     private void hideLoadingAnimation() {
-        FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(550), whiteForeground);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.interpolatorProperty().set(Interpolator.EASE_BOTH);
+        FadeTransition whiteForegroundTransition = AnimationsManager.createFadeTransition(whiteForeground, 550, 1, 0);
+        FadeTransition startingTestTransition = AnimationsManager.createFadeTransition(startingText, 500, 1, 0);
+        FadeTransition loadingAnimationFrameTransition = AnimationsManager.createFadeTransition(loadingAnimationFrame, 300, 1, 0);
         
-        FadeTransition fadeTransition2 = new FadeTransition(javafx.util.Duration.millis(500), startingTest);
-        fadeTransition2.setFromValue(1);
-        fadeTransition2.interpolatorProperty().set(Interpolator.EASE_BOTH);
-        
-        FadeTransition fadeTransition3 = new FadeTransition(javafx.util.Duration.millis(300), loadingAnimationFrame);
-        fadeTransition3.setFromValue(1);
-        fadeTransition3.setToValue(0);
-        fadeTransition3.interpolatorProperty().set(Interpolator.EASE_BOTH);
-        
-        ParallelTransition parallelTransition = new ParallelTransition(fadeTransition, fadeTransition2, fadeTransition3);
+        ParallelTransition parallelTransition = new ParallelTransition(whiteForegroundTransition, startingTestTransition, loadingAnimationFrameTransition);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
             loadingGroup.setVisible(false);
         });
     }
     
+    public void associatePlayersWithWonders(Iterable<Player> listOfPlayers) {
+        for (Player player : listOfPlayers) {
+            player.setWonderGroup(switch (player.getWonderName()) {
+                case "Alexandrie" -> alexandrie;
+                case "Babylone" -> babylon;
+                case "Ephese" -> ephese;
+                case "Halicarnasse" -> halicarnasse;
+                case "Olympie" -> olympie;
+                case "Rhodes" -> rhodes;
+                case "Gizeh" -> gizeh;
+                default -> throw new IllegalStateException(" Unknown wonder name: " + player.getWonderName());
+            });
+        }
+    }
+    
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+        PlayerActions.setCurrentPlayer(currentPlayer); // to be removed
+    }
+    
     public void setPlaceOfWonders(String wonderName, int x, int y, int rotation) {
         
-        switch (wonderName) {
-            case "Alexandrie" -> {
-                alexandrie.setOpacity(1);
-                playedWonders.add(alexandrie);
-                alexandrie.setLayoutX(x);
-                alexandrie.setLayoutY(y);
-                alexandrie.setRotate(rotation);
-            }
-            case "Babylone" -> {
-                babylon.setOpacity(1);
-                playedWonders.add(babylon);
-                babylon.setLayoutX(x);
-                babylon.setLayoutY(y);
-                babylon.setRotate(rotation);
-            }
-            case "Ephese" -> {
-                ephese.setOpacity(1);
-                playedWonders.add(ephese);
-                ephese.setLayoutX(x);
-                ephese.setLayoutY(y);
-                ephese.setRotate(rotation);
-            }
-            case "Halicarnasse" -> {
-                halicarnasse.setOpacity(1);
-                playedWonders.add(halicarnasse);
-                halicarnasse.setLayoutX(x);
-                halicarnasse.setLayoutY(y);
-                halicarnasse.setRotate(rotation);
-            }
-            case "Olympie" -> {
-                olympie.setOpacity(1);
-                playedWonders.add(olympie);
-                olympie.setLayoutX(x);
-                olympie.setLayoutY(y);
-                olympie.setRotate(rotation);
-            }
-            case "Rhodes" -> {
-                rhodes.setOpacity(1);
-                playedWonders.add(rhodes);
-                rhodes.setLayoutX(x);
-                rhodes.setLayoutY(y);
-                rhodes.setRotate(rotation);
-            }
-            case "Gizeh" -> {
-                gizeh.setOpacity(1);
-                playedWonders.add(gizeh);
-                gizeh.setLayoutX(x);
-                gizeh.setLayoutY(y);
-                gizeh.setRotate(rotation);
-            }
+        setupWonderGroup(switch (wonderName) {
+            case "Alexandrie" -> alexandrie;
+            case "Babylone" -> babylon;
+            case "Ephese" -> ephese;
+            case "Halicarnasse" -> halicarnasse;
+            case "Olympie" -> olympie;
+            case "Rhodes" -> rhodes;
+            case "Gizeh" -> gizeh;
             default -> throw new IllegalStateException("Error in UI setup : Unrecognized wonder (" + wonderName + ")");
-        }
+        }, x, y, rotation); // Switch simplified by @IntelliJ
+    }
+    
+    private void setupWonderGroup(Group wonderGroup, int x, int y, int rotation) {
+        wonderGroup.setOpacity(1);
+        playedWonders.add(wonderGroup);
+        wonderGroup.setLayoutX(x);
+        wonderGroup.setLayoutY(y);
+        wonderGroup.setRotate(rotation);
     }
     
     public void updateWonderTopCard(String cardPath, String wonderName) {
         
-        System.out.println("Updating wonder top card : " + cardPath);
-        File file = new File(cardPath);
-        Image newImage = new Image(file.toURI().toString());
-    
-        (switch (wonderName) {
+        ImageView imageToUpdate = switch (wonderName) {
             case "Alexandrie" -> alexandrieCardsStack;
             case "Babylone" -> babylonCardsStack;
             case "Ephese" -> epheseCardsStack;
@@ -166,10 +145,39 @@ public class GameController extends gameUIBridge {
             case "Rhodes" -> rhodesCardsStack;
             case "Gizeh" -> gizehCardsStack;
             default -> throw new IllegalStateException("Error in UI updateWonderTopCard : Unrecognized wonder (" + wonderName + ")");
-        }).setImage(newImage);
+        };
+        FastSetup.updateImage(imageToUpdate, cardPath);
     }
     
-    public Parent getGameView() {
-        return loadingGroup;
+    
+    public void setupProgressToken(ProgressToken progressToken, int tokenNumber) { // Helped by @Copilot
+        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png", "progressToken" + progressToken.getName());
+        token.setOnMouseClicked(event -> {
+            System.out.println("\nClicked on " + token.getId());
+            PlayerActions.getProgressToken(progressToken, token, progressTokensBoard);
+            addNewProgressToken();
+        });
+        progressTokensBoard.getChildren().add(token);
     }
+    
+    public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
+        
+        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/tokens/ConflictTokenPeaceFace.png", "conflictToken" + tokenNumber);
+        token.setOnMouseClicked(event -> {
+            System.out.println("This token has no action");
+        });
+        warTokensBoard.getChildren().add(token);
+    }
+    
+    public void addNewProgressToken(){
+        int i = 0;
+        for (Node node : progressTokensBoard.getChildren()) {
+            node.setLayoutX(i * -75);
+            i++;
+        }
+        ProgressToken progressToken = getProgressToken();
+        setupProgressToken(progressToken, i);
+    }
+    
+    
 }

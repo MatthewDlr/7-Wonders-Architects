@@ -19,6 +19,8 @@ public class DeckOfProgressTokens {
         progressTokensSet.remove(progressToken);
     }
     
-    
+    public int getCoordinatesForNextProgressToken() {
+        return progressTokensSet.size() * 60;
+    }
 }
 

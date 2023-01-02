@@ -1,6 +1,5 @@
 package game.cards.playerDeck;
 
-import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class DeckOfScienceCardsTests {
     
-    PlayerDeck playerCardsDeck = new PlayerDeck();
+    PlayerCardsDeck playerCardsDeck = new PlayerCardsDeck();
     ScienceCard gearCards1 = new GearScienceCard();
     ScienceCard gearCards2 = new GearScienceCard();
     ScienceCard compasCard1 = new CompasScienceCard();

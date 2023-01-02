@@ -8,12 +8,12 @@ public class DeckOfVictoryPointsCards {
     
     private final ArrayList<VictoryPointsCard> victoryPointsCardsSet;
     private int numberOfVictoryPoints;
-    PlayerDeck playerDeck;
+    PlayerCardsDeck playerCardsDeck;
     
-    public DeckOfVictoryPointsCards(PlayerDeck playerDeck) {
+    public DeckOfVictoryPointsCards(PlayerCardsDeck playerCardsDeck) {
         victoryPointsCardsSet = new ArrayList<>();
         numberOfVictoryPoints = 0;
-        this.playerDeck = playerDeck;
+        this.playerCardsDeck = playerCardsDeck;
     }
     
     void addCard(VictoryPointsCard cardToAdd) {

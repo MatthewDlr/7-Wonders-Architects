@@ -16,7 +16,7 @@ public class TokensBoardTests {
         assertEquals(3, tokensBoard.conflictTokenSet.getNumberOfConflictTokens());
         assertFalse(tokensBoard.conflictTokenSet.isTimeForWar());
         assertEquals(0, tokensBoard.conflictTokenSet.getNumberOfConflictTokensSetToWarFace());
-        assertEquals(15, tokensBoard.progressTokenStack.GetNumberOfProgressTokensLeft());
+        assertEquals(15, tokensBoard.progressTokenStack.getNumberOfProgressTokensLeft());
     }
     
     @Test
@@ -52,16 +52,16 @@ public class TokensBoardTests {
     public void TestProgressToken() {
         TokensBoard tokensBoard = new TokensBoard(4);
         
-        tokensBoard.progressTokenStack.GetProgressToken();
-        assertEquals(14, tokensBoard.progressTokenStack.GetNumberOfProgressTokensLeft());
+        tokensBoard.progressTokenStack.getProgressToken();
+        assertEquals(14, tokensBoard.progressTokenStack.getNumberOfProgressTokensLeft());
         
         RemoveAllProgressTokens(tokensBoard);
-        assertTrue(tokensBoard.progressTokenStack.ProgressTokenDeckIsEmpty());
+        assertTrue(tokensBoard.progressTokenStack.progressTokenDeckIsEmpty());
     }
     
     public void RemoveAllProgressTokens(TokensBoard tokensBoard) {
         for (int i = 0; i < 14; i++) {
-            tokensBoard.progressTokenStack.GetProgressToken();
+            tokensBoard.progressTokenStack.getProgressToken();
         }
     }
     

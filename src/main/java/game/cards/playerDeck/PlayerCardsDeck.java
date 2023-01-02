@@ -9,7 +9,7 @@ import game.cards.shields.ShieldsCard;
 import game.cards.victoryPoints.VictoryPointsCard;
 import game.player.Player;
 
-public class PlayerDeck {
+public class PlayerCardsDeck {
     
     DeckOfResourcesCards deckOfResourcesCards;
     DeckOfScienceCards deckOfScienceCards;
@@ -18,7 +18,7 @@ public class PlayerDeck {
     private boolean hasTheCat;
     private GameBoard gameBoard;
     
-    public PlayerDeck() {
+    public PlayerCardsDeck() {
         deckOfResourcesCards = new DeckOfResourcesCards(this);
         deckOfScienceCards = new DeckOfScienceCards(this);
         deckOfVictoryPointsCards = new DeckOfVictoryPointsCards(this);
@@ -43,7 +43,7 @@ public class PlayerDeck {
             deckOfShieldsCards.addCard((ShieldsCard) cardToAdd);
             return;
         }
-        throw new IllegalArgumentException("Error in PlayerDeck.AddCard: cardToAdd is not a valid card");
+        throw new IllegalArgumentException("Error in PlayerCardsDeck.AddCard: cardToAdd is not a valid card");
     }
     
     public void gotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {

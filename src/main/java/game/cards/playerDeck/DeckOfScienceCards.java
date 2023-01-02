@@ -10,15 +10,15 @@ public class DeckOfScienceCards {
     private final ArrayList<ScienceCard> gearCardsSet;
     private final ArrayList<ScienceCard> tabletCardsSet;
     private boolean combinationExist;
-    private PlayerDeck playerDeck;
+    private PlayerCardsDeck playerCardsDeck;
     
-    public DeckOfScienceCards(PlayerDeck playerDeck) {
+    public DeckOfScienceCards(PlayerCardsDeck playerCardsDeck) {
         scienceCardsSet = new ArrayList<>();
         compasCardsSet = new ArrayList<>();
         gearCardsSet = new ArrayList<>();
         tabletCardsSet = new ArrayList<>();
         combinationExist = false;
-        this.playerDeck = playerDeck;
+        this.playerCardsDeck = playerCardsDeck;
     }
     
     void addCard(ScienceCard cardToAdd) {

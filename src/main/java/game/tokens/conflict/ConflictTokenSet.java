@@ -3,19 +3,19 @@ package game.tokens.conflict;
 import java.util.ArrayList;
 
 public class ConflictTokenSet {
-
+    
     private final ArrayList<ConflictToken> listOfConflictTokens;
     private final int numberOfConflictTokens;
-
+    
     public ConflictTokenSet(int numberOfConflictTokens) {
         listOfConflictTokens = new ArrayList<>();
         this.numberOfConflictTokens = numberOfConflictTokens;
-
+        
         for (int i = 0; i < numberOfConflictTokens; i++) {
             listOfConflictTokens.add(new ConflictToken());
         }
     }
-
+    
     public void addConflictTokenToWarFace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
             if (!conflictToken.IsFaceToWar()) {
@@ -24,10 +24,10 @@ public class ConflictTokenSet {
             }
         }
     }
-
+    
     public boolean isTimeForWar() {
         int numberOfWarTokensSetToWarFace = 0;
-
+        
         for (ConflictToken conflictToken : listOfConflictTokens) {
             if (conflictToken.IsFaceToWar()) {
                 numberOfWarTokensSetToWarFace++;
@@ -37,17 +37,17 @@ public class ConflictTokenSet {
         //TODO : do the war for the players
         //TODO : remove player's shields cards with trumpets
     }
-
+    
     public void setConflictTokensToPeace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
             conflictToken.SetFaceToPeace();
         }
     }
-
+    
     public int getNumberOfConflictTokens() {
         return numberOfConflictTokens;
     }
-
+    
     public int getNumberOfConflictTokensSetToWarFace() {
         int numberOfWarTokensSetToWarFace = 0;
         for (ConflictToken conflictToken : listOfConflictTokens) {

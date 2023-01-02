@@ -8,6 +8,7 @@ import errorsCenter.DataChecking;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
@@ -32,13 +33,11 @@ import javafx.util.Duration;
 public class SinglePlayerSetupController {
     
     @FXML
+    Rectangle whiteForeground;
+    @FXML
     private ImageView playerCard, iACard, playerCardOnHover, iACardOnHover, playerUpArrow, playerDownArrow, iAUpArrow, iADownArrow, startButtonAvailable, startButtonUnavailable;
-    
     @FXML
     private Label numberOfAiLabel, numberOfPlayerLabel, numberOfWondersLabel;
-    @FXML
-    Rectangle whiteForeground;
-    
     private int numberOfHumansPlayer, numberOfIAPlayer;
     private boolean isStartButtonAvailable;
     private MediaPlayer startButtonSoundEffect, gameStartSoundEffect;
@@ -60,26 +59,10 @@ public class SinglePlayerSetupController {
     protected void startButtonClicked() {
         if (isStartButtonAvailable) {
             
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(1500), whiteForeground);
-            fadeTransition.setFromValue(0);
-            fadeTransition.setToValue(1);
-            fadeTransition.setInterpolator(Interpolator.EASE_BOTH);
+            Animation fadeTransition = AnimationsManager.createFadeTransition(whiteForeground, 1000, 0, 1);
             fadeTransition.play();
-            
-            gameStartSoundEffect.stop();
-            gameStartSoundEffect.seek(Duration.ZERO);
             gameStartSoundEffect.play();
-            
-            Stage stage = (Stage) startButtonAvailable.getScene().getWindow();
-            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-            System.out.println("Width: " + screenBounds.getWidth() + " Height: " + screenBounds.getHeight());
-            
             fadeTransition.setOnFinished(event -> {
-                stage.setWidth(screenBounds.getWidth());
-                stage.setHeight(screenBounds.getHeight());
-                stage.setResizable(true);
-                stage.setMaximized(true);
-                
                 FirstViewController.stopAllMedia();
                 try {
                     switchController();
@@ -96,6 +79,15 @@ public class SinglePlayerSetupController {
         GameController gameController = loader.getController(); // @OpenAI
         gameController.initialize(numberOfHumansPlayer, numberOfIAPlayer);
         Scene scene = startButtonAvailable.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        stage.setWidth(screenBounds.getWidth());
+        stage.setHeight(screenBounds.getHeight());
+        stage.setResizable(true);
+        stage.setMaximized(true);
+        System.out.println("Screen Width: " + screenBounds.getWidth() + " Screen Height: " + screenBounds.getHeight());
+        
         scene.setRoot(gameView);
     }
     

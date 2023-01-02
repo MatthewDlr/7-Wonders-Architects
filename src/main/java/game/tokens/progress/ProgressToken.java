@@ -20,11 +20,11 @@ public abstract class ProgressToken {
         
     }
     
-    public String GetName() {
+    public String getName() {
         return name;
     }
     
-    public String GetDescription() {
+    public String getDescription() {
         return description;
     }
     

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 public class DeckOfResourcesCardsTests {
     
     Alexandrie alexandrie = new Alexandrie();
-    PlayerDeck playerCardsDeck = new PlayerDeck();
+    PlayerCardsDeck playerCardsDeck = new PlayerCardsDeck();
     
     @Test
     public void TestCartsDeckInitialization() {

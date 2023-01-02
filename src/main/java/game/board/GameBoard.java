@@ -24,9 +24,15 @@ public class GameBoard {
     
     public void initializeUI() {
         gameUIBridge.setListOfPlayers(listOfPlayers);
+        gameUIBridge.setTokensBoard(tokensBoard);
         gameUIBridge.setPlaceOfChosenWonders();
         gameUIBridge.displayFirstCardOfWonderCardsStack();
-        
+        gameUIBridge.setPlaceOfConflictTokens(tokensBoard.getNumberOfConflictTokens()); //@Copilot
+        for (int i = 1; i < 4; i++) {
+            gameUIBridge.setPlaceOfProgressTokens(tokensBoard.getProgressToken(), i);
+        }
+        gameUIBridge.associatePlayersWithWonders();
+        gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer()); // to be removed
     }
     
     public TokensBoard getTokensBoard() {
@@ -40,5 +46,6 @@ public class GameBoard {
     public void addConflictTokenToWarFace() {
         tokensBoard.addConflictTokenToWarFace();
     }
+
 
 }
