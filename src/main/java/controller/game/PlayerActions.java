@@ -9,6 +9,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public abstract class PlayerActions {
     
@@ -28,14 +29,14 @@ public abstract class PlayerActions {
         CURRENT_PLAYER = null;
     }
     
-    public static void getProgressToken(ProgressToken progressToken, ImageView token, Group tokensBoard) {
+    public static void getProgressToken(ProgressToken progressToken, ImageView token, AnchorPane tokensBoard) {
         if (!isActionAllowed()) {
             System.out.println("Action not allowed");
             return;
         }
         
         double fromCoordinates[] = getGlobalCoordinates(token, 0);
-        double[] toCoordinates = getGlobalCoordinates(((Group) CURRENT_PLAYER.getWonderGroup().getChildren().get(PLAYER_TOKENS_SET)).getChildren().get(0), CURRENT_PLAYER.getWonderGroupRotation());
+        double[] toCoordinates = getGlobalCoordinates(((Group) CURRENT_PLAYER.getAnchorPane().getChildren().get(PLAYER_TOKENS_SET)).getChildren().get(0), CURRENT_PLAYER.getWonderGroupRotation());
         toCoordinates[0] += CURRENT_PLAYER.getCoordinatesForNextProgressToken()[0];
         toCoordinates[1] += CURRENT_PLAYER.getCoordinatesForNextProgressToken()[1];
         System.out.println("By coordinates: " + (fromCoordinates[0] - toCoordinates[0]) + " x " + (fromCoordinates[1] - toCoordinates[1]) + " y");
@@ -48,10 +49,10 @@ public abstract class PlayerActions {
             tokensBoard.getChildren().remove(token);
             token.setTranslateX(0);
             token.setTranslateY(0);
-            ((Group) CURRENT_PLAYER.getWonderGroup().getChildren().get(PLAYER_TOKENS_SET)).getChildren().add(token);
-            System.out.println(CURRENT_PLAYER.getWonderGroup().getChildren().get(PLAYER_TOKENS_SET).getId());
+            ((Group) CURRENT_PLAYER.getAnchorPane().getChildren().get(PLAYER_TOKENS_SET)).getChildren().add(token);
+            System.out.println(CURRENT_PLAYER.getAnchorPane().getChildren().get(PLAYER_TOKENS_SET).getId());
             
-            token.setLayoutX(CURRENT_PLAYER.getCoordinatesForNextProgressTokenNoRotation() - 60 );
+            token.setLayoutX(CURRENT_PLAYER.getCoordinatesForNextProgressTokenNoRotation() - 60);
             token.setLayoutY(0);
         });
         

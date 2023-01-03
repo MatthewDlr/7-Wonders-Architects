@@ -33,16 +33,16 @@ public class GameController extends gameUIBridge {
     @FXML
     Label startingText;
     @FXML
-    Group alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh, progressTokensBoard, warTokensBoard;
+    AnchorPane alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh;
     @FXML
     ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStack, progressTokenDeck;
     @FXML
-    ImageView alexandrieProgressTokens1, babylonProgressTokens1, epheseProgressTokens1, halicarnasseProgressTokens1, olympieProgressTokens1, rhodesProgressTokens1, gizehProgressTokens1, background;
+    ImageView referenceResourceCard, referenceShieldCard, referenceScienceCard, referenceProgressToken, referenceWarToken, referenceCat;
     @FXML
     AnchorPane pane;
     
     MediaPlayer loadingAnimationMedia;
-    ArrayList<Group> playedWonders = new ArrayList<>();
+    ArrayList<AnchorPane> playedWonders = new ArrayList<>();
     private Game game;
     private Player currentPlayer;
     
@@ -126,7 +126,7 @@ public class GameController extends gameUIBridge {
         }, x, y, rotation); // Switch simplified by @IntelliJ
     }
     
-    private void setupWonderGroup(Group wonderGroup, int x, int y, int rotation) {
+    private void setupWonderGroup(AnchorPane wonderGroup, int x, int y, int rotation) {
         wonderGroup.setOpacity(1);
         playedWonders.add(wonderGroup);
         wonderGroup.setLayoutX(x);
@@ -154,10 +154,9 @@ public class GameController extends gameUIBridge {
         ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png", "progressToken" + progressToken.getName());
         token.setOnMouseClicked(event -> {
             System.out.println("\nClicked on " + token.getId());
-            PlayerActions.getProgressToken(progressToken, token, progressTokensBoard);
-            addNewProgressToken();
+            PlayerActions.getProgressToken(progressToken, token, pane);
+            //addNewProgressToken();
         });
-        progressTokensBoard.getChildren().add(token);
     }
     
     public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
@@ -166,7 +165,6 @@ public class GameController extends gameUIBridge {
         token.setOnMouseClicked(event -> {
             System.out.println("This token has no action");
         });
-        warTokensBoard.getChildren().add(token);
     }
     
     public void addNewProgressToken(){

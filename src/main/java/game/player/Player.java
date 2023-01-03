@@ -6,7 +6,7 @@ import game.cards.playerDeck.PlayerCardsDeck;
 import game.tokens.conflict.DeckOfWarToken;
 import game.tokens.progress.ProgressToken;
 import game.wonders.Wonders;
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 
 public abstract class Player {
     
@@ -15,7 +15,7 @@ public abstract class Player {
     DeckOfProgressTokens deckOfProgressTokens;
     DeckOfWarToken deckOfWarToken;
     private GameBoard gameBoard;
-    private Group javaFXGroup;
+    private AnchorPane wonderAnchorPane;
     
     public Player(Wonders playerWonder) {
         wonders = playerWonder;
@@ -55,7 +55,7 @@ public abstract class Player {
     
     public double[] getCoordinatesForNextProgressToken(){
         int value = deckOfProgressTokens.getCoordinatesForNextProgressToken();
-        int rotation = (int) javaFXGroup.getRotate();
+        int rotation = (int) wonderAnchorPane.getRotate();
         return switch (rotation) {
             case 0 -> new double[]{value, 0};
             case 90 -> new double[]{0, value};
@@ -73,16 +73,16 @@ public abstract class Player {
         return playerCardsDeck;
     }
     
-    public void setWonderGroup(Group javafxGroup) {
-        javaFXGroup = javafxGroup;
+    public void setWonderGroup(AnchorPane pane) {
+        wonderAnchorPane = pane;
     }
     
     public double getWonderGroupRotation() {
-        return javaFXGroup.getRotate();
+        return wonderAnchorPane.getRotate();
     }
     
-    public Group getWonderGroup() {
-        return javaFXGroup;
+    public AnchorPane getAnchorPane() {
+        return wonderAnchorPane;
     }
     
 }
