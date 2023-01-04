@@ -16,6 +16,7 @@ public abstract class Player {
     DeckOfWarToken deckOfWarToken;
     private GameBoard gameBoard;
     private AnchorPane wonderAnchorPane;
+    private double rotation;
     
     public Player(Wonders playerWonder) {
         wonders = playerWonder;
@@ -55,13 +56,14 @@ public abstract class Player {
     
     public double[] getCoordinatesForNextProgressToken(){
         int value = deckOfProgressTokens.getCoordinatesForNextProgressToken();
-        int rotation = (int) wonderAnchorPane.getRotate();
+        int rotation = (int) getWonderGroupRotation();
+        System.out.println("rotation: " + rotation);
         return switch (rotation) {
             case 0 -> new double[]{value, 0};
             case 90 -> new double[]{0, value};
-            case 180 -> new double[]{-value, 0};
+            case 180 -> new double[]{(-value), 0};
             case 270 -> new double[]{0, -value};
-            default -> new double[]{0, 0};
+            default -> throw new IllegalStateException("Unexpected value: " + rotation);
         };
     }
     
@@ -78,7 +80,11 @@ public abstract class Player {
     }
     
     public double getWonderGroupRotation() {
-        return wonderAnchorPane.getRotate();
+        return rotation;
+    }
+    
+    public void setWonderGroupRotation(double rotation) {
+        this.rotation = rotation ;
     }
     
     public AnchorPane getAnchorPane() {

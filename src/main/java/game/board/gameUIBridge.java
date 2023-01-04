@@ -1,69 +1,89 @@
 package game.board;
 
 import controller.game.GameController;
+import game.cards.GameCardsStack;
 import game.player.Player;
 import game.tokens.TokensBoard;
 import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
 
-@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
 public class gameUIBridge {
     
-    public static GameController GAMECONTROLLER; // TODO : figure out if encapsulation is really necessary here
-    private ArrayList<Player> listOfPlayers;
-    private static TokensBoard TOKENS_BOARD;
-    private final int[] wondersDispositionX = {-685, -80, 475, 578, 160, -400, -840};
-    private final int[] wondersDispositionY = {-85, -85, -85, -508, -725, -725, -550};
+    private final int[] wondersDispositionX = {5, 595, 1175, 1275, 925, 345, -60};
+    private final int[] wondersDispositionY = {570, 570, 570, 130, 5, 5, 130};
     private final int[] wondersDispositionRotation = {0, 0, 0, 270, 180, 180, 90};
     
-    static public void setGameController(GameController controller) {
-        GAMECONTROLLER = controller;
+    public static GameController GAME_CONTROLLER; // TODO : figure out if encapsulation is really necessary here
+    private static ArrayList<Player> LIST_OF_PLAYER;
+    private static TokensBoard TOKENS_BOARD;
+    private static PlayerQueue PLAYER_QUEUE;
+    private static GameCardsStack GAME_CARDS_STACK;
+    
+    public void setup(ArrayList<Player> listOfPlayers, TokensBoard tokensBoard, PlayerQueue playerQueue, GameCardsStack gameCardsStack) {
+        gameUIBridge.LIST_OF_PLAYER = listOfPlayers;
+        gameUIBridge.TOKENS_BOARD = tokensBoard;
+        gameUIBridge.PLAYER_QUEUE = playerQueue;
+        gameUIBridge.GAME_CARDS_STACK = gameCardsStack;
     }
     
-    void setListOfPlayers(ArrayList<Player> listOfPlayers) {
-        this.listOfPlayers = listOfPlayers;
+    public void setGameController(GameController controller) {
+        GAME_CONTROLLER = controller;
     }
     
-    void setPlaceOfChosenWonders() {
+    protected ArrayList<Player> getListOfPlayers() {
+        return LIST_OF_PLAYER;
+    }
+    
+    protected TokensBoard getTokensBoard() {
+        return TOKENS_BOARD;
+    }
+    
+    protected PlayerQueue getPlayerQueue() {
+        return PLAYER_QUEUE;
+    }
+    
+    protected GameCardsStack getGameCardsStack() {
+        return GAME_CARDS_STACK;
+    }
+    
+    public void setCurrentPlayer(Player player) {
+        GAME_CONTROLLER.setCurrentPlayer(player);
+    }
+    
+    public ProgressToken getProgressToken() {
+        return TOKENS_BOARD.popProgressToken();
+    }
+    
+    public void setupBoard() {
+        GAME_CONTROLLER.linkPlayersWithUIComponents();
+        setupChosenWonders();
+        setPlaceOfProgressTokens();
+        setPlaceOfConflictTokens();
+    }
+    
+    private void setupChosenWonders() {
         int i = 0;
-        
-        for (Player player : listOfPlayers) {
+        for (Player player : LIST_OF_PLAYER) {
             int x = wondersDispositionX[i], y = wondersDispositionY[i], rotation = wondersDispositionRotation[i];
-            GAMECONTROLLER.setPlaceOfWonders(player.getWonderName(), x, y, rotation);
+            GAME_CONTROLLER.setPlaceOfWonders(player.getWonderName(), x, y, rotation);
+            player.setWonderGroupRotation(rotation);
+            
+            String cardPath = player.getWonderTopCardPath();
+            GAME_CONTROLLER.updateWonderTopCard(cardPath, player.getWonderName());
             i++;
         }
     }
     
-    void setPlaceOfConflictTokens(int numberOfConflictTokens) {
-        for (int tokenNumber = 0; tokenNumber < numberOfConflictTokens; tokenNumber++) {
-            GAMECONTROLLER.setupConflictToken(tokenNumber);
+    void setPlaceOfProgressTokens() {
+        for (int i = 1; i < 4; i++) {
+            GAME_CONTROLLER.setupProgressToken(TOKENS_BOARD.popProgressToken(), i);
         }
     }
     
-    void setPlaceOfProgressTokens(ProgressToken progressToken, int i) {
-        GAMECONTROLLER.setupProgressToken(progressToken, i);
-    }
-    
-    void setTokensBoard(TokensBoard board) {
-        TOKENS_BOARD = board;
-    }
-    
-    public void displayFirstCardOfWonderCardsStack() {
-        for (Player player : listOfPlayers) {
-            String cardPath = player.getWonderTopCardPath();
-            GAMECONTROLLER.updateWonderTopCard(cardPath, player.getWonderName());
+    void setPlaceOfConflictTokens() {
+        for (int tokenNumber = 0; tokenNumber < TOKENS_BOARD.getNumberOfConflictTokens(); tokenNumber++) {
+            GAME_CONTROLLER.setupConflictToken(tokenNumber);
         }
     }
     
-    public void setCurrentPlayer(Player player) {
-        GAMECONTROLLER.setCurrentPlayer(player);
-    }
-    
-    public void associatePlayersWithWonders() {
-        GAMECONTROLLER.associatePlayersWithWonders(listOfPlayers);
-    }
-    
-    public ProgressToken getProgressToken() {
-        return TOKENS_BOARD.getProgressToken();
-    }
 }

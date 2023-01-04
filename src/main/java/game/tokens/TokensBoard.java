@@ -28,7 +28,7 @@ public class TokensBoard {
         conflictTokenSet.addConflictTokenToWarFace();
     }
     
-    public ProgressToken getProgressToken() {
+    public ProgressToken popProgressToken() {
         return progressTokenStack.getProgressToken();
     }
     

@@ -1,23 +1,18 @@
 package controller.game;
 
 import controller.AnimationsManager;
-import errorsCenter.DataChecking;
-import errorsCenter.ErrorsHandler;
 import game.Game;
+import game.board.PlayerQueue;
 import game.board.gameUIBridge;
 import game.player.Player;
+import game.tokens.TokensBoard;
 import game.tokens.progress.ProgressToken;
-import java.io.File;
 import java.util.ArrayList;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
@@ -45,22 +40,25 @@ public class GameController extends gameUIBridge {
     ArrayList<AnchorPane> playedWonders = new ArrayList<>();
     private Game game;
     private Player currentPlayer;
+    private ArrayList<Player> listOfPlayers;
+    private TokensBoard tokensBoard;
+    private PlayerQueue playerQueue;
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
-        File loadingAnimationFile = new File("src/main/resources/videos/LoadingAnimation.mp4");
-        DataChecking.checkIfFileIsCorrect(String.valueOf(loadingAnimationFile));
-        Media loadingAnimationMedia = new Media(loadingAnimationFile.toURI().toString());
-        this.loadingAnimationMedia = new MediaPlayer(loadingAnimationMedia);
-        loadingAnimationFrame.setMediaPlayer(this.loadingAnimationMedia);
-        showLoadingAnimation();
+        loadingAnimationMedia = FastSetup.setupVideoPlayer("src/main/resources/videos/LoadingAnimation.mp4");
+        loadingAnimationFrame.setMediaPlayer(loadingAnimationMedia);
+        AnimationsManager.showGameBoardLoadingAnimation(loadingGroup, loadingAnimationMedia, loadingAnimationFrame, whiteForeground, startingText);
         
         System.out.println("Number of Humans : " + numberOfHumans);
         System.out.println("Number of AI : " + numberOfAI);
-        
         int time1 = (int) System.nanoTime(); //@Copilot
-        setGameController(this);
+        
         game = new Game(numberOfHumans, numberOfAI);
+        setGameController(this);
+        tokensBoard = getTokensBoard();
+        playerQueue = getPlayerQueue();
+        listOfPlayers = getListOfPlayers();
         game.launchGame();
         
         System.out.println("Game Started");
@@ -68,31 +66,34 @@ public class GameController extends gameUIBridge {
         System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms \n"); // @Copliot
     }
     
-    private void showLoadingAnimation() {
-        loadingGroup.setVisible(true);
-        loadingAnimationMedia.setAutoPlay(true);
-        loadingAnimationMedia.setRate(1.2);
-        loadingAnimationMedia.setCycleCount(1);
-        loadingAnimationMedia.setOnEndOfMedia(() -> {
-            hideLoadingAnimation();
-        });
-        ErrorsHandler.handleErrorsInVideo(loadingAnimationMedia, "src/main/resources/videos/LoadingAnimation.mp4", loadingAnimationFrame);
-        loadingAnimationMedia.play();
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+        PlayerActions.setCurrentPlayer(currentPlayer); // to be removed
     }
     
-    private void hideLoadingAnimation() {
-        FadeTransition whiteForegroundTransition = AnimationsManager.createFadeTransition(whiteForeground, 550, 1, 0);
-        FadeTransition startingTestTransition = AnimationsManager.createFadeTransition(startingText, 500, 1, 0);
-        FadeTransition loadingAnimationFrameTransition = AnimationsManager.createFadeTransition(loadingAnimationFrame, 300, 1, 0);
+    
+    public void setupProgressToken(ProgressToken progressToken, int tokenNumber) { // Helped by @Copilot
+        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
+        //insert the token after the loadingAnimationFrame
+        pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
         
-        ParallelTransition parallelTransition = new ParallelTransition(whiteForegroundTransition, startingTestTransition, loadingAnimationFrameTransition);
-        parallelTransition.play();
-        parallelTransition.setOnFinished(event -> {
-            loadingGroup.setVisible(false);
+        token.setOnMouseClicked(event -> {
+            System.out.println("\nClicked on " + token.getId());
+            PlayerActions.getProgressToken(progressToken, token, pane);
+            //addNewProgressToken();
         });
     }
     
-    public void associatePlayersWithWonders(Iterable<Player> listOfPlayers) {
+    public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
+        ImageView token = FastSetup.setupConflictToken("conflictToken" + tokenNumber, tokenNumber);
+        pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
+        
+        token.setOnMouseClicked(event -> {
+            System.out.println("This token has no action");
+        });
+    }
+    
+    public void linkPlayersWithUIComponents(){
         for (Player player : listOfPlayers) {
             player.setWonderGroup(switch (player.getWonderName()) {
                 case "Alexandrie" -> alexandrie;
@@ -107,14 +108,8 @@ public class GameController extends gameUIBridge {
         }
     }
     
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        PlayerActions.setCurrentPlayer(currentPlayer); // to be removed
-    }
-    
     public void setPlaceOfWonders(String wonderName, int x, int y, int rotation) {
-        
-        setupWonderGroup(switch (wonderName) {
+        FastSetup.setupWonderPane(switch (wonderName) {
             case "Alexandrie" -> alexandrie;
             case "Babylone" -> babylon;
             case "Ephese" -> ephese;
@@ -126,16 +121,7 @@ public class GameController extends gameUIBridge {
         }, x, y, rotation); // Switch simplified by @IntelliJ
     }
     
-    private void setupWonderGroup(AnchorPane wonderGroup, int x, int y, int rotation) {
-        wonderGroup.setOpacity(1);
-        playedWonders.add(wonderGroup);
-        wonderGroup.setLayoutX(x);
-        wonderGroup.setLayoutY(y);
-        wonderGroup.setRotate(rotation);
-    }
-    
     public void updateWonderTopCard(String cardPath, String wonderName) {
-        
         ImageView imageToUpdate = switch (wonderName) {
             case "Alexandrie" -> alexandrieCardsStack;
             case "Babylone" -> babylonCardsStack;
@@ -149,32 +135,12 @@ public class GameController extends gameUIBridge {
         FastSetup.updateImage(imageToUpdate, cardPath);
     }
     
-    
-    public void setupProgressToken(ProgressToken progressToken, int tokenNumber) { // Helped by @Copilot
-        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png", "progressToken" + progressToken.getName());
-        token.setOnMouseClicked(event -> {
-            System.out.println("\nClicked on " + token.getId());
-            PlayerActions.getProgressToken(progressToken, token, pane);
-            //addNewProgressToken();
+    public void setGameCardsStack(){
+        gameCardsStack.setOnMouseClicked(event -> {
+            System.out.println("Clicked on GameCardsStack");
+            AnimationsManager.disableDropShadow(gameCardsStack);
+            PlayerActions.getGameCard(gameCardsStack, pane);
         });
-    }
-    
-    public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
-        
-        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/tokens/ConflictTokenPeaceFace.png", "conflictToken" + tokenNumber);
-        token.setOnMouseClicked(event -> {
-            System.out.println("This token has no action");
-        });
-    }
-    
-    public void addNewProgressToken(){
-        int i = 0;
-        for (Node node : progressTokensBoard.getChildren()) {
-            node.setLayoutX(i * -75);
-            i++;
-        }
-        ProgressToken progressToken = getProgressToken();
-        setupProgressToken(progressToken, i);
     }
     
     

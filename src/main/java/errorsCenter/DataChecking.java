@@ -14,7 +14,13 @@ public abstract class DataChecking {
         if (!Files.isReadable(Paths.get(path))) {
             throw new IllegalArgumentException("Error in DataChecking Files Check : " + path + " is not readable");
         }
-        
+    }
+    
+    public static Object checkIfObjectIsNotNull(Object object, String objectName) {
+        if (object == null) {
+            throw new IllegalArgumentException("Error in DataChecking Object Check : " + objectName + " is null");
+        }
+        return object;
     }
     
 }
