@@ -1,6 +1,7 @@
 package controller.game;
 
 import errorsCenter.DataChecking;
+import game.cards.Card;
 import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +11,17 @@ import javafx.scene.media.MediaPlayer;
 
 public abstract class FastSetup {
     
-    static ImageView setupProgressToken(int tokenNumber, String path, String id) {
+    private static AnchorPane pane;
+    private static final CardsReferencePositionX[] = {}
+    private static final CardsReferencePositionY[] = {}
+    private static final TokenReferencePositionX[] = {}
+    private static final TokenReferencePositionY[] = {}
+    
+    public static void setupGameBoard(AnchorPane pane) {
+        FastSetup.pane = pane;
+    }
+    
+    static ImageView setupProgressTokenUI(int tokenNumber, String path, String id) {
         ImageView newToken = new ImageView();
         updateImage(newToken, path);
         newToken.setId(id);
@@ -57,6 +68,26 @@ public abstract class FastSetup {
         DataChecking.checkIfFileIsCorrect(String.valueOf(loadingAnimationFile));
         Media loadingAnimationMedia = new Media(loadingAnimationFile.toURI().toString());
         return new MediaPlayer(loadingAnimationMedia);
+    }
+    
+    public static ImageView createNewCardUI(Card card, int id) {
+        ImageView newCard = new ImageView();
+        updateImage(newCard, card.getCardPath());
+        pane.getChildren().add(newCard);
+        newCard.setId(card.getCardName() + id);
+        newCard.setFitHeight(150);
+        newCard.setFitWidth(100);
+        newCard.setLayoutX(850);
+        newCard.setLayoutY(400);
+        return newCard;
+    }
+    
+    public static void updateProgressTokenPosition(Iterable<ImageView> progressTokens) {
+        int i = 1;
+        for (ImageView token : progressTokens) {
+            token.setLayoutX(775 - (i * 75));
+            i++;
+        }
     }
     
 }

@@ -27,4 +27,8 @@ public class DeckOfVictoryPointsCards {
     public int getNumberOfVictoryPoints() {
         return numberOfVictoryPoints;
     }
+    
+    public int getNumberOfCards() {
+        return victoryPointsCardsSet.size();
+    }
 }

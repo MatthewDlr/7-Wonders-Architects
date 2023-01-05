@@ -59,6 +59,8 @@ public class gameUIBridge {
         setupChosenWonders();
         setPlaceOfProgressTokens();
         setPlaceOfConflictTokens();
+        setCurrentPlayer(PLAYER_QUEUE.getActualPlayer());
+        GAME_CONTROLLER.setGameCardsStack();
     }
     
     private void setupChosenWonders() {

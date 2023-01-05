@@ -15,6 +15,7 @@ import game.cards.shields.ShieldCard2Trumpets;
 import game.cards.victoryPoints.ClassicVictoryPointsCard;
 import game.cards.victoryPoints.VictoryPointCardWithCat;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameCardsStack {
     
@@ -42,14 +43,20 @@ public class GameCardsStack {
             gameCardsStack.add(new GearScienceCard());
             gameCardsStack.add(new TabletScienceCard());
         }
+        Collections.shuffle(gameCardsStack);
+        
     }
     
     public Card popCard() {
-        return gameCardsStack.get(gameCardsStack.size() - 1);
+        return gameCardsStack.remove(0);
     }
     
     public boolean isEmpty() {
         return gameCardsStack.isEmpty();
+    }
+    
+    public int getSize(){
+        return gameCardsStack.size();
     }
     
 }

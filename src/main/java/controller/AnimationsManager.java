@@ -1,8 +1,10 @@
 package controller;
 
 import errorsCenter.ErrorsHandler;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -10,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
@@ -91,4 +94,13 @@ public abstract class AnimationsManager {
         node.setEffect(null);
     }
     
+    public static Animation createRotateTransition(ImageView newCard, int duration, int i1, double i2) {
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setNode(newCard);
+        rotateTransition.setDuration(javafx.util.Duration.millis(duration));
+        rotateTransition.setFromAngle(i1);
+        rotateTransition.setToAngle(i2);
+        rotateTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
+        return rotateTransition;
+    }
 }

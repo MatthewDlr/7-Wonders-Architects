@@ -72,5 +72,17 @@ public class PlayerCardsDeck {
         return gameBoard;
     }
     
+    public int getNumberOfResourcesCards() {
+        return deckOfResourcesCards.getNumberOfCards();
+    }
+    public int getNumberOfScienceCards() {
+        return deckOfScienceCards.getNumberOfCards();
+    }
+    public int getNumberOfVictoryPointsCards() {
+        return deckOfVictoryPointsCards.getNumberOfCards();
+    }
+    public int getNumberOfShieldsCards() {
+        return deckOfShieldsCards.getNumberOfCards();
+    }
     
 }

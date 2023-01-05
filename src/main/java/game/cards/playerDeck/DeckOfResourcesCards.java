@@ -151,5 +151,8 @@ public class DeckOfResourcesCards {
         }
     }
     
+    public int getNumberOfCards() {
+        return resourcesCardsSet.size();
+    }
 }
 

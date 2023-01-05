@@ -35,4 +35,8 @@ public class TokensBoard {
     public int getNumberOfConflictTokens() {
         return conflictTokenSet.getNumberOfConflictTokens();
     }
+    
+    public int getNumberOfProgressToken() {
+        return progressTokenStack.getNumberOfProgressToken();
+    }
 }

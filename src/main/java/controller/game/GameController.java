@@ -4,6 +4,7 @@ import controller.AnimationsManager;
 import game.Game;
 import game.board.PlayerQueue;
 import game.board.gameUIBridge;
+import game.cards.GameCardsStack;
 import game.player.Player;
 import game.tokens.TokensBoard;
 import game.tokens.progress.ProgressToken;
@@ -30,7 +31,7 @@ public class GameController extends gameUIBridge {
     @FXML
     AnchorPane alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh;
     @FXML
-    ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStack, progressTokenDeck;
+    ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStackReference, progressTokenDeck;
     @FXML
     ImageView referenceResourceCard, referenceShieldCard, referenceScienceCard, referenceProgressToken, referenceWarToken, referenceCat;
     @FXML
@@ -43,6 +44,8 @@ public class GameController extends gameUIBridge {
     private ArrayList<Player> listOfPlayers;
     private TokensBoard tokensBoard;
     private PlayerQueue playerQueue;
+    private GameCardsStack gameCardsStack;
+    private ArrayList<ImageView> listOfProgressTokens = new ArrayList<>();
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
@@ -59,6 +62,7 @@ public class GameController extends gameUIBridge {
         tokensBoard = getTokensBoard();
         playerQueue = getPlayerQueue();
         listOfPlayers = getListOfPlayers();
+        gameCardsStack = getGameCardsStack();
         game.launchGame();
         
         System.out.println("Game Started");
@@ -73,10 +77,10 @@ public class GameController extends gameUIBridge {
     
     
     public void setupProgressToken(ProgressToken progressToken, int tokenNumber) { // Helped by @Copilot
-        ImageView token = FastSetup.setupProgressToken(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
+        ImageView token = FastSetup.setupProgressTokenUI(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
         //insert the token after the loadingAnimationFrame
         pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
-        
+        listOfProgressTokens.add(token);
         token.setOnMouseClicked(event -> {
             System.out.println("\nClicked on " + token.getId());
             PlayerActions.getProgressToken(progressToken, token, pane);
@@ -94,6 +98,8 @@ public class GameController extends gameUIBridge {
     }
     
     public void linkPlayersWithUIComponents(){
+        PlayerActions.setGameController(this);
+        FastSetup.setupGameBoard(pane);
         for (Player player : listOfPlayers) {
             player.setWonderGroup(switch (player.getWonderName()) {
                 case "Alexandrie" -> alexandrie;
@@ -135,13 +141,28 @@ public class GameController extends gameUIBridge {
         FastSetup.updateImage(imageToUpdate, cardPath);
     }
     
-    public void setGameCardsStack(){
-        gameCardsStack.setOnMouseClicked(event -> {
+    public void setGameCardsStack() {
+        gameCardsStackReference.setOnMouseClicked(event -> {
             System.out.println("Clicked on GameCardsStack");
-            AnimationsManager.disableDropShadow(gameCardsStack);
-            PlayerActions.getGameCard(gameCardsStack, pane);
+            AnimationsManager.disableDropShadow(gameCardsStackReference);
+            PlayerActions.getNewCard(gameCardsStack, gameCardsStackReference, pane);
         });
     }
     
+    public void newProgressToken() {
+        ProgressToken progressToken = tokensBoard.popProgressToken();
+        ImageView token = FastSetup.setupProgressTokenUI(tokensBoard.getNumberOfProgressToken(),"src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
+        listOfProgressTokens.add(token);
+        pane.getChildren().add(token);
+        FastSetup.updateProgressTokenPosition(listOfProgressTokens);
+        token.setOnMouseClicked(event -> {
+            System.out.println("\nClicked on " + token.getId());
+            PlayerActions.getProgressToken(progressToken, token, pane);
+        });
+    }
+    
+    public void deleteProgressToken(ImageView token) {
+        listOfProgressTokens.remove(token);
+    }
     
 }

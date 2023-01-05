@@ -23,6 +23,7 @@ public abstract class Card {
     protected String findCardPath() {
         String path = "src/main/resources/game/cards/" + name + "Card.png";
         DataChecking.checkIfFileIsCorrect(path);
+        System.out.println("Card path found: " + path);
         return path;
     }
     

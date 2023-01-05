@@ -30,5 +30,8 @@ public class DeckOfShieldsCards {
     public int getNumberOfShields() {
         return shieldsCardsSet.size();
     }
-
+    
+    public int getNumberOfCards() {
+        return shieldsCardsSet.size();
+    }
 }

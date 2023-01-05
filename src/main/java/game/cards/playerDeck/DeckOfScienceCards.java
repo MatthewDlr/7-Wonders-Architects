@@ -82,4 +82,7 @@ public class DeckOfScienceCards {
     }
     
     
+    public int getNumberOfCards() {
+        return scienceCardsSet.size();
+    }
 }
