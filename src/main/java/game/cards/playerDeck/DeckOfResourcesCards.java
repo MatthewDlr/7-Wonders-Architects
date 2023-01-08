@@ -1,21 +1,48 @@
 package game.cards.playerDeck;
 
+import game.cards.Card;
 import game.cards.resources.ResourcesCard;
 import java.util.ArrayList;
 import java.util.Collection;
+import javafx.scene.image.ImageView;
 
 public class DeckOfResourcesCards {
     
     private final ArrayList<ResourcesCard> resourcesCardsSet;
+    public ArrayList<ImageView> resourcesCardsSetUI;
     private PlayerCardsDeck playerCardsDeck;
     
     public DeckOfResourcesCards(PlayerCardsDeck playerCardsDeck) {
         resourcesCardsSet = new ArrayList<>();
         this.playerCardsDeck = playerCardsDeck;
+        resourcesCardsSetUI = new ArrayList<>();
     }
     
     void addCard(ResourcesCard cardToAdd) {
         resourcesCardsSet.add(cardToAdd);
+        checkIfNextFloorCanBeBuilt();
+    }
+    
+    private void checkIfNextFloorCanBeBuilt() {
+        ArrayList<Integer> listOfBuildableFloor = playerCardsDeck.wonder.getBuildableFloors();
+        System.out.println("listOfBuildableFloor: " + listOfBuildableFloor);
+        if (listOfBuildableFloor.isEmpty() || isResourcesCardsSetEmpty()) {
+            return;
+        }
+        ArrayList<String> listOfResourcesCombinations = getListOfResourcesCombinations();
+        for (int i : listOfBuildableFloor) {
+            Collection<String> listOfResourcesRequired = new ArrayList<>();
+            listOfResourcesRequired.add(playerCardsDeck.wonder.getFloor(i).GetRessourceRequirement());
+            
+            for (String resourcesCombination : listOfResourcesCombinations) {
+                if (listOfResourcesRequired.contains(resourcesCombination)) {
+                    playerCardsDeck.wonder.addBuiltFloor(i);
+                    removeCardsFromDeckWithCombination(resourcesCombination);
+                    playerCardsDeck.setFloorUIasBuilt(i);
+                }
+            }
+        }
+        
     }
     
     boolean isResourcesCardsSetEmpty() {
@@ -26,7 +53,7 @@ public class DeckOfResourcesCards {
         return resourcesCardsSet.get(index);
     }
     
-    public ArrayList<String> getListOfResourcesCombinations() {
+    private ArrayList<String> getListOfResourcesCombinations() {
         
         ArrayList<String> listOfResourcesCombinations = new ArrayList<>();
         int[] numberOfEachResource = countNumberOfEachResources();
@@ -46,7 +73,7 @@ public class DeckOfResourcesCards {
         return listOfResourcesCombinations;
     }
     
-    int[] countNumberOfEachResources() {
+    private int[] countNumberOfEachResources() {
         int[] numberOfEachRessource = new int[6];
         
         for (ResourcesCard resourcesCard : resourcesCardsSet) {
@@ -63,7 +90,7 @@ public class DeckOfResourcesCards {
         return numberOfEachRessource;
     }
     
-    int getNumberOfDifferentResources(int[] numberOfEachRessource) {
+    private int getNumberOfDifferentResources(int[] numberOfEachRessource) {
         int numberOfDifferentResources = 0;
         for (int j : numberOfEachRessource) {
             if (j > 0) {
@@ -73,7 +100,7 @@ public class DeckOfResourcesCards {
         return numberOfDifferentResources;
     }
     
-    int getMaxNumberOfTheSameResources(int[] numberOfEachRessource) {
+    private int getMaxNumberOfTheSameResources(int[] numberOfEachRessource) {
         int maxNumberOfTheSameResources = 0;
         int numberOfCoins = numberOfEachRessource[0];
         
@@ -85,7 +112,7 @@ public class DeckOfResourcesCards {
         return Math.max(numberOfCoins, maxNumberOfTheSameResources + numberOfCoins);
     }
     
-    public void removeCardsFromDeckWithCombination(String combination) {
+    private void removeCardsFromDeckWithCombination(String combination) {
         int numberOfCardsToRemove = Integer.parseInt(combination.substring(0, 1));
         String combinationType = combination.substring(1);
         
@@ -97,7 +124,7 @@ public class DeckOfResourcesCards {
         }
     }
     
-    void removeCardsOfDifferentResources(int numberOfCardsToRemove) {
+    private void removeCardsOfDifferentResources(int numberOfCardsToRemove) {
         int cardsToRemove = numberOfCardsToRemove;
         Collection<String> listOfRemovedCards = new ArrayList<>();
         
@@ -105,24 +132,25 @@ public class DeckOfResourcesCards {
             for (ResourcesCard resourcesCard : resourcesCardsSet) {
                 if (!listOfRemovedCards.contains(resourcesCard.getCardName()) || resourcesCard.getCardName().equals("Coins")) {
                     resourcesCardsSet.remove(resourcesCard);
+                    removeUICards(resourcesCard);
                     listOfRemovedCards.add(resourcesCard.getCardName());
                     cardsToRemove--;
                     break;
                 }
             }
-            if (isResourcesCardsSetEmpty() && (cardsToRemove > 0)) {
+            if (isResourcesCardsSetEmpty() && cardsToRemove > 0) {
                 throw new IllegalArgumentException("Not enough cards to remove in DeckOfResourcesCards.RemoveCardsOfDifferentResources");
             }
         }
     }
     
-    void removeCardsOfSameResources(int numberOfCardsToRemove) {
+    private void removeCardsOfSameResources(int numberOfCardsToRemove) {
         int cardsToRemove = numberOfCardsToRemove;
         int[] numberOfEachResource = countNumberOfEachResources();
         int numberOfGoldCoins = numberOfEachResource[0];
         
         for (int i = 1; i < numberOfEachResource.length; i++) {
-            if ((numberOfEachResource[i] + numberOfGoldCoins) >= cardsToRemove) {
+            if (numberOfEachResource[i] + numberOfGoldCoins >= cardsToRemove) {
                 String resourceTypeToRemove;
                 resourceTypeToRemove = switch (i) {
                     case 1 -> "Stone";
@@ -138,6 +166,7 @@ public class DeckOfResourcesCards {
                 for (ResourcesCard resourcesCard : resourcesCardsCopy) {
                     if (resourcesCard.getCardName().equals(resourceTypeToRemove) || resourcesCard.getCardName().equals("Coins")) {
                         resourcesCardsSet.remove(resourcesCard);
+                        removeUICards(resourcesCard);
                         cardsToRemove--;
                         if (cardsToRemove == 0) {
                             return;
@@ -153,6 +182,27 @@ public class DeckOfResourcesCards {
     
     public int getNumberOfCards() {
         return resourcesCardsSet.size();
+    }
+    
+    public void removeUIcards(Iterable<ImageView> cardsToRemove) {
+        for (ImageView cardToRemove : cardsToRemove) {
+            resourcesCardsSetUI.remove(cardToRemove);
+        }
+    }
+    
+    public void addUIcards(ImageView cardsToAdd) {
+        resourcesCardsSetUI.add(cardsToAdd);
+    }
+    
+    private void removeUICards(Card cardToRemove) {
+        for (ImageView card : resourcesCardsSetUI) {
+            System.out.println(card.getId());
+            if (card.getId().contains(cardToRemove.getCardName())) {
+                card.setOpacity(0);
+                resourcesCardsSetUI.remove(card);
+                return;
+            }
+        }
     }
 }
 

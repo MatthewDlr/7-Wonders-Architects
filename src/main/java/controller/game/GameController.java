@@ -9,6 +9,8 @@ import game.player.Player;
 import game.tokens.TokensBoard;
 import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
+import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -37,6 +39,9 @@ public class GameController extends gameUIBridge {
     @FXML
     AnchorPane pane;
     
+    protected static final int[] referenceCardsPositionX = {275, 335, 395, 455, 290, 290, 0};
+    protected static final int[] referenceCardsPositionY = {300, 300, 300, 300, 150, 100, 100};
+    
     MediaPlayer loadingAnimationMedia;
     ArrayList<AnchorPane> playedWonders = new ArrayList<>();
     private Game game;
@@ -46,6 +51,7 @@ public class GameController extends gameUIBridge {
     private PlayerQueue playerQueue;
     private GameCardsStack gameCardsStack;
     private ArrayList<ImageView> listOfProgressTokens = new ArrayList<>();
+    private ArrayList<ImageView> listOfConflictToken = new ArrayList<>();
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
@@ -91,7 +97,7 @@ public class GameController extends gameUIBridge {
     public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
         ImageView token = FastSetup.setupConflictToken("conflictToken" + tokenNumber, tokenNumber);
         pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
-        
+        listOfConflictToken.add(token);
         token.setOnMouseClicked(event -> {
             System.out.println("This token has no action");
         });
@@ -146,6 +152,9 @@ public class GameController extends gameUIBridge {
             System.out.println("Clicked on GameCardsStack");
             AnimationsManager.disableDropShadow(gameCardsStackReference);
             PlayerActions.getNewCard(gameCardsStack, gameCardsStackReference, pane);
+            if (gameCardsStack.isEmpty()) {
+                gameCardsStackReference.setVisible(false);
+            }
         });
     }
     
@@ -165,4 +174,31 @@ public class GameController extends gameUIBridge {
         listOfProgressTokens.remove(token);
     }
     
+    
+    public void updateConflictTokenImage(int index, String path) {
+        Animation rotateAnimation = AnimationsManager.createRotateTransition(listOfConflictToken.get(index), 300, 0, 360);
+        Animation mockAnimation = AnimationsManager.createFadeTransition(listOfConflictToken.get(index), 150, 100, 100);
+        mockAnimation.setOnFinished(event -> {
+            FastSetup.updateImage(listOfConflictToken.get(index), path);
+        });
+        ParallelTransition parallelTransition = new ParallelTransition(rotateAnimation, mockAnimation);
+        parallelTransition.play();
+    }
+    
+    public void setFloorUIasBuilt(int floorNumber, String wonderName) {
+        //get anchor pane that match the wonder name
+        AnchorPane wonderPane = switch (wonderName) {
+            case "Alexandrie" -> alexandrie;
+            case "Babylone" -> babylon;
+            case "Ephese" -> ephese;
+            case "Halicarnasse" -> halicarnasse;
+            case "Olympie" -> olympie;
+            case "Rhodes" -> rhodes;
+            case "Gizeh" -> gizeh;
+            default -> throw new IllegalStateException("Error in UI setup : Unrecognized wonder (" + wonderName + ")");
+        };
+        ImageView wonderFloor = (ImageView) ((Group) wonderPane.getChildren().get(0)).getChildren().get(floorNumber - 1);
+        FastSetup.updateImage(wonderFloor, "src/main/resources/game/wondersFloors/" + wonderName + "/Floor" + floorNumber + "Built.png");
+    }
+
 }

@@ -6,6 +6,7 @@ import game.cards.playerDeck.PlayerCardsDeck;
 import game.tokens.conflict.DeckOfWarToken;
 import game.tokens.progress.ProgressToken;
 import game.wonders.Wonders;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class Player {
@@ -20,7 +21,7 @@ public abstract class Player {
     
     public Player(Wonders playerWonder) {
         wonders = playerWonder;
-        playerCardsDeck = new PlayerCardsDeck();
+        playerCardsDeck = new PlayerCardsDeck(playerWonder);
         deckOfProgressTokens = new DeckOfProgressTokens();
         deckOfWarToken = new DeckOfWarToken();
     }
@@ -61,14 +62,10 @@ public abstract class Player {
         return switch (rotation) {
             case 0 -> new double[]{value, 0};
             case 90 -> new double[]{0, value};
-            case 180 -> new double[]{(-value), 0};
+            case 180 -> new double[]{-value, 0};
             case 270 -> new double[]{0, -value};
             default -> throw new IllegalStateException("Unexpected value: " + rotation);
         };
-    }
-    
-    public int getCoordinatesForNextProgressTokenNoRotation(){
-        return deckOfProgressTokens.getCoordinatesForNextProgressToken();
     }
     
     public PlayerCardsDeck getPlayerDeck() {
@@ -91,4 +88,7 @@ public abstract class Player {
         return wonderAnchorPane;
     }
     
+    public void addUIcards(ImageView cardsToAdd) {
+        playerCardsDeck.addUIcards(cardsToAdd);
+    }
 }

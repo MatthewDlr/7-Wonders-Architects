@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class gameUIBridge {
     
     private final int[] wondersDispositionX = {5, 595, 1175, 1275, 925, 345, -60};
-    private final int[] wondersDispositionY = {570, 570, 570, 130, 5, 5, 130};
+    private final int[] wondersDispositionY = {550, 550, 550, 130, 5, 5, 130};
     private final int[] wondersDispositionRotation = {0, 0, 0, 270, 180, 180, 90};
     
     public static GameController GAME_CONTROLLER; // TODO : figure out if encapsulation is really necessary here
@@ -88,4 +88,11 @@ public class gameUIBridge {
         }
     }
     
+    public void updateConflictTokenPath(int index, String path) {
+        GAME_CONTROLLER.updateConflictTokenImage(index, path);
+    }
+    
+    public void setFloorAsBuilt(int floor, String wonderName) {
+        GAME_CONTROLLER.setFloorUIasBuilt(floor, wonderName);
+    }
 }

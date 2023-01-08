@@ -25,7 +25,7 @@ public class ConflictToken {
         faceWar = false;
     }
     
-    public String GetUsedFacePath() { // Written by @Copilot
+    public String getUsedFacePath() { // Written by @Copilot
         return faceWar ? WarFacePath : PeaceFacePath;
     }
 }

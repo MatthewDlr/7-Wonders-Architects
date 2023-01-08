@@ -9,16 +9,17 @@ public class Rhodes extends Wonders {
                 , new boolean[]{true, false, false, true, false}
                 , new int[]{2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2}
         );
-        listOfFloors.get(floor2).SetBuildable(true);
+        listOfFloors.get(floor2).setBuildable(true);
     }
     
     @Override
     protected void updateBuildableFloors() {
+        System.out.println("updateBuildableFloors: " + numberOfFloorsBuilt);
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
         if (numberOfFloorsBuilt >= 2) {
-            listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
+            listOfFloors.get(numberOfFloorsBuilt).setBuildable(true);
         }
     }
     

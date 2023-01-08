@@ -53,7 +53,8 @@ public abstract class Wonders {
     }
     
     public void addBuiltFloor(int floorNumber) {
-        listOfFloors.get(floorNumber - 1).SetBuildable(false);
+        listOfFloors.get(floorNumber - 1).setBuildable(false);
+        listOfFloors.get(floorNumber - 1).setAsBuilt();
         victoryPoints += listOfFloors.get(floorNumber - 1).GetVictoryPoints();
         numberOfFloorsBuilt++;
         updateBuildableFloors();
@@ -66,7 +67,7 @@ public abstract class Wonders {
     public ArrayList<Integer> getBuildableFloors() {
         ArrayList<Integer> buildableFloors = new ArrayList<>();
         for (WonderFloor floor : listOfFloors) {
-            if (floor.IsBuildable()) {
+            if (floor.IsBuildable() && !floor.IsBuilt()) {
                 buildableFloors.add(floor.GetFloorNumber());
             }
         }
@@ -74,10 +75,11 @@ public abstract class Wonders {
     }
     
     protected void updateBuildableFloors() {
+        System.out.println("updateBuildableFloors: " + numberOfFloorsBuilt);
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
-        listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
+        listOfFloors.get(numberOfFloorsBuilt).setBuildable(true);
     }
     
     public int getVictoryPoints() {
@@ -101,7 +103,7 @@ public abstract class Wonders {
     }
     
     public void setFloorAsBuilt(int floorNumber) {
-        listOfFloors.get(floorNumber - 1).SetAsBuilt(); // Written by @Copilot
+        listOfFloors.get(floorNumber - 1).setAsBuilt(); // Written by @Copilot
     }
     
 }

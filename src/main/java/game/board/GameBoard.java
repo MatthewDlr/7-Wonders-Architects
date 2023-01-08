@@ -44,7 +44,15 @@ public class GameBoard {
     
     public void addConflictTokenToWarFace() {
         tokensBoard.addConflictTokenToWarFace();
+        for (int i = 0; i < tokensBoard.getNumberOfConflictTokens(); i++) {
+            String path = tokensBoard.getPathOfConflictToken(i);
+            gameUIBridge.updateConflictTokenPath(i, path);
+        }
     }
-
-
+    
+    public void setFloorUIasBuilt(int floor) {
+        gameUIBridge.setFloorAsBuilt(floor, playerQueue.getActualPlayer().getWonderName());
+    }
+    
+    
 }

@@ -1,5 +1,8 @@
 package controller.game;
 
+import static controller.game.GameController.referenceCardsPositionX;
+import static controller.game.GameController.referenceCardsPositionY;
+
 import controller.AnimationsManager;
 import game.cards.Card;
 import game.cards.GameCardsStack;
@@ -7,10 +10,8 @@ import game.player.Player;
 import game.tokens.progress.ProgressToken;
 import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
-import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 public abstract class PlayerActions {
     
@@ -18,6 +19,10 @@ public abstract class PlayerActions {
     private static final int PLAYER_TOKENS_SET = 4;
     private static Player CURRENT_PLAYER = null;
     private static boolean IS_PROGRESS_TOKEN_ALLOWED = true;
+    
+    public static Player getCURRENT_PLAYER() {
+        return CURRENT_PLAYER;
+    }
     
     public static void setGameController(GameController controller) {
         GAME_CONTROLLER = controller;
@@ -46,8 +51,8 @@ public abstract class PlayerActions {
         }
         token.setOnMouseClicked(null);
         double fromCoordinates[] = {token.getLayoutX(), token.getLayoutY()};
-        double toX =((Pane) pane.getChildren().get(3)).getChildren().get(6).getLayoutX() + pane.getChildren().get(3).getLayoutX() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[0];
-        double toY =((Pane) pane.getChildren().get(3)).getChildren().get(6).getLayoutY() + pane.getChildren().get(3).getLayoutY() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[1];
+        double toX = referenceCardsPositionX[4] + CURRENT_PLAYER.getAnchorPane().getLayoutX() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[0];
+        double toY = referenceCardsPositionY[4] + CURRENT_PLAYER.getAnchorPane().getLayoutY() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[1];
         double[] toCoordinates = {toX, toY};
         System.out.println("Sending token to wonder " + CURRENT_PLAYER.getWonderName() + " by coordinates: " + (fromCoordinates[0] - toCoordinates[0]) + " x " + (fromCoordinates[1] - toCoordinates[1]) + " y");
         
@@ -72,35 +77,36 @@ public abstract class PlayerActions {
         }
         Card card = gameCardsStack.popCard();
         ImageView newCard = FastSetup.createNewCardUI(card, gameCardsStack.getSize());
+        pane.getChildren().add(3, newCard);
+        CURRENT_PLAYER.addUIcards(newCard);
         newCard.setLayoutX(gameCardsStackReference.getLayoutX());
         newCard.setLayoutY(gameCardsStackReference.getLayoutY());
         
-        double toX = 0;
-        double toY = 0;
+        double toX = CURRENT_PLAYER.getAnchorPane().getLayoutX();
+        double toY = CURRENT_PLAYER.getAnchorPane().getLayoutY();
         
-        Point2D globalPosition;
         switch (card.getCardCategory()){
             case "science" -> {
-                toX += ((Pane) pane.getChildren().get(3)).getChildren().get(5).getLayoutX() + pane.getChildren().get(5).getLayoutX();
-                toY += ((Pane) pane.getChildren().get(3)).getChildren().get(5).getLayoutY() + pane.getChildren().get(5).getLayoutY() + (CURRENT_PLAYER.getPlayerDeck().getNumberOfScienceCards() * -30);
+                toX += referenceCardsPositionX[1];
+                toY += referenceCardsPositionY[1] + CURRENT_PLAYER.getPlayerDeck().getNumberOfScienceCards() * -30;
             }
             case "resources" -> {
-                toX += ((Pane) pane.getChildren().get(3)).getChildren().get(4).getLayoutX() + pane.getChildren().get(4).getLayoutX();
-                toY += ((Pane) pane.getChildren().get(3)).getChildren().get(4).getLayoutX() + pane.getChildren().get(4).getLayoutX() + (CURRENT_PLAYER.getPlayerDeck().getNumberOfResourcesCards() * -30);
+                toX += referenceCardsPositionX[0];
+                toY += referenceCardsPositionY[0] + CURRENT_PLAYER.getPlayerDeck().getNumberOfResourcesCards() * -30;
             }
             case "shield" -> {
-                toX += ((Pane) pane.getChildren().get(3)).getChildren().get(3).getLayoutX() + pane.getChildren().get(3).getLayoutX();
-                toY += ((Pane) pane.getChildren().get(3)).getChildren().get(3).getLayoutX() + pane.getChildren().get(3).getLayoutX() + (CURRENT_PLAYER.getPlayerDeck().getNumberOfShieldsCards() * -30);
+                toX += referenceCardsPositionX[2];
+                toY += referenceCardsPositionY[2] + CURRENT_PLAYER.getPlayerDeck().getNumberOfShieldsCards() * -30;
             }
             case "victory" -> {
-                toX += ((Pane) pane.getChildren().get(3)).getChildren().get(8).getLayoutX() + pane.getChildren().get(8).getLayoutX();
-                toY += ((Pane) pane.getChildren().get(3)).getChildren().get(8).getLayoutX() + pane.getChildren().get(8).getLayoutX() + (CURRENT_PLAYER.getPlayerDeck().getNumberOfVictoryPointsCards() * -30);
+                toX += referenceCardsPositionX[3];
+                toY += referenceCardsPositionY[3] + CURRENT_PLAYER.getPlayerDeck().getNumberOfVictoryPointsCards() * -30;
             }
             default -> throw new IllegalStateException("Unexpected value: " + card.getCardCategory());
         }
         Animation translate = AnimationsManager.createTranslateTransition(newCard, 1000, newCard.getLayoutX(), newCard.getLayoutY(), toX, toY);
         Animation scale = AnimationsManager.createScaleTransition(newCard, 1000, 0.5, 0.5);
-        Animation rotation = AnimationsManager.createRotateTransition(newCard, 250, 0, CURRENT_PLAYER.getWonderGroupRotation());
+        Animation rotation = AnimationsManager.createRotateTransition(newCard, 500, 0, CURRENT_PLAYER.getWonderGroupRotation());
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale, rotation);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
@@ -108,8 +114,5 @@ public abstract class PlayerActions {
         });
         //playerActionIsDone();
     }
-    
-    private static Point2D getGlobalPosition(ImageView node){
-        return node.localToScene(node.getLayoutX(), node.getLayoutY());
-    }
+
 }

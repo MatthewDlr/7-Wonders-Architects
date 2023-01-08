@@ -8,6 +8,8 @@ import game.cards.science.ScienceCard;
 import game.cards.shields.ShieldsCard;
 import game.cards.victoryPoints.VictoryPointsCard;
 import game.player.Player;
+import game.wonders.Wonders;
+import javafx.scene.image.ImageView;
 
 public class PlayerCardsDeck {
     
@@ -15,15 +17,17 @@ public class PlayerCardsDeck {
     DeckOfScienceCards deckOfScienceCards;
     DeckOfVictoryPointsCards deckOfVictoryPointsCards;
     DeckOfShieldsCards deckOfShieldsCards;
+    Wonders wonder;
     private boolean hasTheCat;
     private GameBoard gameBoard;
     
-    public PlayerCardsDeck() {
+    public PlayerCardsDeck(Wonders wonder) {
         deckOfResourcesCards = new DeckOfResourcesCards(this);
         deckOfScienceCards = new DeckOfScienceCards(this);
         deckOfVictoryPointsCards = new DeckOfVictoryPointsCards(this);
         deckOfShieldsCards = new DeckOfShieldsCards(this);
         hasTheCat = false;
+        this.wonder = wonder;
     }
     
     public void addCard(Card cardToAdd) {
@@ -75,14 +79,24 @@ public class PlayerCardsDeck {
     public int getNumberOfResourcesCards() {
         return deckOfResourcesCards.getNumberOfCards();
     }
+    
     public int getNumberOfScienceCards() {
         return deckOfScienceCards.getNumberOfCards();
     }
+    
     public int getNumberOfVictoryPointsCards() {
         return deckOfVictoryPointsCards.getNumberOfCards();
     }
+    
     public int getNumberOfShieldsCards() {
         return deckOfShieldsCards.getNumberOfCards();
     }
     
+    public void setFloorUIasBuilt(int floorNumber) {
+        gameBoard.setFloorUIasBuilt(floorNumber);
+    }
+    
+    public void addUIcards(ImageView cardsToAdd) {
+        deckOfResourcesCards.addUIcards(cardsToAdd);
+    }
 }

@@ -3,6 +3,7 @@ package controller;
 import errorsCenter.ErrorsHandler;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -15,17 +16,19 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public abstract class AnimationsManager {
     
     public static TranslateTransition createTranslateTransition(Node movingNode, double duration, double fromX, double fromY, double toX, double toY) {
         TranslateTransition translateTransition = new TranslateTransition();
         translateTransition.setNode(movingNode);
-        translateTransition.setDuration(javafx.util.Duration.millis(duration));
+        translateTransition.setDuration(Duration.millis(duration));
         translateTransition.setByX(toX - fromX);
         translateTransition.setByY(toY - fromY);
-        translateTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
+        translateTransition.setInterpolator(Interpolator.EASE_BOTH);
         
         return translateTransition;
     }
@@ -34,10 +37,10 @@ public abstract class AnimationsManager {
         
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setNode(fadingNode);
-        fadeTransition.setDuration(javafx.util.Duration.millis(duration));
+        fadeTransition.setDuration(Duration.millis(duration));
         fadeTransition.setFromValue(fromValue);
         fadeTransition.setToValue(toValue);
-        fadeTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
+        fadeTransition.setInterpolator(Interpolator.EASE_BOTH);
         
         return fadeTransition;
     }
@@ -45,14 +48,24 @@ public abstract class AnimationsManager {
     public static ScaleTransition createScaleTransition(Node scalingNode, double duration, double toX, double toY) {
         ScaleTransition scaleTransition = new ScaleTransition();
         scaleTransition.setNode(scalingNode);
-        scaleTransition.setDuration(javafx.util.Duration.millis(duration));
+        scaleTransition.setDuration(Duration.millis(duration));
         scaleTransition.setFromX(scalingNode.getScaleX());
         scaleTransition.setFromY(scalingNode.getScaleY());
         scaleTransition.setToX(toX);
         scaleTransition.setToY(toY);
-        scaleTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
+        scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
         
         return scaleTransition;
+    }
+    
+    public static Animation createRotateTransition(ImageView newCard, int duration, int fromAngle, double toAngle) {
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setNode(newCard);
+        rotateTransition.setDuration(Duration.millis(duration));
+        rotateTransition.setFromAngle(fromAngle);
+        rotateTransition.setToAngle(toAngle);
+        rotateTransition.setInterpolator(Interpolator.EASE_BOTH);
+        return rotateTransition;
     }
     
     public static void showGameBoardLoadingAnimation(Group loadingGroup, MediaPlayer loadingAnimationMedia, MediaView loadingAnimationFrame, Rectangle whiteForeground, Label startingText) {
@@ -80,9 +93,9 @@ public abstract class AnimationsManager {
     }
     
     public static void enableDropShadow(Node node){
-        node.setEffect(new javafx.scene.effect.DropShadow());
+        node.setEffect(new DropShadow());
         
-        ((DropShadow) node.getEffect()).setColor(javafx.scene.paint.Color.web("#ffe503"));
+        ((DropShadow) node.getEffect()).setColor(Color.web("#ffe503"));
         ((DropShadow) node.getEffect()).setBlurType(BlurType.GAUSSIAN);
         ((DropShadow) node.getEffect()).setRadius(50);
         ((DropShadow) node.getEffect()).setSpread(0.5);
@@ -92,15 +105,5 @@ public abstract class AnimationsManager {
     
     public static void disableDropShadow(Node node){
         node.setEffect(null);
-    }
-    
-    public static Animation createRotateTransition(ImageView newCard, int duration, int i1, double i2) {
-        RotateTransition rotateTransition = new RotateTransition();
-        rotateTransition.setNode(newCard);
-        rotateTransition.setDuration(javafx.util.Duration.millis(duration));
-        rotateTransition.setFromAngle(i1);
-        rotateTransition.setToAngle(i2);
-        rotateTransition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
-        return rotateTransition;
     }
 }

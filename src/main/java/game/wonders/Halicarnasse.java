@@ -14,18 +14,19 @@ public class Halicarnasse extends Wonders {
     
     @Override
     protected void updateBuildableFloors() {
+        System.out.println("updateBuildableFloors: " + numberOfFloorsBuilt);
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
         if (numberOfFloorsBuilt == 1) {
-            listOfFloors.get(floor2).SetBuildable(true);
+            listOfFloors.get(floor2).setBuildable(true);
         }
         if (numberOfFloorsBuilt == 2) {
-            listOfFloors.get(floor3).SetBuildable(true);
-            listOfFloors.get(floor4).SetBuildable(true);
+            listOfFloors.get(floor3).setBuildable(true);
+            listOfFloors.get(floor4).setBuildable(true);
         }
         if (numberOfFloorsBuilt == 4) {
-            listOfFloors.get(floor5).SetBuildable(true);
+            listOfFloors.get(floor5).setBuildable(true);
         }
     }
 }

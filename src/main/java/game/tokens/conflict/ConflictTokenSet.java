@@ -57,4 +57,8 @@ public class ConflictTokenSet {
         }
         return numberOfWarTokensSetToWarFace;
     }
+    
+    public String getPathOfConflictToken(int index) {
+        return listOfConflictTokens.get(index).getUsedFacePath();
+    }
 }

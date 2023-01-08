@@ -52,7 +52,7 @@ public class WonderFloor {
         return isBuildable;
     }
     
-    public void SetBuildable(boolean isBuildable) {
+    public void setBuildable(boolean isBuildable) {
         this.isBuildable = isBuildable;
     }
     
@@ -64,10 +64,11 @@ public class WonderFloor {
         return isBuilt;
     }
     
-    public void SetAsBuilt() {
+    public void setAsBuilt() {
         wonderFloorPath =
                 "src/main/resources/game/wondersFloors/" + wonderFloorPath.substring(39, wonderFloorPath.length() - 4) + "Built.png"; //Written By @Copilot
         isBuilt = true;
+        isBuildable = false;
     }
 }
 

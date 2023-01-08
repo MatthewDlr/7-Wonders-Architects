@@ -18,7 +18,7 @@ public class TokensBoard {
         if (numberOfPlayers <= 3) {
             return 3;
         }
-        if ((numberOfPlayers == 4) || (numberOfPlayers == 5)) {
+        if (numberOfPlayers == 4 || numberOfPlayers == 5) {
             return numberOfPlayers;
         }
         return 6;
@@ -38,5 +38,9 @@ public class TokensBoard {
     
     public int getNumberOfProgressToken() {
         return progressTokenStack.getNumberOfProgressToken();
+    }
+    
+    public String getPathOfConflictToken(int index) {
+        return conflictTokenSet.getPathOfConflictToken(index);
     }
 }

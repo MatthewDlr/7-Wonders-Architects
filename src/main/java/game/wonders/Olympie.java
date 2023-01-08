@@ -13,15 +13,16 @@ public class Olympie extends Wonders {
     
     @Override
     protected void updateBuildableFloors() {
+        System.out.println("updateBuildableFloors: " + numberOfFloorsBuilt);
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
         if (numberOfFloorsBuilt == 1) {
-            listOfFloors.get(floor2).SetBuildable(true);
-            listOfFloors.get(floor3).SetBuildable(true);
+            listOfFloors.get(floor2).setBuildable(true);
+            listOfFloors.get(floor3).setBuildable(true);
         }
         if (numberOfFloorsBuilt >= 3) {
-            listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
+            listOfFloors.get(numberOfFloorsBuilt).setBuildable(true);
         }
     }
 }

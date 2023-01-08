@@ -12,10 +12,6 @@ import javafx.scene.media.MediaPlayer;
 public abstract class FastSetup {
     
     private static AnchorPane pane;
-    private static final CardsReferencePositionX[] = {}
-    private static final CardsReferencePositionY[] = {}
-    private static final TokenReferencePositionX[] = {}
-    private static final TokenReferencePositionY[] = {}
     
     public static void setupGameBoard(AnchorPane pane) {
         FastSetup.pane = pane;
@@ -27,7 +23,7 @@ public abstract class FastSetup {
         newToken.setId(id);
         newToken.setFitHeight(60);
         newToken.setFitWidth(60);
-        newToken.setLayoutX(775 - (tokenNumber * 75));
+        newToken.setLayoutX(775 - tokenNumber * 75);
         newToken.setLayoutY(400);
         newToken.setOpacity(1);
         
@@ -40,7 +36,7 @@ public abstract class FastSetup {
         newToken.setId(id);
         newToken.setFitHeight(60);
         newToken.setFitWidth(60);
-        newToken.setLayoutX(775 - (tokenNumber * 75));
+        newToken.setLayoutX(775 - tokenNumber * 75);
         newToken.setLayoutY(490);
         newToken.setOpacity(1);
         
@@ -73,7 +69,6 @@ public abstract class FastSetup {
     public static ImageView createNewCardUI(Card card, int id) {
         ImageView newCard = new ImageView();
         updateImage(newCard, card.getCardPath());
-        pane.getChildren().add(newCard);
         newCard.setId(card.getCardName() + id);
         newCard.setFitHeight(150);
         newCard.setFitWidth(100);

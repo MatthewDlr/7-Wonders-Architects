@@ -14,15 +14,16 @@ public class Babylone extends Wonders {
     
     @Override
     protected void updateBuildableFloors() {
+        System.out.println("updateBuildableFloors: " + numberOfFloorsBuilt);
         if (numberOfFloorsBuilt > floor5) {
             return;
         }
         if (numberOfFloorsBuilt < 3) {
-            listOfFloors.get(numberOfFloorsBuilt).SetBuildable(true);
+            listOfFloors.get(numberOfFloorsBuilt).setBuildable(true);
         }
         if (numberOfFloorsBuilt == 3) {
-            listOfFloors.get(floor4).SetBuildable(true);
-            listOfFloors.get(floor5).SetBuildable(true);
+            listOfFloors.get(floor4).setBuildable(true);
+            listOfFloors.get(floor5).setBuildable(true);
         }
     }
     
