@@ -8,6 +8,7 @@ import game.cards.Card;
 import game.cards.GameCardsStack;
 import game.player.Player;
 import game.tokens.progress.ProgressToken;
+import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,11 @@ public abstract class PlayerActions {
     private static final int PLAYER_TOKENS_SET = 4;
     private static Player CURRENT_PLAYER = null;
     private static boolean IS_PROGRESS_TOKEN_ALLOWED = true;
+    private static ArrayList<ImageView> LIST_OF_PROGRESS_TOKENS = new ArrayList<>();
+    
+    public static void setListOfProgressTokens(ArrayList<ImageView> listOfProgressTokens) {
+        LIST_OF_PROGRESS_TOKENS = listOfProgressTokens;
+    }
     
     public static Player getCURRENT_PLAYER() {
         return CURRENT_PLAYER;
@@ -49,7 +55,10 @@ public abstract class PlayerActions {
             System.out.println("Action not allowed");
             return;
         }
-        token.setOnMouseClicked(null);
+        for (ImageView tokenInBoard : LIST_OF_PROGRESS_TOKENS) {
+            tokenInBoard.setDisable(true);
+            AnimationsManager.disableDropShadow(tokenInBoard);
+        }
         double fromCoordinates[] = {token.getLayoutX(), token.getLayoutY()};
         double toX = referenceCardsPositionX[4] + CURRENT_PLAYER.getAnchorPane().getLayoutX() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[0];
         double toY = referenceCardsPositionY[4] + CURRENT_PLAYER.getAnchorPane().getLayoutY() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[1];
@@ -78,14 +87,14 @@ public abstract class PlayerActions {
         Card card = gameCardsStack.popCard();
         ImageView newCard = FastSetup.createNewCardUI(card, gameCardsStack.getSize());
         pane.getChildren().add(3, newCard);
-        CURRENT_PLAYER.addUIcards(newCard);
+        CURRENT_PLAYER.addUIcard(newCard);
         newCard.setLayoutX(gameCardsStackReference.getLayoutX());
         newCard.setLayoutY(gameCardsStackReference.getLayoutY());
         
         double toX = CURRENT_PLAYER.getAnchorPane().getLayoutX();
         double toY = CURRENT_PLAYER.getAnchorPane().getLayoutY();
         
-        switch (card.getCardCategory()){
+        switch (card.getCardCategory()) {
             case "science" -> {
                 toX += referenceCardsPositionX[1];
                 toY += referenceCardsPositionY[1] + CURRENT_PLAYER.getPlayerDeck().getNumberOfScienceCards() * -30;

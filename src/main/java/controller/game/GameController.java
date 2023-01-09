@@ -51,7 +51,7 @@ public class GameController extends gameUIBridge {
     private PlayerQueue playerQueue;
     private GameCardsStack gameCardsStack;
     private ArrayList<ImageView> listOfProgressTokens = new ArrayList<>();
-    private ArrayList<ImageView> listOfConflictToken = new ArrayList<>();
+    ArrayList<ImageView> listOfConflictToken = new ArrayList<>();
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
@@ -84,14 +84,14 @@ public class GameController extends gameUIBridge {
     
     public void setupProgressToken(ProgressToken progressToken, int tokenNumber) { // Helped by @Copilot
         ImageView token = FastSetup.setupProgressTokenUI(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
-        //insert the token after the loadingAnimationFrame
+        token.setDisable(true);
         pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
         listOfProgressTokens.add(token);
         token.setOnMouseClicked(event -> {
             System.out.println("\nClicked on " + token.getId());
             PlayerActions.getProgressToken(progressToken, token, pane);
-            //addNewProgressToken();
         });
+        PlayerActions.setListOfProgressTokens(listOfProgressTokens);
     }
     
     public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
@@ -161,6 +161,7 @@ public class GameController extends gameUIBridge {
     public void newProgressToken() {
         ProgressToken progressToken = tokensBoard.popProgressToken();
         ImageView token = FastSetup.setupProgressTokenUI(tokensBoard.getNumberOfProgressToken(),"src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
+        token.setDisable(true);
         listOfProgressTokens.add(token);
         pane.getChildren().add(token);
         FastSetup.updateProgressTokenPosition(listOfProgressTokens);
@@ -200,5 +201,11 @@ public class GameController extends gameUIBridge {
         ImageView wonderFloor = (ImageView) ((Group) wonderPane.getChildren().get(0)).getChildren().get(floorNumber - 1);
         FastSetup.updateImage(wonderFloor, "src/main/resources/game/wondersFloors/" + wonderName + "/Floor" + floorNumber + "Built.png");
     }
-
+    
+    public void allowUserToTakeAProgressToken() {
+        for (ImageView token : listOfProgressTokens) {
+            token.setDisable(false);
+            AnimationsManager.enableDropShadow(token);
+        }
+    }
 }

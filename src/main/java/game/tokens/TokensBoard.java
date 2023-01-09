@@ -43,4 +43,5 @@ public class TokensBoard {
     public String getPathOfConflictToken(int index) {
         return conflictTokenSet.getPathOfConflictToken(index);
     }
+    
 }

@@ -55,4 +55,7 @@ public class GameBoard {
     }
     
     
+    public void getProgressToken() {
+        gameUIBridge.UIBridgeAllowUserToTakeAProgressToken();
+    }
 }

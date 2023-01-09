@@ -95,4 +95,8 @@ public class gameUIBridge {
     public void setFloorAsBuilt(int floor, String wonderName) {
         GAME_CONTROLLER.setFloorUIasBuilt(floor, wonderName);
     }
+    
+    public void UIBridgeAllowUserToTakeAProgressToken() {
+        GAME_CONTROLLER.allowUserToTakeAProgressToken();
+    }
 }

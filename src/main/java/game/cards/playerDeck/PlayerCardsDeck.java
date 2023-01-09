@@ -96,7 +96,15 @@ public class PlayerCardsDeck {
         gameBoard.setFloorUIasBuilt(floorNumber);
     }
     
-    public void addUIcards(ImageView cardsToAdd) {
+    public void addUIResourcesCards(ImageView cardsToAdd) {
         deckOfResourcesCards.addUIcards(cardsToAdd);
+    }
+    
+    public void addUIscienceCards(ImageView cardsToAdd) {
+        deckOfScienceCards.addUIscienceCards(cardsToAdd);
+    }
+    
+    public void getProgressToken() {
+        gameBoard.getProgressToken();
     }
 }

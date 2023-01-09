@@ -88,7 +88,16 @@ public abstract class Player {
         return wonderAnchorPane;
     }
     
-    public void addUIcards(ImageView cardsToAdd) {
-        playerCardsDeck.addUIcards(cardsToAdd);
+    public void addUIcard(ImageView cardsToAdd) {
+        if (cardsToAdd.getId().contains("Brick") || cardsToAdd.getId().contains("Coins") || cardsToAdd.getId().contains("Experience") || cardsToAdd.getId().contains("Paper") || cardsToAdd.getId().contains("Stone") || cardsToAdd.getId().contains("Wood")) {
+            playerCardsDeck.addUIResourcesCards(cardsToAdd);
+            return;
+        }
+        if (cardsToAdd.getId().contains("Science")) {
+            playerCardsDeck.addUIscienceCards(cardsToAdd);
+            return;
+        }
+        System.out.println("Error in add new UI card: " + cardsToAdd.getId() + " is not a valid card");
     }
+    
 }

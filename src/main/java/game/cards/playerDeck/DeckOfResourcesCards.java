@@ -184,12 +184,6 @@ public class DeckOfResourcesCards {
         return resourcesCardsSet.size();
     }
     
-    public void removeUIcards(Iterable<ImageView> cardsToRemove) {
-        for (ImageView cardToRemove : cardsToRemove) {
-            resourcesCardsSetUI.remove(cardToRemove);
-        }
-    }
-    
     public void addUIcards(ImageView cardsToAdd) {
         resourcesCardsSetUI.add(cardsToAdd);
     }

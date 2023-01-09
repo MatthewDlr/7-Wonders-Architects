@@ -54,4 +54,5 @@ public class ProgressTokenStack {
     public int getNumberOfProgressToken() {
         return deckOfProgressTokens.size();
     }
+    
 }
