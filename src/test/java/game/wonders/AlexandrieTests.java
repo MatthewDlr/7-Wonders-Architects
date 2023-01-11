@@ -17,7 +17,7 @@ public class AlexandrieTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, alexandrie.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, alexandrie.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, alexandrie.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, alexandrie.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), alexandrie.getBuildableFloors());
         assertEquals("Incorrect creation of cards stack", 25, alexandrie.cardsStack.size());
@@ -27,7 +27,7 @@ public class AlexandrieTests {
     public void BuildingFloor1Test() {
         alexandrie.addBuiltFloor(1);
         assertEquals(1, alexandrie.getNumberOfFloorsBuilt());
-        assertEquals(4, alexandrie.getVictoryPoints());
+        assertEquals(4, alexandrie.getNumberOfVictoryPoints());
         assertEquals("2≠", alexandrie.getFloor(1).GetRessourceRequirement());
         assertFalse(alexandrie.getFloor(1).IsBuildable());
         assertTrue(alexandrie.getFloor(2).IsBuildable());
@@ -43,7 +43,7 @@ public class AlexandrieTests {
         alexandrie.addBuiltFloor(4);
         
         assertEquals(4, alexandrie.getNumberOfFloorsBuilt());
-        assertEquals(18, alexandrie.getVictoryPoints());
+        assertEquals(18, alexandrie.getNumberOfVictoryPoints());
         assertEquals("4≠", alexandrie.getFloor(5).GetRessourceRequirement());
         assertFalse(alexandrie.getFloor(4).IsBuildable());
         assertTrue(alexandrie.getFloor(5).IsBuildable());

@@ -203,9 +203,16 @@ public class GameController extends gameUIBridge {
     }
     
     public void allowUserToTakeAProgressToken() {
+        gameCardsStackReference.setDisable(true);
+        AnimationsManager.disableDropShadow(gameCardsStackReference);
+        
         for (ImageView token : listOfProgressTokens) {
             token.setDisable(false);
             AnimationsManager.enableDropShadow(token);
         }
+    }
+    
+    public void getCatUI() {
+        PlayerActions.getCatUI(pane);
     }
 }

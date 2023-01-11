@@ -1,13 +1,11 @@
 package game.cards.playerDeck;
 
 import game.board.GameBoard;
-import game.board.PlayerQueue;
 import game.cards.Card;
 import game.cards.resources.ResourcesCard;
 import game.cards.science.ScienceCard;
 import game.cards.shields.ShieldsCard;
 import game.cards.victoryPoints.VictoryPointsCard;
-import game.player.Player;
 import game.wonders.Wonders;
 import javafx.scene.image.ImageView;
 
@@ -50,13 +48,7 @@ public class PlayerCardsDeck {
         throw new IllegalArgumentException("Error in PlayerCardsDeck.AddCard: cardToAdd is not a valid card");
     }
     
-    public void gotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
-        
-        Class<PlayerQueue> playerQueueClass = (Class<PlayerQueue>) Class.forName("game.board.PlayerQueue");
-        Iterable<Player> playersQueue = (Iterable<Player>) playerQueueClass.getField("playersQueue").get(null);
-        for (Player player : playersQueue) {
-            player.removeTheCat();
-        }
+    public void gotTheCat() {
         hasTheCat = true;
     }
     
@@ -106,5 +98,17 @@ public class PlayerCardsDeck {
     
     public void getProgressToken() {
         gameBoard.getProgressToken();
+    }
+    
+    public void getCatUI() {
+        gameBoard.getCatUI();
+    }
+    
+    public void removeCatFromAllPlayers() {
+        gameBoard.removeCatForAllPlayers();
+    }
+    
+    public int getNumberOfVictoryPoints() {
+        return deckOfVictoryPointsCards.getNumberOfVictoryPoints() ;
     }
 }

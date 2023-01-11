@@ -17,7 +17,7 @@ public class EpheseTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, ephese.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, ephese.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, ephese.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, ephese.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), ephese.getBuildableFloors());
     }
@@ -26,7 +26,7 @@ public class EpheseTests {
     public void BuildingFloor1Test() {
         ephese.addBuiltFloor(1);
         assertEquals(1, ephese.getNumberOfFloorsBuilt());
-        assertEquals(4, ephese.getVictoryPoints());
+        assertEquals(4, ephese.getNumberOfVictoryPoints());
         assertEquals("2≠", ephese.getFloor(1).GetRessourceRequirement());
         assertFalse(ephese.getFloor(1).IsBuildable());
         assertTrue(ephese.getFloor(4).IsBuildable());
@@ -41,7 +41,7 @@ public class EpheseTests {
         ephese.addBuiltFloor(4);
         
         assertEquals(3, ephese.getNumberOfFloorsBuilt());
-        assertEquals(13, ephese.getVictoryPoints());
+        assertEquals(13, ephese.getNumberOfVictoryPoints());
         assertEquals("4≠", ephese.getFloor(5).GetRessourceRequirement());
         assertFalse(ephese.getFloor(5).IsBuildable());
         assertTrue(ephese.getFloor(2).IsBuildable());

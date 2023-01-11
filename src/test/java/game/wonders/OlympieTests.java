@@ -16,7 +16,7 @@ public class OlympieTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, olympie.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, olympie.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, olympie.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, olympie.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), olympie.getBuildableFloors());
     }
@@ -25,7 +25,7 @@ public class OlympieTests {
     public void BuildingFloor1Test() {
         olympie.addBuiltFloor(1);
         assertEquals(1, olympie.getNumberOfFloorsBuilt());
-        assertEquals(3, olympie.getVictoryPoints());
+        assertEquals(3, olympie.getNumberOfVictoryPoints());
         assertEquals("2≠", olympie.getFloor(1).GetRessourceRequirement());
         assertFalse(olympie.getFloor(1).IsBuildable());
         assertFalse(olympie.getFloor(1).HasSpecialEffect());
@@ -38,7 +38,7 @@ public class OlympieTests {
         olympie.addBuiltFloor(3);
         
         assertEquals(2, olympie.getNumberOfFloorsBuilt());
-        assertEquals(5, olympie.getVictoryPoints());
+        assertEquals(5, olympie.getNumberOfVictoryPoints());
         assertFalse(olympie.getFloor(4).IsBuildable());
         assertEquals(new ArrayList<>(List.of(2)), olympie.getBuildableFloors());
     }
@@ -52,7 +52,7 @@ public class OlympieTests {
         olympie.addBuiltFloor(5);
         
         assertEquals(5, olympie.getNumberOfFloorsBuilt());
-        assertEquals(22, olympie.getVictoryPoints());
+        assertEquals(22, olympie.getNumberOfVictoryPoints());
         assertFalse(olympie.getFloor(5).IsBuildable());
         assertEquals(new ArrayList<>(List.of()), olympie.getBuildableFloors());
     }

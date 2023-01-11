@@ -23,4 +23,8 @@ public class DeckOfWarToken {
     public int GetWarTokensSetSize() {
         return warTokensSet.size();
     }
+    
+    public int getNumberOfVictoryPoints() {
+        return warTokensSet.size() * 3;
+    }
 }

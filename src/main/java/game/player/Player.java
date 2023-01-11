@@ -38,6 +38,10 @@ public abstract class Player {
         playerCardsDeck.gotTheCat();
     }
     
+    public int getWonderLevel() {
+        return wonders.getNumberOfFloorsBuilt();
+    }
+    
     public String getWonderName() {
         return wonders.getName();
     }
@@ -100,4 +104,14 @@ public abstract class Player {
         System.out.println("Error in add new UI card: " + cardsToAdd.getId() + " is not a valid card");
     }
     
+    public int getNumberOfVictorypoint() {
+        int numberOfVictoryPoint = 0;
+        numberOfVictoryPoint += wonders.getNumberOfVictoryPoints();
+        numberOfVictoryPoint += playerCardsDeck.getNumberOfVictoryPoints();
+        numberOfVictoryPoint += deckOfWarToken.getNumberOfVictoryPoints();
+        if (hasTheCat()) {
+            numberOfVictoryPoint += 2;
+        }
+        return numberOfVictoryPoint;
+    }
 }

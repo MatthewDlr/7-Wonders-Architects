@@ -20,7 +20,9 @@ public class DeckOfVictoryPointsCards {
         victoryPointsCardsSet.add(cardToAdd);
         numberOfVictoryPoints += cardToAdd.GetNumberOfVictoryPoints();
         if (cardToAdd instanceof VictoryPointCardWithCat) {
-            //TODO Move the cat to the player’s board
+            playerCardsDeck.removeCatFromAllPlayers();
+            playerCardsDeck.gotTheCat();
+            playerCardsDeck.getCatUI();
         }
     }
     

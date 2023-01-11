@@ -26,9 +26,23 @@ public class GameBoard {
         gameUIBridge.setup(listOfPlayers, tokensBoard, playerQueue, gameCardsStack);
     }
     
-    public void initializeUI() {
+    public void initialize() {
         gameUIBridge.setupBoard();
         gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer()); // to be removed
+    }
+    
+    public void nextPlayer() {
+        isGameFinished();
+        playerQueue.nextPlayer();
+        gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer());
+    }
+    
+    public Player getRightPlayer() {
+        return playerQueue.getRightPlayer();
+    }
+    
+    public Player getLeftPlayer() {
+        return playerQueue.getLeftPlayer();
     }
     
     public TokensBoard getTokensBoard() {
@@ -57,5 +71,35 @@ public class GameBoard {
     
     public void getProgressToken() {
         gameUIBridge.UIBridgeAllowUserToTakeAProgressToken();
+    }
+    
+    public void getCatUI() {
+        gameUIBridge.UIBridgeTakeTheCat();
+    }
+    
+    public void removeCatForAllPlayers() {
+        playerQueue.removeTheCatFromAllPlayers();
+    }
+    
+    
+    private void isGameFinished() {
+        for (Player player : listOfPlayers) {
+            if (player.getWonderLevel() >= 5) {
+                findWinner();
+            }
+            System.out.println("Player wonder level: " + player.getWonderLevel());
+        }
+    }
+    
+    private void findWinner() {
+        int maxScore = 0;
+        Player winner = null;
+        for (Player player : listOfPlayers) {
+            if (player.getNumberOfVictorypoint() > maxScore) {
+                maxScore = player.getNumberOfVictorypoint();
+                winner = player;
+            }
+        }
+        //gameUIBridge.UIBridgeShowWinner(winner);
     }
 }

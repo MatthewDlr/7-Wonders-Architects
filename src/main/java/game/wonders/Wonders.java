@@ -82,7 +82,7 @@ public abstract class Wonders {
         listOfFloors.get(numberOfFloorsBuilt).setBuildable(true);
     }
     
-    public int getVictoryPoints() {
+    public int getNumberOfVictoryPoints() {
         return victoryPoints;
     }
     

@@ -73,6 +73,6 @@ public class Game {
     }
     
     public void launchGame() {
-        gameBoard.initializeUI();
+        gameBoard.initialize();
     }
 }

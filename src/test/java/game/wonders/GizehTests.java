@@ -17,7 +17,7 @@ public class GizehTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, gizeh.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, gizeh.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, gizeh.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, gizeh.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), gizeh.getBuildableFloors());
     }
@@ -26,7 +26,7 @@ public class GizehTests {
     public void BuildingFloor1Test() {
         gizeh.addBuiltFloor(1);
         assertEquals(1, gizeh.getNumberOfFloorsBuilt());
-        assertEquals(4, gizeh.getVictoryPoints());
+        assertEquals(4, gizeh.getNumberOfVictoryPoints());
         assertEquals("2≠", gizeh.getFloor(1).GetRessourceRequirement());
         assertFalse(gizeh.getFloor(1).IsBuildable());
         assertTrue(gizeh.getFloor(2).IsBuildable());

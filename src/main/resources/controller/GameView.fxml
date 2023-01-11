@@ -42,7 +42,7 @@
       <ImageView fx:id="alexandrieCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../game/cards/Back/AlexandrieCard.png" />
       </ImageView>
-      <ImageView fx:id="referenceCat" fitHeight="84.0" fitWidth="40.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="referenceCat" fitHeight="85.0" fitWidth="40.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <Image url="@../game/tokens/Cat.png" />
       </ImageView>
       <ImageView fx:id="referenceShieldCard" fitHeight="100.0" fitWidth="50.0" layoutX="395.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" visible="false">

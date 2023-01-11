@@ -17,7 +17,7 @@ public class HalicarnasseTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, halicarnasse.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, halicarnasse.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, halicarnasse.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, halicarnasse.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), halicarnasse.getBuildableFloors());
     }
@@ -26,7 +26,7 @@ public class HalicarnasseTests {
     public void BuildingFloor1Test() {
         halicarnasse.addBuiltFloor(1);
         assertEquals(1, halicarnasse.getNumberOfFloorsBuilt());
-        assertEquals(3, halicarnasse.getVictoryPoints());
+        assertEquals(3, halicarnasse.getNumberOfVictoryPoints());
         assertEquals("2≠", halicarnasse.getFloor(1).GetRessourceRequirement());
         assertFalse(halicarnasse.getFloor(1).IsBuildable());
         assertTrue(halicarnasse.getFloor(2).IsBuildable());
@@ -40,7 +40,7 @@ public class HalicarnasseTests {
         halicarnasse.addBuiltFloor(2);
         
         assertEquals(2, halicarnasse.getNumberOfFloorsBuilt());
-        assertEquals(6, halicarnasse.getVictoryPoints());
+        assertEquals(6, halicarnasse.getNumberOfVictoryPoints());
         assertEquals("4≠", halicarnasse.getFloor(5).GetRessourceRequirement());
         assertFalse(halicarnasse.getFloor(5).IsBuildable());
         assertTrue(halicarnasse.getFloor(4).IsBuildable());
@@ -55,7 +55,7 @@ public class HalicarnasseTests {
         halicarnasse.addBuiltFloor(4);
         
         assertEquals(3, halicarnasse.getNumberOfFloorsBuilt());
-        assertEquals(12, halicarnasse.getVictoryPoints());
+        assertEquals(12, halicarnasse.getNumberOfVictoryPoints());
         assertFalse(halicarnasse.getFloor(5).IsBuildable());
         assertTrue(halicarnasse.getFloor(3).IsBuildable());
         assertEquals(new ArrayList<>(List.of(3)), halicarnasse.getBuildableFloors());

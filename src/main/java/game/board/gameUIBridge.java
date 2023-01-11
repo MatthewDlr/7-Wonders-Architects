@@ -99,4 +99,8 @@ public class gameUIBridge {
     public void UIBridgeAllowUserToTakeAProgressToken() {
         GAME_CONTROLLER.allowUserToTakeAProgressToken();
     }
+    
+    public void UIBridgeTakeTheCat() {
+        GAME_CONTROLLER.getCatUI();
+    }
 }

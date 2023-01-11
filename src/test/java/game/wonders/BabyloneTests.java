@@ -17,7 +17,7 @@ public class BabyloneTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, babylone.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, babylone.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, babylone.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, babylone.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1)), babylone.getBuildableFloors());
     }
@@ -26,7 +26,7 @@ public class BabyloneTests {
     public void BuildingFloor1Test() {
         babylone.addBuiltFloor(1);
         assertEquals(1, babylone.getNumberOfFloorsBuilt());
-        assertEquals(3, babylone.getVictoryPoints());
+        assertEquals(3, babylone.getNumberOfVictoryPoints());
         assertEquals("2≠", babylone.getFloor(1).GetRessourceRequirement());
         assertFalse(babylone.getFloor(1).IsBuildable());
         assertTrue(babylone.getFloor(2).IsBuildable());
@@ -41,7 +41,7 @@ public class BabyloneTests {
         babylone.addBuiltFloor(3);
         
         assertEquals(3, babylone.getNumberOfFloorsBuilt());
-        assertEquals(8, babylone.getVictoryPoints());
+        assertEquals(8, babylone.getNumberOfVictoryPoints());
         assertEquals("3≠", babylone.getFloor(3).GetRessourceRequirement());
         assertTrue(babylone.getFloor(4).IsBuildable());
         assertTrue(babylone.getFloor(5).IsBuildable());

@@ -17,7 +17,7 @@ public class RhodesTests extends WondersTests {
     @Test
     public void InitializingTest() {
         assertEquals("Built number of floor is invalid", 0, rhodes.getNumberOfFloorsBuilt());
-        assertEquals("Victory points is invalid", 0, rhodes.getVictoryPoints());
+        assertEquals("Victory points is invalid", 0, rhodes.getNumberOfVictoryPoints());
         assertEquals("Floors hasn't been created correctly", 5, rhodes.listOfFloors.size());
         assertEquals("Incorrect buildable floors", new ArrayList<>(List.of(1, 2)), rhodes.getBuildableFloors());
     }
@@ -26,7 +26,7 @@ public class RhodesTests extends WondersTests {
     public void BuildingFloor1Test() {
         rhodes.addBuiltFloor(2);
         assertEquals(1, rhodes.getNumberOfFloorsBuilt());
-        assertEquals(4, rhodes.getVictoryPoints());
+        assertEquals(4, rhodes.getNumberOfVictoryPoints());
         assertEquals("2≠", rhodes.getFloor(1).GetRessourceRequirement());
         assertTrue(rhodes.getFloor(1).IsBuildable());
         assertFalse(rhodes.getFloor(3).IsBuildable());
@@ -42,7 +42,7 @@ public class RhodesTests extends WondersTests {
         rhodes.addBuiltFloor(4);
         
         assertEquals(4, rhodes.getNumberOfFloorsBuilt());
-        assertEquals(19, rhodes.getVictoryPoints());
+        assertEquals(19, rhodes.getNumberOfVictoryPoints());
         assertFalse(rhodes.getFloor(4).IsBuildable());
         assertTrue(rhodes.getFloor(5).IsBuildable());
         assertTrue(rhodes.getFloor(4).HasSpecialEffect());

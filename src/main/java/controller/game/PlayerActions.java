@@ -19,8 +19,8 @@ public abstract class PlayerActions {
     private static GameController GAME_CONTROLLER;
     private static final int PLAYER_TOKENS_SET = 4;
     private static Player CURRENT_PLAYER = null;
-    private static boolean IS_PROGRESS_TOKEN_ALLOWED = true;
     private static ArrayList<ImageView> LIST_OF_PROGRESS_TOKENS = new ArrayList<>();
+    private static ImageView CAT = null;
     
     public static void setListOfProgressTokens(ArrayList<ImageView> listOfProgressTokens) {
         LIST_OF_PROGRESS_TOKENS = listOfProgressTokens;
@@ -32,10 +32,6 @@ public abstract class PlayerActions {
     
     public static void setGameController(GameController controller) {
         GAME_CONTROLLER = controller;
-    }
-    
-    private static boolean getProgressTokenAllowed(){
-        return IS_PROGRESS_TOKEN_ALLOWED != false;
     }
     
     private static boolean doesAPlayerCanPlay(){
@@ -51,10 +47,6 @@ public abstract class PlayerActions {
     }
     
     public static void getProgressToken(ProgressToken progressToken, ImageView token, AnchorPane pane) {
-        if (!getProgressTokenAllowed()) {
-            System.out.println("Action not allowed");
-            return;
-        }
         for (ImageView tokenInBoard : LIST_OF_PROGRESS_TOKENS) {
             tokenInBoard.setDisable(true);
             AnimationsManager.disableDropShadow(tokenInBoard);
@@ -75,7 +67,6 @@ public abstract class PlayerActions {
         });
         
         CURRENT_PLAYER.addProgressToken(progressToken);
-        //IS_PROGRESS_TOKEN_ALLOWED = false;
         
     }
     
@@ -121,7 +112,20 @@ public abstract class PlayerActions {
         parallelTransition.setOnFinished(event -> {
             CURRENT_PLAYER.getPlayerDeck().addCard(card);
         });
-        //playerActionIsDone();
     }
-
+    
+    public static void getCatUI(AnchorPane pane) {
+        if (CAT == null) {
+            CAT = new ImageView();
+            FastSetup.updateImage(CAT, "src/main/resources/game/tokens/Cat.png");
+            CAT.setFitHeight(85);
+            CAT.setFitWidth(40);
+            pane.getChildren().add(CAT);
+        }
+        double toX = referenceCardsPositionX[6] + CURRENT_PLAYER.getAnchorPane().getLayoutX();
+        double toY = referenceCardsPositionY[6] + CURRENT_PLAYER.getAnchorPane().getLayoutY();
+        Animation translate = AnimationsManager.createTranslateTransition(CAT, 1000, CAT.getLayoutX(), CAT.getLayoutY(), toX, toY);
+        translate.play();
+        
+    }
 }
