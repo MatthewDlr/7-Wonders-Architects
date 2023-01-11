@@ -111,4 +111,8 @@ public class PlayerCardsDeck {
     public int getNumberOfVictoryPoints() {
         return deckOfVictoryPointsCards.getNumberOfVictoryPoints() ;
     }
+    
+    public void nextPlayer() {
+        gameBoard.nextPlayer();
+    }
 }

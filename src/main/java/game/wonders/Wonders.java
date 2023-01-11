@@ -106,4 +106,11 @@ public abstract class Wonders {
         listOfFloors.get(floorNumber - 1).setAsBuilt(); // Written by @Copilot
     }
     
+    public Card popCard() {
+        return cardsStack.remove(0);
+    }
+    
+    public int getStackSize() {
+        return cardsStack.size();
+    }
 }

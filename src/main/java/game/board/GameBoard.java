@@ -37,14 +37,6 @@ public class GameBoard {
         gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer());
     }
     
-    public Player getRightPlayer() {
-        return playerQueue.getRightPlayer();
-    }
-    
-    public Player getLeftPlayer() {
-        return playerQueue.getLeftPlayer();
-    }
-    
     public TokensBoard getTokensBoard() {
         if (tokensBoard == null) {
             throw new IllegalStateException("TokensBoard is not initialized");

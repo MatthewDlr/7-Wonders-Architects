@@ -21,6 +21,7 @@ public abstract class PlayerActions {
     private static Player CURRENT_PLAYER = null;
     private static ArrayList<ImageView> LIST_OF_PROGRESS_TOKENS = new ArrayList<>();
     private static ImageView CAT = null;
+    public static boolean IS_TOUR_FINISHED;
     
     public static void setListOfProgressTokens(ArrayList<ImageView> listOfProgressTokens) {
         LIST_OF_PROGRESS_TOKENS = listOfProgressTokens;
@@ -32,10 +33,6 @@ public abstract class PlayerActions {
     
     public static void setGameController(GameController controller) {
         GAME_CONTROLLER = controller;
-    }
-    
-    private static boolean doesAPlayerCanPlay(){
-        return CURRENT_PLAYER != null;
     }
     
     public static void setCurrentPlayer(Player currentPlayer) {
@@ -64,27 +61,37 @@ public abstract class PlayerActions {
         parallelTransition.setOnFinished(event -> {
             GAME_CONTROLLER.deleteProgressToken(token);
             GAME_CONTROLLER.newProgressToken();
+            GAME_CONTROLLER.nextPlayer();
         });
-        
         CURRENT_PLAYER.addProgressToken(progressToken);
         
     }
     
-    public static void getNewCard(GameCardsStack gameCardsStack, ImageView gameCardsStackReference, AnchorPane pane) {
-        if (!doesAPlayerCanPlay()) {
-            System.out.println("Action Not allowed");
-            return;
-        }
+    public static void getNewCardFromGameCardsStack(GameCardsStack gameCardsStack, ImageView gameCardsStackReference, AnchorPane pane) {
         Card card = gameCardsStack.popCard();
         ImageView newCard = FastSetup.createNewCardUI(card, gameCardsStack.getSize());
         pane.getChildren().add(3, newCard);
         CURRENT_PLAYER.addUIcard(newCard);
         newCard.setLayoutX(gameCardsStackReference.getLayoutX());
         newCard.setLayoutY(gameCardsStackReference.getLayoutY());
+        addCardUIToPlayer(card, newCard);
+    }
+    
+    public static void getNewCardsFromWonderCardsStack(Player player, ImageView wonderCardsStack, AnchorPane pane) {
+        Card card = player.popWonderCard();
+        FastSetup.updateImage(wonderCardsStack, player.getWonderTopCardPath());
+        ImageView newCard = FastSetup.createNewCardUI(card, player.getWonderCardsStackSize());
+        pane.getChildren().add(3, newCard);
+        CURRENT_PLAYER.addUIcard(newCard);
+        newCard.setLayoutX(wonderCardsStack.getLayoutX() + player.getAnchorPane().getLayoutX());
+        newCard.setLayoutY(wonderCardsStack.getLayoutY() + player.getAnchorPane().getLayoutY());
+        addCardUIToPlayer(card, newCard);
+    }
+    
+    private static void addCardUIToPlayer(Card card, ImageView newCard) {
         
         double toX = CURRENT_PLAYER.getAnchorPane().getLayoutX();
         double toY = CURRENT_PLAYER.getAnchorPane().getLayoutY();
-        
         switch (card.getCardCategory()) {
             case "science" -> {
                 toX += referenceCardsPositionX[1];
@@ -110,7 +117,11 @@ public abstract class PlayerActions {
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale, rotation);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
+            IS_TOUR_FINISHED = true;
             CURRENT_PLAYER.getPlayerDeck().addCard(card);
+            if (IS_TOUR_FINISHED) {
+                GAME_CONTROLLER.nextPlayer();
+            }
         });
     }
     
@@ -122,10 +133,13 @@ public abstract class PlayerActions {
             CAT.setFitWidth(40);
             pane.getChildren().add(CAT);
         }
+        
         double toX = referenceCardsPositionX[6] + CURRENT_PLAYER.getAnchorPane().getLayoutX();
         double toY = referenceCardsPositionY[6] + CURRENT_PLAYER.getAnchorPane().getLayoutY();
-        Animation translate = AnimationsManager.createTranslateTransition(CAT, 1000, CAT.getLayoutX(), CAT.getLayoutY(), toX, toY);
+        Animation translate = AnimationsManager.createTranslateTransitionTo(CAT, 1000, toX, toY);
         translate.play();
-        
+        translate.setOnFinished(event -> {
+            GAME_CONTROLLER.nextPlayer();
+        });
     }
 }

@@ -1,5 +1,6 @@
 package game.cards.playerDeck;
 
+import controller.game.PlayerActions;
 import game.cards.Card;
 import game.cards.resources.ResourcesCard;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class DeckOfResourcesCards {
             
             for (String resourcesCombination : listOfResourcesCombinations) {
                 if (listOfResourcesRequired.contains(resourcesCombination)) {
+                    PlayerActions.IS_TOUR_FINISHED = false;
                     playerCardsDeck.wonder.addBuiltFloor(i);
                     removeCardsFromDeckWithCombination(resourcesCombination);
                     playerCardsDeck.setFloorUIasBuilt(i);

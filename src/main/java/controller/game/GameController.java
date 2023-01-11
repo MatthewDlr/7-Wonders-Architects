@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -31,9 +32,9 @@ public class GameController extends gameUIBridge {
     @FXML
     Label startingText;
     @FXML
-    AnchorPane alexandrie, babylon, ephese, halicarnasse, olympie, rhodes, gizeh;
+    AnchorPane alexandrie, babylone, ephese, halicarnasse, olympie, rhodes, gizeh;
     @FXML
-    ImageView alexandrieCardsStack, babylonCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStackReference, progressTokenDeck;
+    ImageView alexandrieCardsStack, babyloneCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStackReference, progressTokenDeck;
     @FXML
     ImageView referenceResourceCard, referenceShieldCard, referenceScienceCard, referenceProgressToken, referenceWarToken, referenceCat;
     @FXML
@@ -41,6 +42,7 @@ public class GameController extends gameUIBridge {
     
     protected static final int[] referenceCardsPositionX = {275, 335, 395, 455, 290, 290, 0};
     protected static final int[] referenceCardsPositionY = {300, 300, 300, 300, 150, 100, 100};
+    private ArrayList<ImageView> listOfCardsStacks = new ArrayList<>();
     
     MediaPlayer loadingAnimationMedia;
     ArrayList<AnchorPane> playedWonders = new ArrayList<>();
@@ -79,6 +81,21 @@ public class GameController extends gameUIBridge {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
         PlayerActions.setCurrentPlayer(currentPlayer); // to be removed
+        setupCardsStack();
+    }
+    
+    private void setupCardsStack() {
+        gameCardsStackReference.setDisable(false);
+        AnimationsManager.enableDropShadow(gameCardsStackReference);
+        Player player = getRightPlayer();
+        ImageView cardsStackRight = (ImageView) player.getAnchorPane().getChildren().get(1);
+        cardsStackRight.setDisable(false);
+        AnimationsManager.enableDropShadow(cardsStackRight);
+        
+        Player player2 = getLeftPlayer();
+        ImageView cardsStackLeft = (ImageView) player2.getAnchorPane().getChildren().get(1);
+        cardsStackLeft.setDisable(false);
+        AnimationsManager.enableDropShadow(cardsStackLeft);
     }
     
     
@@ -107,23 +124,49 @@ public class GameController extends gameUIBridge {
         PlayerActions.setGameController(this);
         FastSetup.setupGameBoard(pane);
         for (Player player : listOfPlayers) {
-            player.setWonderGroup(switch (player.getWonderName()) {
-                case "Alexandrie" -> alexandrie;
-                case "Babylone" -> babylon;
-                case "Ephese" -> ephese;
-                case "Halicarnasse" -> halicarnasse;
-                case "Olympie" -> olympie;
-                case "Rhodes" -> rhodes;
-                case "Gizeh" -> gizeh;
-                default -> throw new IllegalStateException(" Unknown wonder name: " + player.getWonderName());
-            });
+            AnchorPane anchorPane;
+            ImageView cardsStack;
+            switch (player.getWonderName()) {
+                case "Alexandrie" -> {
+                    anchorPane = alexandrie;
+                    cardsStack = alexandrieCardsStack;
+                }
+                case "Babylone" -> {
+                    anchorPane = babylone;
+                    cardsStack = babyloneCardsStack;
+                }
+                case "Ephese" -> {
+                    anchorPane = ephese;
+                    cardsStack = epheseCardsStack;
+                }
+                case "Halicarnasse" -> {
+                    anchorPane = halicarnasse;
+                    cardsStack = halicarnasseCardsStack;
+                }
+                case "Olympie" -> {
+                    anchorPane = olympie;
+                    cardsStack = olympieCardsStack;
+                }
+                case "Rhodes" -> {
+                    anchorPane = rhodes;
+                    cardsStack = rhodesCardsStack;
+                }
+                case "Gizeh" -> {
+                    anchorPane = gizeh;
+                    cardsStack = gizehCardsStack;
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + player.getWonderName());
+            }
+            listOfCardsStacks.add(cardsStack);
+            player.setWonderGroup(anchorPane);
         }
+        listOfCardsStacks.add(gameCardsStackReference);
     }
     
     public void setPlaceOfWonders(String wonderName, int x, int y, int rotation) {
         FastSetup.setupWonderPane(switch (wonderName) {
             case "Alexandrie" -> alexandrie;
-            case "Babylone" -> babylon;
+            case "Babylone" -> babylone;
             case "Ephese" -> ephese;
             case "Halicarnasse" -> halicarnasse;
             case "Olympie" -> olympie;
@@ -136,7 +179,7 @@ public class GameController extends gameUIBridge {
     public void updateWonderTopCard(String cardPath, String wonderName) {
         ImageView imageToUpdate = switch (wonderName) {
             case "Alexandrie" -> alexandrieCardsStack;
-            case "Babylone" -> babylonCardsStack;
+            case "Babylone" -> babyloneCardsStack;
             case "Ephese" -> epheseCardsStack;
             case "Halicarnasse" -> halicarnasseCardsStack;
             case "Olympie" -> olympieCardsStack;
@@ -147,15 +190,44 @@ public class GameController extends gameUIBridge {
         FastSetup.updateImage(imageToUpdate, cardPath);
     }
     
-    public void setGameCardsStack() {
-        gameCardsStackReference.setOnMouseClicked(event -> {
-            System.out.println("Clicked on GameCardsStack");
-            AnimationsManager.disableDropShadow(gameCardsStackReference);
-            PlayerActions.getNewCard(gameCardsStack, gameCardsStackReference, pane);
-            if (gameCardsStack.isEmpty()) {
-                gameCardsStackReference.setVisible(false);
+    @FXML
+    public void mainCardsStackAction() {
+        for (ImageView cardsStack : listOfCardsStacks) {
+            cardsStack.setDisable(true);
+            AnimationsManager.disableDropShadow(cardsStack);
+        }
+        System.out.println("Clicked on GameCardsStack");
+        PlayerActions.getNewCardFromGameCardsStack(gameCardsStack, gameCardsStackReference, pane);
+        if (gameCardsStack.isEmpty()) {
+            gameCardsStackReference.setVisible(false);
+        }
+    }
+    
+    @FXML
+    public void cardsStackAction(MouseEvent event) {
+        System.out.println("0");
+        for (ImageView cardsStack : listOfCardsStacks) {
+            cardsStack.setDisable(true);
+            AnimationsManager.disableDropShadow(cardsStack);
+        }
+        System.out.println("1");
+        String id = ((ImageView) event.getSource()).getId();
+        id = id.replace("CardsStack", "");
+        id = id.replaceFirst("^[a-z]", id.substring(0, 1).toUpperCase());
+        System.out.println("2");
+        Player clickedPlayer = null;
+        for (Player player : listOfPlayers) {
+            if (player.getWonderName().equalsIgnoreCase(id)) {
+                System.out.println("3");
+                clickedPlayer = player;
+                break;
             }
-        });
+        }
+        if (clickedPlayer == null) {
+            throw new IllegalStateException("Error in UI cardsStackAction : Unrecognized player (" + id + ")");
+        }
+        System.out.println("Clicked on " + id + "CardsStack");
+        PlayerActions.getNewCardsFromWonderCardsStack(clickedPlayer, (ImageView) event.getSource(), pane);
     }
     
     public void newProgressToken() {
@@ -190,7 +262,7 @@ public class GameController extends gameUIBridge {
         //get anchor pane that match the wonder name
         AnchorPane wonderPane = switch (wonderName) {
             case "Alexandrie" -> alexandrie;
-            case "Babylone" -> babylon;
+            case "Babylone" -> babylone;
             case "Ephese" -> ephese;
             case "Halicarnasse" -> halicarnasse;
             case "Olympie" -> olympie;
@@ -200,6 +272,7 @@ public class GameController extends gameUIBridge {
         };
         ImageView wonderFloor = (ImageView) ((Group) wonderPane.getChildren().get(0)).getChildren().get(floorNumber - 1);
         FastSetup.updateImage(wonderFloor, "src/main/resources/game/wondersFloors/" + wonderName + "/Floor" + floorNumber + "Built.png");
+        nextPlayer();
     }
     
     public void allowUserToTakeAProgressToken() {
@@ -214,5 +287,9 @@ public class GameController extends gameUIBridge {
     
     public void getCatUI() {
         PlayerActions.getCatUI(pane);
+    }
+    
+    public void nextPlayer() {
+        game.getGameBoard().nextPlayer();
     }
 }

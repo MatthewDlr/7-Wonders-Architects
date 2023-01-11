@@ -1,5 +1,6 @@
 package game.cards.playerDeck;
 
+import controller.game.PlayerActions;
 import game.cards.victoryPoints.VictoryPointCardWithCat;
 import game.cards.victoryPoints.VictoryPointsCard;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class DeckOfVictoryPointsCards {
         victoryPointsCardsSet.add(cardToAdd);
         numberOfVictoryPoints += cardToAdd.GetNumberOfVictoryPoints();
         if (cardToAdd instanceof VictoryPointCardWithCat) {
+            PlayerActions.IS_TOUR_FINISHED = false;
             playerCardsDeck.removeCatFromAllPlayers();
             playerCardsDeck.gotTheCat();
             playerCardsDeck.getCatUI();

@@ -1,5 +1,6 @@
 package game.tokens.conflict;
 
+import controller.game.PlayerActions;
 import java.util.ArrayList;
 
 public class ConflictTokenSet {
@@ -22,6 +23,10 @@ public class ConflictTokenSet {
                 conflictToken.SetFaceToWar();
                 return;
             }
+        }
+        if (isTimeForWar()) {
+            PlayerActions.IS_TOUR_FINISHED = false;
+            setConflictTokensToPeace();
         }
     }
     

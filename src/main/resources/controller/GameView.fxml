@@ -12,7 +12,7 @@
   <ImageView fx:id="background" disable="true" fitHeight="1121.0" fitWidth="1758.0" layoutX="-11.0" layoutY="-132.0" pickOnBounds="true">
     <Image url="@../images/Background.jpg" />
   </ImageView>
-  <ImageView fx:id="gameCardsStackReference" fitHeight="150.0" fitWidth="100.0" layoutX="850.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+  <ImageView fx:id="gameCardsStackReference" fitHeight="150.0" fitWidth="100.0" layoutX="850.0" layoutY="400.0" onMouseClicked="#mainCardsStackAction" pickOnBounds="true" preserveRatio="true">
     <Image url="@../game/cards/Back/SecretCard.png" />
   </ImageView>
   <ImageView fx:id="progressTokenDeck" fitHeight="60.0" fitWidth="60.0" layoutX="775.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
@@ -39,7 +39,7 @@
           <Image url="@../game/wondersFloors/Alexandrie/Floor5.png" />
         </ImageView>
       </Group>
-      <ImageView fx:id="alexandrieCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="alexandrieCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <Image url="@../game/cards/Back/AlexandrieCard.png" />
       </ImageView>
       <ImageView fx:id="referenceCat" fitHeight="85.0" fitWidth="40.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -100,7 +100,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="epheseCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="epheseCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/EpheseCard.png" />
         </image>
@@ -138,7 +138,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="gizehCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="gizehCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/GizehCard.png" />
         </image>
@@ -176,7 +176,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="olympieCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="olympieCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/OlympieCard.png" />
         </image>
@@ -214,7 +214,7 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="rhodesCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rhodesCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/RhodesCard.png" />
         </image>
@@ -252,41 +252,41 @@
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="halicarnasseCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="halicarnasseCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/HalicarnasseCard.png" />
         </image>
       </ImageView>
     </children>
   </AnchorPane>
-  <AnchorPane fx:id="babylon" layoutX="1175.0" layoutY="575.0" maxHeight="410.0" maxWidth="530.0" minHeight="400.0" minWidth="530.0" opacity="0.0" prefHeight="400.0" prefWidth="530.0">
+  <AnchorPane fx:id="babylone" layoutX="1175.0" layoutY="575.0" maxHeight="410.0" maxWidth="530.0" minHeight="400.0" minWidth="530.0" opacity="0.0" prefHeight="400.0" prefWidth="530.0">
     <children>
-      <Group fx:id="BabylonWonder" autoSizeChildren="false" layoutX="-726.0" layoutY="-768.0">
+      <Group fx:id="babyloneWonder" autoSizeChildren="false" layoutX="-726.0" layoutY="-768.0">
         <children>
-          <ImageView fx:id="BabylonWonder1" fitHeight="63.0" fitWidth="250.0" layoutX="739.0" layoutY="1115.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="babyloneWonder1" fitHeight="63.0" fitWidth="250.0" layoutX="739.0" layoutY="1115.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../game/wondersFloors/Babylone/Floor1.png" />
           </ImageView>
-          <ImageView fx:id="BabylonWonder2" fitHeight="63.0" fitWidth="250.0" layoutX="732.0" layoutY="1067.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="babyloneWonder2" fitHeight="63.0" fitWidth="250.0" layoutX="732.0" layoutY="1067.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../game/wondersFloors/Babylone/Floor2.png" />
           </ImageView>
-          <ImageView fx:id="BabylonWonder3" fitHeight="63.0" fitWidth="250.0" layoutX="733.0" layoutY="1018.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="babyloneWonder3" fitHeight="63.0" fitWidth="250.0" layoutX="733.0" layoutY="1018.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/wondersFloors/Babylone/Floor3.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="BabylonWonder4" fitHeight="47.0" fitWidth="90.0" layoutX="752.0" layoutY="974.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="babyloneWonder4" fitHeight="47.0" fitWidth="90.0" layoutX="752.0" layoutY="974.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/wondersFloors/Babylone/Floor4.png" />
             </image>
           </ImageView>
-          <ImageView fx:id="BabylonWonder5" fitHeight="81.0" fitWidth="67.0" layoutX="866.0" layoutY="950.0" pickOnBounds="true" preserveRatio="true">
+          <ImageView fx:id="babyloneWonder5" fitHeight="81.0" fitWidth="67.0" layoutX="866.0" layoutY="950.0" pickOnBounds="true" preserveRatio="true">
             <image>
               <Image url="@../game/wondersFloors/Babylone/Floor5.png" />
             </image>
           </ImageView>
         </children>
       </Group>
-      <ImageView fx:id="babylonCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="babyloneCardsStack" fitHeight="100.0" fitWidth="75.0" layoutX="215.0" layoutY="100.0" onMouseClicked="#cardsStackAction" pickOnBounds="true" preserveRatio="true">
         <image>
           <Image url="@../game/cards/Back/BabyloneCard.png" />
         </image>

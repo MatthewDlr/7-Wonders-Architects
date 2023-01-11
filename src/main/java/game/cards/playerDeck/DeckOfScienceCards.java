@@ -1,5 +1,6 @@
 package game.cards.playerDeck;
 
+import controller.game.PlayerActions;
 import game.cards.science.ScienceCard;
 import java.util.ArrayList;
 import javafx.scene.image.ImageView;
@@ -33,6 +34,7 @@ public class DeckOfScienceCards {
             default -> throw new IllegalArgumentException("Error in ScienceCard.addCard : " + cardToAdd.getCardName() + " is not a valid card");
         }).add(cardToAdd);
         if (checkForCombinations()) {
+            PlayerActions.IS_TOUR_FINISHED = false;
             int i = 0;
             for (ScienceCard card : scienceCardsCombination) {
                 

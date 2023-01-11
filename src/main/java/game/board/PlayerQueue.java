@@ -52,6 +52,9 @@ public class PlayerQueue {
     
     public Player getLeftPlayer() {
         int indexToGet = (indexOfActualPlayer - 1) % listOfPlayers.size(); // @Copilot
+        if (indexToGet < 0) {
+            indexToGet = listOfPlayers.size() - 1;
+        }
         return listOfPlayers.get(indexToGet);
     }
     

@@ -33,6 +33,19 @@ public abstract class AnimationsManager {
         return translateTransition;
     }
     
+    public static TranslateTransition createTranslateTransitionTo(Node movingNode, double duration, double toX, double toY) {
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setNode(movingNode);
+        translateTransition.setDuration(Duration.millis(duration));
+        translateTransition.setFromX(movingNode.getTranslateX());
+        translateTransition.setFromY(movingNode.getTranslateY());
+        translateTransition.setToX(toX);
+        translateTransition.setToY(toY);
+        translateTransition.setInterpolator(Interpolator.EASE_BOTH);
+        
+        return translateTransition;
+    }
+    
     public static FadeTransition createFadeTransition(Node fadingNode, double duration, double fromValue, double toValue) {
         
         FadeTransition fadeTransition = new FadeTransition();
@@ -54,7 +67,6 @@ public abstract class AnimationsManager {
         scaleTransition.setToX(toX);
         scaleTransition.setToY(toY);
         scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
-        
         return scaleTransition;
     }
     

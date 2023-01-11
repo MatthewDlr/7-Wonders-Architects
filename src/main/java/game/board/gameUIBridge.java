@@ -60,7 +60,6 @@ public class gameUIBridge {
         setPlaceOfProgressTokens();
         setPlaceOfConflictTokens();
         setCurrentPlayer(PLAYER_QUEUE.getActualPlayer());
-        GAME_CONTROLLER.setGameCardsStack();
     }
     
     private void setupChosenWonders() {
@@ -102,5 +101,13 @@ public class gameUIBridge {
     
     public void UIBridgeTakeTheCat() {
         GAME_CONTROLLER.getCatUI();
+    }
+    
+    public Player getRightPlayer(){
+        return PLAYER_QUEUE.getRightPlayer();
+    }
+    
+    public Player getLeftPlayer(){
+        return PLAYER_QUEUE.getLeftPlayer();
     }
 }

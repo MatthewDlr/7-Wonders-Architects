@@ -1,6 +1,7 @@
 package game.player;
 
 import game.board.GameBoard;
+import game.cards.Card;
 import game.cards.playerDeck.DeckOfProgressTokens;
 import game.cards.playerDeck.PlayerCardsDeck;
 import game.tokens.conflict.DeckOfWarToken;
@@ -113,5 +114,13 @@ public abstract class Player {
             numberOfVictoryPoint += 2;
         }
         return numberOfVictoryPoint;
+    }
+    
+    public Card popWonderCard() {
+        return wonders.popCard();
+    }
+    
+    public int getWonderCardsStackSize() {
+        return wonders.getStackSize();
     }
 }
