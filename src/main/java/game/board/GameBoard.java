@@ -14,7 +14,7 @@ public class GameBoard {
     private GameCardsStack gameCardsStack;
     
     public GameBoard(ArrayList<Player> listOfPlayers) {
-        tokensBoard = new TokensBoard(listOfPlayers.size());
+        tokensBoard = new TokensBoard(listOfPlayers.size(), this);
         playerQueue = new PlayerQueue(listOfPlayers);
         gameUIBridge = new gameUIBridge();
         gameCardsStack = new GameCardsStack();
@@ -31,7 +31,7 @@ public class GameBoard {
         gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer()); // to be removed
     }
     
-    public void nextPlayer() {
+    public void nextPlayerTurn() {
         isGameFinished();
         playerQueue.nextPlayer();
         gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer());
@@ -93,5 +93,37 @@ public class GameBoard {
             }
         }
         //gameUIBridge.UIBridgeShowWinner(winner);
+    }
+    
+    public void doWar() {
+        if (listOfPlayers.size() == 2) {
+            doWarForTwoPlayers();
+        } else {
+            for (int i = 0; i < listOfPlayers.size(); i++) {
+                Player player = playerQueue.getActualPlayer();
+                if (player.getNumberOfShields() > playerQueue.getRightPlayer().getNumberOfShields()) {
+                    player.addWarToken();
+                    gameUIBridge.addWarTokenToPlayer(player);
+                }
+                if (player.getNumberOfShields() > playerQueue.getLeftPlayer().getNumberOfShields()) {
+                    player.addWarToken();
+                    gameUIBridge.addWarTokenToPlayer(player);
+                }
+                playerQueue.nextPlayer();
+            }
+        }
+        //addConflictTokenToWarFace();
+        nextPlayerTurn();
+    }
+    
+    private void doWarForTwoPlayers() {
+        if (listOfPlayers.get(0).getNumberOfShields() > listOfPlayers.get(1).getNumberOfShields()){
+            listOfPlayers.get(0).addWarToken();
+            gameUIBridge.addWarTokenToPlayer(listOfPlayers.get(0));
+        } else if (listOfPlayers.get(0).getNumberOfShields() < listOfPlayers.get(1).getNumberOfShields()) {
+            listOfPlayers.get(1).addWarToken();
+            gameUIBridge.addWarTokenToPlayer(listOfPlayers.get(1));
+        }
+        System.out.println("War is a tie");
     }
 }

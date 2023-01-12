@@ -1,6 +1,5 @@
 package game.tokens.conflict;
 
-import controller.game.PlayerActions;
 import java.util.ArrayList;
 
 public class ConflictTokenSet {
@@ -19,14 +18,10 @@ public class ConflictTokenSet {
     
     public void addConflictTokenToWarFace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
-            if (!conflictToken.IsFaceToWar()) {
-                conflictToken.SetFaceToWar();
+            if (!conflictToken.isFaceToWar()) {
+                conflictToken.setFaceToWar();
                 return;
             }
-        }
-        if (isTimeForWar()) {
-            PlayerActions.IS_TOUR_FINISHED = false;
-            setConflictTokensToPeace();
         }
     }
     
@@ -34,7 +29,7 @@ public class ConflictTokenSet {
         int numberOfWarTokensSetToWarFace = 0;
         
         for (ConflictToken conflictToken : listOfConflictTokens) {
-            if (conflictToken.IsFaceToWar()) {
+            if (conflictToken.isFaceToWar()) {
                 numberOfWarTokensSetToWarFace++;
             }
         }
@@ -45,7 +40,7 @@ public class ConflictTokenSet {
     
     public void setConflictTokensToPeace() {
         for (ConflictToken conflictToken : listOfConflictTokens) {
-            conflictToken.SetFaceToPeace();
+            conflictToken.setFaceToPeace();
         }
     }
     
@@ -56,7 +51,7 @@ public class ConflictTokenSet {
     public int getNumberOfConflictTokensSetToWarFace() {
         int numberOfWarTokensSetToWarFace = 0;
         for (ConflictToken conflictToken : listOfConflictTokens) {
-            if (conflictToken.IsFaceToWar()) {
+            if (conflictToken.isFaceToWar()) {
                 numberOfWarTokensSetToWarFace++;
             }
         }

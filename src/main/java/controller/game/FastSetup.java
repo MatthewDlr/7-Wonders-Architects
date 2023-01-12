@@ -85,4 +85,15 @@ public abstract class FastSetup {
         }
     }
     
+    public static ImageView createNewWarToken() {
+        ImageView newWarToken = new ImageView();
+        updateImage(newWarToken, "src/main/resources/game/tokens/WarToken.png");
+        newWarToken.setFitHeight(60);
+        newWarToken.setFitWidth(60);
+        newWarToken.setLayoutX(870);
+        newWarToken.setLayoutY(555);
+        pane.getChildren().add(3, newWarToken);
+        return newWarToken;
+    }
+    
 }

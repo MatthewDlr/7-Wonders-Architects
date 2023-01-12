@@ -221,7 +221,7 @@ public class GameController extends gameUIBridge {
             }
         }
         if (clickedPlayer == null) {
-            throw new IllegalStateException("Error in UI cardsStackAction : Unrecognized player id: " + id );
+            System.out.println("Error in UI cardsStackAction : Unrecognized player id: " + id);
         }
         System.out.println("Clicked on " + id + "CardsStack");
         PlayerActions.getNewCardsFromWonderCardsStack(clickedPlayer, (ImageView) event.getSource(), pane);
@@ -287,6 +287,13 @@ public class GameController extends gameUIBridge {
     }
     
     public void nextPlayer() {
-        game.getGameBoard().nextPlayer();
+        game.getGameBoard().nextPlayerTurn();
+    }
+    
+    public void addWarTokenUIToPlayer(Player player) {
+        ImageView warToken = FastSetup.createNewWarToken();
+        double toX = player.getAnchorPane().getLayoutX() + 300 + player.getCoordinatesForNextWarToken();
+        double toY = player.getAnchorPane().getLayoutY() + 100;
+        AnimationsManager.createTranslateTransition(warToken, 1500, warToken.getTranslateX(), warToken.getY(), toX, toY).play();
     }
 }

@@ -56,10 +56,10 @@
       <ImageView fx:id="referenceScienceCard" fitHeight="101.0" fitWidth="50.0" layoutX="335.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <Image url="@../game/cards/GearCard.png" />
       </ImageView>
-      <ImageView fx:id="referenceProgressToken" fitHeight="50.0" fitWidth="50.0" layoutX="290.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="referenceProgressToken" fitHeight="50.0" fitWidth="50.0" layoutX="300.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <Image url="@../game/progressTokens/Artisanat.png" />
       </ImageView>
-      <ImageView fx:id="referenceWarToken" fitHeight="45.0" fitWidth="45.0" layoutX="290.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="referenceWarToken" fitHeight="45.0" fitWidth="45.0" layoutX="300.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" visible="false">
         <Image url="@../game/tokens/WarToken.png" />
       </ImageView>
          <ImageView fx:id="referenceVictoryCard" fitHeight="100.0" fitWidth="50.0" layoutX="455.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" visible="false">

@@ -13,15 +13,15 @@ public class ConflictToken {
         PeaceFacePath = "src/main/resources/game/tokens/ConflictTokenPeaceFace.png";
     }
     
-    public boolean IsFaceToWar() {
+    public boolean isFaceToWar() {
         return faceWar;
     }
     
-    public void SetFaceToWar() {
+    public void setFaceToWar() {
         faceWar = true;
     }
     
-    public void SetFaceToPeace() {
+    public void setFaceToPeace() {
         faceWar = false;
     }
     

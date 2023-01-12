@@ -1,5 +1,8 @@
 package game.tokens;
 
+import controller.SoundEngine;
+import controller.game.PlayerActions;
+import game.board.GameBoard;
 import game.tokens.conflict.ConflictTokenSet;
 import game.tokens.progress.ProgressToken;
 import game.tokens.progress.ProgressTokenStack;
@@ -8,10 +11,12 @@ public class TokensBoard {
     
     ConflictTokenSet conflictTokenSet; // TODO : figure out how to make these variables private (and can still be accessed by tests classes)
     ProgressTokenStack progressTokenStack;
+    GameBoard gameBoard;
     
-    public TokensBoard(int numberOfPlayers) {
-        conflictTokenSet = new ConflictTokenSet(determineNumberOfWarTokens(numberOfPlayers));
+    public TokensBoard(int numberOfPlayers, GameBoard gameBoard) {
+        conflictTokenSet = new ConflictTokenSet(determineNumberOfWarTokens(numberOfPlayers) );
         progressTokenStack = new ProgressTokenStack();
+        this.gameBoard = gameBoard;
     }
     
     private int determineNumberOfWarTokens(int numberOfPlayers) { // TODO : figure out why this method may be static
@@ -26,6 +31,12 @@ public class TokensBoard {
     
     public void addConflictTokenToWarFace() {
         conflictTokenSet.addConflictTokenToWarFace();
+        if (conflictTokenSet.isTimeForWar()) {
+            PlayerActions.IS_TOUR_FINISHED = false;
+            SoundEngine.playWarCorSound();
+            doWar();
+            conflictTokenSet.setConflictTokensToPeace();
+        }
     }
     
     public ProgressToken popProgressToken() {
@@ -44,4 +55,7 @@ public class TokensBoard {
         return conflictTokenSet.getPathOfConflictToken(index);
     }
     
+    public void doWar() {
+        gameBoard.doWar();
+    }
 }

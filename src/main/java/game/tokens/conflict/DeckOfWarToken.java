@@ -1,30 +1,27 @@
 package game.tokens.conflict;
 
-import java.util.ArrayList;
-
 public class DeckOfWarToken {
     
-    private final ArrayList<DeckOfWarToken> warTokensSet;
-    private final String WarTokenPath;
+    private int numberOfWarTokens;
+    private final String warTokenPath;
     
     public DeckOfWarToken() {
-        warTokensSet = new ArrayList<>();
-        WarTokenPath = "src/main/resources/game/tokens/WarToken.png";
+        warTokenPath = "src/main/resources/game/tokens/WarToken.png";
     }
     
-    public void AddWarToken(DeckOfWarToken warToken) {
-        warTokensSet.add(warToken);
+    public void addWarToken() {
+        numberOfWarTokens++;
     }
     
-    public String GetWarTokenPath() {
-        return WarTokenPath;
-    }
-    
-    public int GetWarTokensSetSize() {
-        return warTokensSet.size();
+    public String getWarTokenPath() {
+        return warTokenPath;
     }
     
     public int getNumberOfVictoryPoints() {
-        return warTokensSet.size() * 3;
+        return numberOfWarTokens * 3;
+    }
+    
+    public double getNumberOfWarTokens() {
+        return numberOfWarTokens;
     }
 }

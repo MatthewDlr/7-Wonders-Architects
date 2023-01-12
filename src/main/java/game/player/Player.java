@@ -123,4 +123,16 @@ public abstract class Player {
     public int getWonderCardsStackSize() {
         return wonders.getStackSize();
     }
+    
+    public int getNumberOfShields() {
+        return getPlayerDeck().getNumberOfShieldsCards();
+    }
+    
+    public void addWarToken() {
+        deckOfWarToken.addWarToken();
+    }
+    
+    public double getCoordinatesForNextWarToken() {
+        return deckOfWarToken.getNumberOfWarTokens() * 70;
+    }
 }

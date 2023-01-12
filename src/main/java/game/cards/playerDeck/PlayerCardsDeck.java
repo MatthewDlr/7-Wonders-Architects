@@ -113,6 +113,6 @@ public class PlayerCardsDeck {
     }
     
     public void nextPlayer() {
-        gameBoard.nextPlayer();
+        gameBoard.nextPlayerTurn();
     }
 }

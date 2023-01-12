@@ -110,4 +110,8 @@ public class gameUIBridge {
     public Player getLeftPlayer(){
         return PLAYER_QUEUE.getLeftPlayer();
     }
+    
+    public void addWarTokenToPlayer(Player player) {
+        GAME_CONTROLLER.addWarTokenUIToPlayer(player);
+    }
 }
