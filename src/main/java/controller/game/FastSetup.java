@@ -80,7 +80,7 @@ public abstract class FastSetup {
     public static void updateProgressTokenPosition(Iterable<ImageView> progressTokens) {
         int i = 1;
         for (ImageView token : progressTokens) {
-            token.setLayoutX(775 - (i * 75));
+            token.setLayoutX(775 - i * 75);
             i++;
         }
     }

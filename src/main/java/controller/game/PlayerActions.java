@@ -74,7 +74,7 @@ public abstract class PlayerActions {
         CURRENT_PLAYER.addUIcard(newCard);
         newCard.setLayoutX(gameCardsStackReference.getLayoutX());
         newCard.setLayoutY(gameCardsStackReference.getLayoutY());
-        addCardUIToPlayer(card, newCard);
+        addCardUIToPlayer(card, newCard, true);
     }
     
     public static void getNewCardsFromWonderCardsStack(Player player, ImageView wonderCardsStack, AnchorPane pane) {
@@ -85,10 +85,12 @@ public abstract class PlayerActions {
         CURRENT_PLAYER.addUIcard(newCard);
         newCard.setLayoutX(wonderCardsStack.getLayoutX() + player.getAnchorPane().getLayoutX());
         newCard.setLayoutY(wonderCardsStack.getLayoutY() + player.getAnchorPane().getLayoutY());
-        addCardUIToPlayer(card, newCard);
+        newCard.setFitWidth(75);
+        newCard.setFitHeight(100);
+        addCardUIToPlayer(card, newCard, false);
     }
     
-    private static void addCardUIToPlayer(Card card, ImageView newCard) {
+    private static void addCardUIToPlayer(Card card, ImageView newCard, boolean fromMainCardStack) {
         
         double toX = CURRENT_PLAYER.getAnchorPane().getLayoutX();
         double toY = CURRENT_PLAYER.getAnchorPane().getLayoutY();
@@ -111,8 +113,16 @@ public abstract class PlayerActions {
             }
             default -> throw new IllegalStateException("Unexpected value: " + card.getCardCategory());
         }
-        Animation translate = AnimationsManager.createTranslateTransition(newCard, 1000, newCard.getLayoutX(), newCard.getLayoutY(), toX, toY);
-        Animation scale = AnimationsManager.createScaleTransition(newCard, 1000, 0.5, 0.5);
+        Animation translate = AnimationsManager.createTranslateTransition(newCard, 1250, newCard.getLayoutX(), newCard.getLayoutY(), toX, toY);
+        double scaleX, scaleY;
+        if (fromMainCardStack) {
+            scaleX = 0.5;
+            scaleY = 0.5;
+        } else {
+            scaleX = 0.667;
+            scaleY = 0.667;
+        }
+        Animation scale = AnimationsManager.createScaleTransition(newCard, 1000, scaleX, scaleY);
         Animation rotation = AnimationsManager.createRotateTransition(newCard, 500, 0, CURRENT_PLAYER.getWonderGroupRotation());
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale, rotation);
         parallelTransition.play();

@@ -205,26 +205,23 @@ public class GameController extends gameUIBridge {
     
     @FXML
     public void cardsStackAction(MouseEvent event) {
-        System.out.println("0");
         for (ImageView cardsStack : listOfCardsStacks) {
             cardsStack.setDisable(true);
             AnimationsManager.disableDropShadow(cardsStack);
         }
-        System.out.println("1");
         String id = ((ImageView) event.getSource()).getId();
         id = id.replace("CardsStack", "");
         id = id.replaceFirst("^[a-z]", id.substring(0, 1).toUpperCase());
-        System.out.println("2");
         Player clickedPlayer = null;
         for (Player player : listOfPlayers) {
+            System.out.println(player.getWonderName());
             if (player.getWonderName().equalsIgnoreCase(id)) {
-                System.out.println("3");
                 clickedPlayer = player;
                 break;
             }
         }
         if (clickedPlayer == null) {
-            throw new IllegalStateException("Error in UI cardsStackAction : Unrecognized player (" + id + ")");
+            throw new IllegalStateException("Error in UI cardsStackAction : Unrecognized player id: " + id );
         }
         System.out.println("Clicked on " + id + "CardsStack");
         PlayerActions.getNewCardsFromWonderCardsStack(clickedPlayer, (ImageView) event.getSource(), pane);
