@@ -81,19 +81,20 @@ public abstract class AnimationsEngine {
         return rotateTransition;
     }
     
-    public static void showGameBoardLoadingAnimation(Group loadingGroup, MediaPlayer loadingAnimationMedia, MediaView loadingAnimationFrame, Rectangle whiteForeground, Label startingText) {
+    public static void showGameBoardLoadingAnimation(Group loadingGroup, MediaPlayer loadingAnimationMedia, MediaView loadingAnimationFrame,
+            Rectangle whiteForeground, Label startingText) {
         loadingGroup.setVisible(true);
         loadingAnimationMedia.setAutoPlay(true);
         loadingAnimationMedia.setRate(1.2);
         loadingAnimationMedia.setCycleCount(1);
         loadingAnimationMedia.setOnEndOfMedia(() -> {
-            hideGameBoardLoadingAnimation(loadingGroup, whiteForeground, startingText,loadingAnimationFrame);
+            hideGameBoardLoadingAnimation(loadingGroup, whiteForeground, startingText, loadingAnimationFrame);
         });
         ErrorsHandler.handleErrorsInVideo(loadingAnimationMedia, "src/main/resources/videos/LoadingAnimation.mp4", loadingAnimationFrame);
         loadingAnimationMedia.play();
     }
     
-    public static void hideGameBoardLoadingAnimation(Group loadingGroup,Rectangle whiteForeground, Label startingText, MediaView loadingAnimationFrame){
+    public static void hideGameBoardLoadingAnimation(Group loadingGroup, Rectangle whiteForeground, Label startingText, MediaView loadingAnimationFrame) {
         FadeTransition whiteForegroundTransition = createFadeTransition(whiteForeground, 550, 1, 0);
         FadeTransition startingTestTransition = createFadeTransition(startingText, 500, 1, 0);
         FadeTransition loadingAnimationFrameTransition = createFadeTransition(loadingAnimationFrame, 300, 1, 0);
@@ -105,7 +106,7 @@ public abstract class AnimationsEngine {
         });
     }
     
-    public static void enableDropShadow(Node node){
+    public static void enableDropShadow(Node node) {
         node.setEffect(new DropShadow());
         
         ((DropShadow) node.getEffect()).setColor(Color.web("#ffe503"));
@@ -116,13 +117,13 @@ public abstract class AnimationsEngine {
         ((DropShadow) node.getEffect()).setHeight(150);
     }
     
-    public static void disableDropShadow(Node node){
+    public static void disableDropShadow(Node node) {
         node.setEffect(null);
     }
     
-    public static void discardCardUI(Node card, double duration) {
-        TranslateTransition translateTransition = createTranslateTransitionTo(card, duration, 1000, 400);
-        ScaleTransition scaleTransition = createScaleTransition(card, duration, 1.5, 1.5);
+    public static void discardCardUI(Node card) {
+        TranslateTransition translateTransition = createTranslateTransitionTo(card, 1000, 1000, 400);
+        ScaleTransition scaleTransition = createScaleTransition(card, 1000, 1.5, 1.5);
         ParallelTransition parallelTransition = new ParallelTransition(translateTransition, scaleTransition);
         parallelTransition.play();
     }
