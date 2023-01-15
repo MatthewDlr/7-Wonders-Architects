@@ -55,4 +55,13 @@ public class ProgressTokenStack {
         return deckOfProgressTokens.size();
     }
     
+    public ProgressToken getProgressTokenFromName(String id) { // @Copilot
+        for (ProgressToken progressToken : deckOfProgressTokens) {
+            if (progressToken.getName().equalsIgnoreCase(id)) {
+                deckOfProgressTokens.remove(progressToken);
+                return progressToken;
+            }
+        }
+        throw new IllegalArgumentException("Error in ProgressTokenStack.GetProgressTokenFromName : the id " + id + " is not a valid id");
+    }
 }

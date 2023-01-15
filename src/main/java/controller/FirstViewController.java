@@ -42,8 +42,7 @@ public class FirstViewController implements Initializable {
         setupAllComponents();
         
         INTRO_VIDEO.play();
-        MAIN_THEME_AUDIO.play();
-        MAIN_THEME_AUDIO.setVolume(0.2);
+        MAIN_THEME_AUDIO.setVolume(0.5);
         
         INTRO_VIDEO.setOnEndOfMedia(() -> {
             fxmlVideoEffectFrame.setMediaPlayer(BACKGROUND_VIDEO_MEDIA);
@@ -60,27 +59,25 @@ public class FirstViewController implements Initializable {
     private void setupAllComponents() {
         File introVideoFile = new File("src/main/resources/videos/7WondersIntro.mp4");
         File titleVideoFile = new File("src/main/resources/videos/MainScreen.mp4");
-        File musicThemeFile = new File("src/main/resources/musics/7Wonders - Main Theme.mp3");
         File accessdeniedSoundFile = new File("src/main/resources/musics/AccessDenied.mp3");
         
         DataChecking.checkIfFileIsCorrect(String.valueOf(introVideoFile));
         DataChecking.checkIfFileIsCorrect(String.valueOf(titleVideoFile));
-        DataChecking.checkIfFileIsCorrect(String.valueOf(musicThemeFile));
         DataChecking.checkIfFileIsCorrect(String.valueOf(accessdeniedSoundFile));
         
         Media introVideoMedia = new Media(introVideoFile.toURI().toString());
         Media titleVideoMedia = new Media(titleVideoFile.toURI().toString());
-        Media musicThemeMedia = new Media(musicThemeFile.toURI().toString());
         Media accessdeniedSoundMedia = new Media(accessdeniedSoundFile.toURI().toString());
         
         INTRO_VIDEO = new MediaPlayer(introVideoMedia);
         BACKGROUND_VIDEO_MEDIA = new MediaPlayer(titleVideoMedia);
-        MAIN_THEME_AUDIO = new MediaPlayer(musicThemeMedia);
         ACCESS_DENIED_SOUND_EFFECT = new MediaPlayer(accessdeniedSoundMedia);
         
         fxmlIntroVideoFrame.setMediaPlayer(INTRO_VIDEO);
         BACKGROUND_VIDEO_MEDIA.setAutoPlay(true);
         BACKGROUND_VIDEO_MEDIA.setCycleCount(MediaPlayer.INDEFINITE);
+        
+        MAIN_THEME_AUDIO = SoundEngine.playMainTheme();
         MAIN_THEME_AUDIO.setAutoPlay(true);
         
         setButtonScale(singlePlayerButton);
@@ -100,7 +97,7 @@ public class FirstViewController implements Initializable {
         fadeTransition1.setInterpolator(Interpolator.EASE_OUT);
         fadeTransition1.play();
         
-        fadeTransition1.setOnFinished((event -> {
+        fadeTransition1.setOnFinished(event -> {
             FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(250), singlePlayerButton);
             fadeTransition2.setFromValue(0);
             fadeTransition2.setToValue(1);
@@ -113,7 +110,7 @@ public class FirstViewController implements Initializable {
             
             ParallelTransition parallelTransition = new ParallelTransition(fadeTransition2, fadeTransition3);
             parallelTransition.play();
-        }));
+        });
     }
     
     @FXML

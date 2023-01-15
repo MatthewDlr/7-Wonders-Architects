@@ -5,6 +5,7 @@ import game.Game;
 import game.board.PlayerQueue;
 import game.board.gameUIBridge;
 import game.cards.GameCardsStack;
+import game.player.AIPlayer;
 import game.player.Player;
 import game.tokens.TokensBoard;
 import game.tokens.progress.ProgressToken;
@@ -51,8 +52,9 @@ public class GameController extends gameUIBridge {
     private TokensBoard tokensBoard;
     private PlayerQueue playerQueue;
     private GameCardsStack gameCardsStack;
-    private ArrayList<ImageView> listOfProgressTokens = new ArrayList<>();
+    private ArrayList<ImageView> listOfProgressTokensUI = new ArrayList<>();
     ArrayList<ImageView> listOfConflictToken = new ArrayList<>();
+    ArrayList<ProgressToken> listOfProgressTokensInGame = new ArrayList<>();
     
     public void initialize(int numberOfHumans, int numberOfAI) {
         
@@ -84,6 +86,9 @@ public class GameController extends gameUIBridge {
     }
     
     private void setupCardsStack() {
+        if (currentPlayer instanceof AIPlayer) {
+            return;
+        }
         gameCardsStackReference.setDisable(false);
         AnimationsEngine.enableDropShadow(gameCardsStackReference);
         Player player = getRightPlayer();
@@ -102,12 +107,13 @@ public class GameController extends gameUIBridge {
         ImageView token = FastSetup.setupProgressTokenUI(tokenNumber, "src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
         token.setDisable(true);
         pane.getChildren().add(pane.getChildren().indexOf(loadingGroup) - 1, token); // @Copilot
-        listOfProgressTokens.add(token);
+        listOfProgressTokensUI.add(token);
+        listOfProgressTokensInGame.add(progressToken);
         token.setOnMouseClicked(event -> {
             System.out.println("\nClicked on " + token.getId());
             PlayerActions.getProgressToken(progressToken, token, pane);
         });
-        PlayerActions.setListOfProgressTokens(listOfProgressTokens);
+        PlayerActions.setListOfProgressTokens(listOfProgressTokensUI);
     }
     
     public void setupConflictToken(int tokenNumber) { // Helped by @Copilot
@@ -265,17 +271,20 @@ public class GameController extends gameUIBridge {
         ProgressToken progressToken = tokensBoard.popProgressToken();
         ImageView token = FastSetup.setupProgressTokenUI(tokensBoard.getNumberOfProgressToken(),"src/main/resources/game/progressTokens/" + progressToken.getName() + ".png","progressToken" + progressToken.getName());
         token.setDisable(true);
-        listOfProgressTokens.add(token);
+        listOfProgressTokensUI.add(token);
+        listOfProgressTokensInGame.add(progressToken);
         pane.getChildren().add(token);
-        FastSetup.updateProgressTokenPosition(listOfProgressTokens);
+        FastSetup.updateProgressTokenPosition(listOfProgressTokensUI);
         token.setOnMouseClicked(event -> {
             System.out.println("\nClicked on " + token.getId());
             PlayerActions.getProgressToken(progressToken, token, pane);
         });
     }
     
-    public void deleteProgressToken(ImageView token) {
-        listOfProgressTokens.remove(token);
+    
+    public void deleteProgressToken(ImageView token, ProgressToken progressToken) {
+        listOfProgressTokensUI.remove(token);
+        listOfProgressTokensInGame.remove(progressToken);
     }
     
     
@@ -307,12 +316,19 @@ public class GameController extends gameUIBridge {
     }
     
     public void allowUserToTakeAProgressToken() {
-        gameCardsStackReference.setDisable(true);
-        AnimationsEngine.disableDropShadow(gameCardsStackReference);
-        
-        for (ImageView token : listOfProgressTokens) {
-            token.setDisable(false);
-            AnimationsEngine.enableDropShadow(token);
+        if (currentPlayer instanceof AIPlayer) {
+            int randomIndex = (int) (Math.random() * 3);
+            ImageView token = listOfProgressTokensUI.get(randomIndex);
+            ProgressToken progressToken = listOfProgressTokensInGame.get(randomIndex);
+            PlayerActions.getProgressToken(progressToken, token, pane);
+        } else {
+            gameCardsStackReference.setDisable(true);
+            AnimationsEngine.disableDropShadow(gameCardsStackReference);
+            
+            for (ImageView token : listOfProgressTokensUI) {
+                token.setDisable(false);
+                AnimationsEngine.enableDropShadow(token);
+            }
         }
     }
     
@@ -329,5 +345,17 @@ public class GameController extends gameUIBridge {
         double toX = player.getAnchorPane().getLayoutX() + 300 + player.getCoordinatesForNextWarToken() ;
         double toY = player.getAnchorPane().getLayoutY() + 100;
         AnimationsEngine.createTranslateTransitionTo(warToken, 1500, toX, toY).play();
+    }
+    
+    public void takeMainStackCard() {
+        mainCardsStackAction();
+    }
+    
+    public void takeRightStackCard(Player rightPlayer) {
+        cardsStackAction(rightPlayer.getAnchorPane());
+    }
+    
+    public void takeLeftStackCard(Player leftPlayer) {
+        cardsStackAction(leftPlayer.getAnchorPane());
     }
 }

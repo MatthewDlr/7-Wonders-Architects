@@ -5,6 +5,7 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -124,5 +125,11 @@ public abstract class AnimationsEngine {
         ScaleTransition scaleTransition = createScaleTransition(card, duration, 1.5, 1.5);
         ParallelTransition parallelTransition = new ParallelTransition(translateTransition, scaleTransition);
         parallelTransition.play();
+    }
+    
+    public PauseTransition createPauseTransition(double duration) {
+        PauseTransition pauseTransition = new PauseTransition();
+        pauseTransition.setDuration(Duration.millis(duration));
+        return pauseTransition;
     }
 }

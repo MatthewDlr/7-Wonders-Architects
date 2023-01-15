@@ -62,4 +62,8 @@ public class TokensBoard {
     public void setConflictTokenNumberToZero() {
         conflictTokenSet.setConflictTokensToPeace();
     }
+    
+    public ProgressToken getProgressTokenFromName(String id) {
+        return progressTokenStack.getProgressTokenFromName(id);
+    }
 }

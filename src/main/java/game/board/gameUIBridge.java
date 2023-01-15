@@ -115,4 +115,16 @@ public class gameUIBridge {
     public void addWarTokenToPlayer(Player player) {
         GAME_CONTROLLER.addWarTokenUIToPlayer(player);
     }
+    
+    public void aIplayTakeMainStackCard() {
+        GAME_CONTROLLER.takeMainStackCard();
+    }
+    
+    public void aIplayTakeRightStackCard(Player rightPlayer) {
+        GAME_CONTROLLER.takeRightStackCard(rightPlayer);
+    }
+    
+    public void aIplayTakeLeftStackCard(Player leftPlayer) {
+        GAME_CONTROLLER.takeLeftStackCard(leftPlayer);
+    }
 }

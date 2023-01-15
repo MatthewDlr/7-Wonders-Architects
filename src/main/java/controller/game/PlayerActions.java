@@ -60,7 +60,7 @@ public abstract class PlayerActions {
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
-            GAME_CONTROLLER.deleteProgressToken(token);
+            GAME_CONTROLLER.deleteProgressToken(token, progressToken);
             GAME_CONTROLLER.newProgressToken();
             GAME_CONTROLLER.nextPlayer();
         });

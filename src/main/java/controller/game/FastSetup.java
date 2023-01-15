@@ -96,4 +96,13 @@ public abstract class FastSetup {
         return newWarToken;
     }
     
+    public static ImageView createMockImage() {
+        ImageView mockImage = new ImageView();
+        mockImage.setFitHeight(1);
+        mockImage.setFitWidth(1);
+        mockImage.setLayoutX(0);
+        mockImage.setLayoutY(0);
+        return mockImage;
+    }
+    
 }

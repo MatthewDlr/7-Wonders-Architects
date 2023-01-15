@@ -1,17 +1,20 @@
 package game.board;
 
 import game.cards.GameCardsStack;
+import game.player.AIPlayer;
 import game.player.Player;
 import game.tokens.TokensBoard;
 import java.util.ArrayList;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class GameBoard {
     
-    private TokensBoard tokensBoard;
-    private PlayerQueue playerQueue;
-    private gameUIBridge gameUIBridge;
-    private ArrayList<Player> listOfPlayers;
-    private GameCardsStack gameCardsStack;
+    private final TokensBoard tokensBoard;
+    private final PlayerQueue playerQueue;
+    private final gameUIBridge gameUIBridge;
+    private final ArrayList<Player> listOfPlayers;
+    private final GameCardsStack gameCardsStack;
     
     public GameBoard(ArrayList<Player> listOfPlayers) {
         tokensBoard = new TokensBoard(listOfPlayers.size(), this);
@@ -28,13 +31,35 @@ public class GameBoard {
     
     public void initialize() {
         gameUIBridge.setupBoard();
-        gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer()); // to be removed
+        gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer());
+        if (playerQueue.getActualPlayer() instanceof AIPlayer) {
+            playerAutoPlay(playerQueue.getActualPlayer());
+        }
     }
     
     public void nextPlayerTurn() {
         isGameFinished();
         playerQueue.nextPlayer();
         gameUIBridge.setCurrentPlayer(playerQueue.getActualPlayer());
+        Player player = playerQueue.getActualPlayer();
+        
+        if (player instanceof AIPlayer) {
+            playerAutoPlay(player);
+        }
+    }
+    
+    private void playerAutoPlay(Player player) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> {
+            int action = (int) (Math.random() * 3) + 1;
+            switch (action) {
+                case 1 -> gameUIBridge.aIplayTakeMainStackCard();
+                case 2 -> gameUIBridge.aIplayTakeRightStackCard(playerQueue.getRightPlayer());
+                case 3 -> gameUIBridge.aIplayTakeLeftStackCard(playerQueue.getLeftPlayer());
+                default -> throw new IllegalStateException("Unexpected value: " + action);
+            }
+        });
+        pause.play();
     }
     
     public TokensBoard getTokensBoard() {
@@ -118,7 +143,7 @@ public class GameBoard {
     }
     
     private void doWarForTwoPlayers() {
-        if (listOfPlayers.get(0).getNumberOfShields() > listOfPlayers.get(1).getNumberOfShields()){
+        if (listOfPlayers.get(0).getNumberOfShields() > listOfPlayers.get(1).getNumberOfShields()) {
             listOfPlayers.get(0).addWarToken();
             gameUIBridge.addWarTokenToPlayer(listOfPlayers.get(0));
         } else if (listOfPlayers.get(0).getNumberOfShields() < listOfPlayers.get(1).getNumberOfShields()) {
