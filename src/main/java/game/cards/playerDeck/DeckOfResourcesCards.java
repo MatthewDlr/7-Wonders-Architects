@@ -94,12 +94,13 @@ public class DeckOfResourcesCards {
     
     private int getNumberOfDifferentResources(int[] numberOfEachRessource) {
         int numberOfDifferentResources = 0;
-        for (int j : numberOfEachRessource) {
-            if (j > 0) {
+        for (int j = 1; j < numberOfEachRessource.length; j++) {
+            if (numberOfEachRessource[j] > 0) {
                 numberOfDifferentResources++;
             }
         }
-        return numberOfDifferentResources;
+        System.out.println("numberOfDifferentResources: " + numberOfDifferentResources);
+        return numberOfDifferentResources + numberOfEachRessource[0];
     }
     
     private int getMaxNumberOfTheSameResources(int[] numberOfEachRessource) {
@@ -111,7 +112,7 @@ public class DeckOfResourcesCards {
                 maxNumberOfTheSameResources = numberOfEachRessource[i];
             }
         }
-        return Math.max(numberOfCoins, maxNumberOfTheSameResources + numberOfCoins);
+        return maxNumberOfTheSameResources + numberOfCoins;
     }
     
     private void removeCardsFromDeckWithCombination(String combination) {

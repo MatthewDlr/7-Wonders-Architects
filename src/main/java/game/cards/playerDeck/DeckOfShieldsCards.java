@@ -30,16 +30,19 @@ public class DeckOfShieldsCards {
         }
     }
     
-    public int getNumberOfShields() {
-        return shieldsCardsSet.size();
-    }
-    
     public int getNumberOfCards() {
         return shieldsCardsSet.size();
     }
     
     public void removeTrumpetCards() {
-        shieldsCardsSet.removeIf(shieldCard -> shieldCard instanceof ShieldCard1Trumpet || shieldCard instanceof ShieldCard2Trumpets);
+        Iterable<ShieldsCard> cardsToRemove = (ArrayList<ShieldsCard>) shieldsCardsSet.clone();
+        
+        for (ShieldsCard card : cardsToRemove) {
+            if (card instanceof ShieldCard1Trumpet || card instanceof ShieldCard2Trumpets) {
+                shieldsCardsSet.remove(card);
+            }
+        }
+        
         Iterable<ImageView> shieldsCardsSetUIToRemove = (ArrayList<ImageView>) shieldsCardsSetUI.clone();
         for (ImageView shieldCard : shieldsCardsSetUIToRemove) {
             if (shieldCard.getId().contains("1") || shieldCard.getId().contains("2")) {
