@@ -68,7 +68,8 @@ public class gameUIBridge {
             int x = wondersDispositionX[i], y = wondersDispositionY[i], rotation = wondersDispositionRotation[i];
             GAME_CONTROLLER.setPlaceOfWonders(player.getWonderName(), x, y, rotation);
             player.setWonderGroupRotation(rotation);
-            
+            player.getAnchorPane().setDisable(false);
+            player.getAnchorPane().setFocusTraversable(false);
             String cardPath = player.getWonderTopCardPath();
             GAME_CONTROLLER.updateWonderTopCard(cardPath, player.getWonderName());
             i++;

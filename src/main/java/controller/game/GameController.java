@@ -1,6 +1,6 @@
 package controller.game;
 
-import controller.AnimationsManager;
+import controller.AnimationsEngine;
 import game.Game;
 import game.board.PlayerQueue;
 import game.board.gameUIBridge;
@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -59,7 +58,7 @@ public class GameController extends gameUIBridge {
         
         loadingAnimationMedia = FastSetup.setupVideoPlayer("src/main/resources/videos/LoadingAnimation.mp4");
         loadingAnimationFrame.setMediaPlayer(loadingAnimationMedia);
-        AnimationsManager.showGameBoardLoadingAnimation(loadingGroup, loadingAnimationMedia, loadingAnimationFrame, whiteForeground, startingText);
+        AnimationsEngine.showGameBoardLoadingAnimation(loadingGroup, loadingAnimationMedia, loadingAnimationFrame, whiteForeground, startingText);
         
         System.out.println("Number of Humans : " + numberOfHumans);
         System.out.println("Number of AI : " + numberOfAI);
@@ -86,16 +85,16 @@ public class GameController extends gameUIBridge {
     
     private void setupCardsStack() {
         gameCardsStackReference.setDisable(false);
-        AnimationsManager.enableDropShadow(gameCardsStackReference);
+        AnimationsEngine.enableDropShadow(gameCardsStackReference);
         Player player = getRightPlayer();
         ImageView cardsStackRight = (ImageView) player.getAnchorPane().getChildren().get(1);
         cardsStackRight.setDisable(false);
-        AnimationsManager.enableDropShadow(cardsStackRight);
+        AnimationsEngine.enableDropShadow(cardsStackRight);
         
         Player player2 = getLeftPlayer();
         ImageView cardsStackLeft = (ImageView) player2.getAnchorPane().getChildren().get(1);
         cardsStackLeft.setDisable(false);
-        AnimationsManager.enableDropShadow(cardsStackLeft);
+        AnimationsEngine.enableDropShadow(cardsStackLeft);
     }
     
     
@@ -120,7 +119,7 @@ public class GameController extends gameUIBridge {
         });
     }
     
-    public void linkPlayersWithUIComponents(){
+    public void linkPlayersWithUIComponents() {
         PlayerActions.setGameController(this);
         FastSetup.setupGameBoard(pane);
         for (Player player : listOfPlayers) {
@@ -194,7 +193,7 @@ public class GameController extends gameUIBridge {
     public void mainCardsStackAction() {
         for (ImageView cardsStack : listOfCardsStacks) {
             cardsStack.setDisable(true);
-            AnimationsManager.disableDropShadow(cardsStack);
+            AnimationsEngine.disableDropShadow(cardsStack);
         }
         System.out.println("Clicked on GameCardsStack");
         PlayerActions.getNewCardFromGameCardsStack(gameCardsStack, gameCardsStackReference, pane);
@@ -204,14 +203,48 @@ public class GameController extends gameUIBridge {
     }
     
     @FXML
-    public void cardsStackAction(MouseEvent event) {
+    public void alexandrieCardsStackAction() {
+        cardsStackAction(alexandrie);
+    }
+    
+    @FXML
+    public void babyloneCardsStackAction() {
+        cardsStackAction(babylone);
+    }
+    
+    @FXML
+    public void epheseCardsStackAction() {
+        cardsStackAction(ephese);
+    }
+    
+    @FXML
+    public void halicarnasseCardsStackAction() {
+        cardsStackAction(halicarnasse);
+    }
+    
+    @FXML
+    public void olympieCardsStackAction() {
+        cardsStackAction(olympie);
+    }
+    
+    @FXML
+    public void rhodesCardsStackAction() {
+        cardsStackAction(rhodes);
+    }
+    
+    @FXML
+    public void gizehCardsStackAction() {
+        cardsStackAction(gizeh);
+    }
+    
+    @FXML
+    public void cardsStackAction(AnchorPane wonder) {
         for (ImageView cardsStack : listOfCardsStacks) {
             cardsStack.setDisable(true);
-            AnimationsManager.disableDropShadow(cardsStack);
+            AnimationsEngine.disableDropShadow(cardsStack);
         }
-        String id = ((ImageView) event.getSource()).getId();
-        id = id.replace("CardsStack", "");
-        id = id.replaceFirst("^[a-z]", id.substring(0, 1).toUpperCase());
+        
+        String id = wonder.getId();
         Player clickedPlayer = null;
         for (Player player : listOfPlayers) {
             System.out.println(player.getWonderName());
@@ -223,8 +256,9 @@ public class GameController extends gameUIBridge {
         if (clickedPlayer == null) {
             System.out.println("Error in UI cardsStackAction : Unrecognized player id: " + id);
         }
+        
         System.out.println("Clicked on " + id + "CardsStack");
-        PlayerActions.getNewCardsFromWonderCardsStack(clickedPlayer, (ImageView) event.getSource(), pane);
+        PlayerActions.getNewCardsFromWonderCardsStack(clickedPlayer, (ImageView) wonder.getChildren().get(1), pane);
     }
     
     public void newProgressToken() {
@@ -246,8 +280,8 @@ public class GameController extends gameUIBridge {
     
     
     public void updateConflictTokenImage(int index, String path) {
-        Animation rotateAnimation = AnimationsManager.createRotateTransition(listOfConflictToken.get(index), 300, 0, 360);
-        Animation mockAnimation = AnimationsManager.createFadeTransition(listOfConflictToken.get(index), 150, 100, 100);
+        Animation rotateAnimation = AnimationsEngine.createRotateTransition(listOfConflictToken.get(index), 300, 0, 360);
+        Animation mockAnimation = AnimationsEngine.createFadeTransition(listOfConflictToken.get(index), 150, 100, 100);
         mockAnimation.setOnFinished(event -> {
             FastSetup.updateImage(listOfConflictToken.get(index), path);
         });
@@ -274,11 +308,11 @@ public class GameController extends gameUIBridge {
     
     public void allowUserToTakeAProgressToken() {
         gameCardsStackReference.setDisable(true);
-        AnimationsManager.disableDropShadow(gameCardsStackReference);
+        AnimationsEngine.disableDropShadow(gameCardsStackReference);
         
         for (ImageView token : listOfProgressTokens) {
             token.setDisable(false);
-            AnimationsManager.enableDropShadow(token);
+            AnimationsEngine.enableDropShadow(token);
         }
     }
     
@@ -292,8 +326,8 @@ public class GameController extends gameUIBridge {
     
     public void addWarTokenUIToPlayer(Player player) {
         ImageView warToken = FastSetup.createNewWarToken();
-        double toX = player.getAnchorPane().getLayoutX() + 300 + player.getCoordinatesForNextWarToken();
+        double toX = player.getAnchorPane().getLayoutX() + 300 + player.getCoordinatesForNextWarToken() ;
         double toY = player.getAnchorPane().getLayoutY() + 100;
-        AnimationsManager.createTranslateTransition(warToken, 1500, warToken.getTranslateX(), warToken.getY(), toX, toY).play();
+        AnimationsEngine.createTranslateTransitionTo(warToken, 1500, toX, toY).play();
     }
 }

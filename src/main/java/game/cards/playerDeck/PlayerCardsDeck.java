@@ -96,6 +96,10 @@ public class PlayerCardsDeck {
         deckOfScienceCards.addUIscienceCards(cardsToAdd);
     }
     
+    public void addUIShieldsCards(ImageView cardsToAdd) {
+        deckOfShieldsCards.addCardUI(cardsToAdd);
+    }
+    
     public void getProgressToken() {
         gameBoard.getProgressToken();
     }
@@ -114,5 +118,9 @@ public class PlayerCardsDeck {
     
     public void nextPlayer() {
         gameBoard.nextPlayerTurn();
+    }
+    
+    public void removeTrumpetCards() {
+        deckOfShieldsCards.removeTrumpetCards();
     }
 }

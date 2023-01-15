@@ -98,8 +98,12 @@ public abstract class Player {
             playerCardsDeck.addUIResourcesCards(cardsToAdd);
             return;
         }
-        if (cardsToAdd.getId().contains("Science")) {
+        if (cardsToAdd.getId().contains("Science") || cardsToAdd.getId().contains("Gear") || cardsToAdd.getId().contains("Tablet") || cardsToAdd.getId().contains("Compas")) {
             playerCardsDeck.addUIscienceCards(cardsToAdd);
+            return;
+        }
+        if (cardsToAdd.getId().contains("Shield")) {
+            playerCardsDeck.addUIShieldsCards(cardsToAdd);
             return;
         }
         System.out.println("Error in add new UI card: " + cardsToAdd.getId() + " is not a valid card");
@@ -133,6 +137,10 @@ public abstract class Player {
     }
     
     public double getCoordinatesForNextWarToken() {
-        return deckOfWarToken.getNumberOfWarTokens() * 70;
+        return (deckOfWarToken.getNumberOfWarTokens() - 1) * 50;
+    }
+    
+    public void removeTrumpetCards() {
+        playerCardsDeck.removeTrumpetCards();
     }
 }

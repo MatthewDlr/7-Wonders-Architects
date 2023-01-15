@@ -112,7 +112,8 @@ public class GameBoard {
                 playerQueue.nextPlayer();
             }
         }
-        //addConflictTokenToWarFace();
+        removeTrumpetCardsForPlayers();
+        tokensBoard.setConflictTokenNumberToZero();
         nextPlayerTurn();
     }
     
@@ -125,5 +126,11 @@ public class GameBoard {
             gameUIBridge.addWarTokenToPlayer(listOfPlayers.get(1));
         }
         System.out.println("War is a tie");
+    }
+    
+    private void removeTrumpetCardsForPlayers() {
+        for (Player player : listOfPlayers) {
+            player.removeTrumpetCards();
+        }
     }
 }

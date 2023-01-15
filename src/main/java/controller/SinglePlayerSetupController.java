@@ -59,7 +59,7 @@ public class SinglePlayerSetupController {
     protected void startButtonClicked() {
         if (isStartButtonAvailable) {
             
-            Animation fadeTransition = AnimationsManager.createFadeTransition(whiteForeground, 1000, 0, 1);
+            Animation fadeTransition = AnimationsEngine.createFadeTransition(whiteForeground, 1000, 0, 1);
             fadeTransition.play();
             gameStartSoundEffect.play();
             fadeTransition.setOnFinished(event -> {

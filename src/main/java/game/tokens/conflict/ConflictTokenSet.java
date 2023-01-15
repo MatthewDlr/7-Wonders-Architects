@@ -34,8 +34,6 @@ public class ConflictTokenSet {
             }
         }
         return numberOfWarTokensSetToWarFace == numberOfConflictTokens;
-        //TODO : do the war for the players
-        //TODO : remove player's shields cards with trumpets
     }
     
     public void setConflictTokensToPeace() {

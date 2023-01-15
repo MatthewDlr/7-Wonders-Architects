@@ -58,4 +58,8 @@ public class TokensBoard {
     public void doWar() {
         gameBoard.doWar();
     }
+    
+    public void setConflictTokenNumberToZero() {
+        conflictTokenSet.setConflictTokensToPeace();
+    }
 }

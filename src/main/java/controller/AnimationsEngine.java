@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public abstract class AnimationsManager {
+public abstract class AnimationsEngine {
     
     public static TranslateTransition createTranslateTransition(Node movingNode, double duration, double fromX, double fromY, double toX, double toY) {
         TranslateTransition translateTransition = new TranslateTransition();
@@ -117,5 +117,12 @@ public abstract class AnimationsManager {
     
     public static void disableDropShadow(Node node){
         node.setEffect(null);
+    }
+    
+    public static void discardCardUI(Node card, double duration) {
+        TranslateTransition translateTransition = createTranslateTransitionTo(card, duration, 1000, 400);
+        ScaleTransition scaleTransition = createScaleTransition(card, duration, 1.5, 1.5);
+        ParallelTransition parallelTransition = new ParallelTransition(translateTransition, scaleTransition);
+        parallelTransition.play();
     }
 }

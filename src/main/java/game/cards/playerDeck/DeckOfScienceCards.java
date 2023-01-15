@@ -39,6 +39,7 @@ public class DeckOfScienceCards {
             for (ScienceCard card : scienceCardsCombination) {
                 
                 for (ImageView scienceCard : scienceCardsSetUI) {
+                    System.out.println("scienceCard: " + scienceCard.getId() + " card: " + card.getCardName());
                     if (scienceCard.getId().contains(card.getCardName())) {
                         scienceCard.setVisible(false);
                         scienceCardsSetUI.remove(scienceCard);

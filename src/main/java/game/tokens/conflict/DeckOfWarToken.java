@@ -7,6 +7,7 @@ public class DeckOfWarToken {
     
     public DeckOfWarToken() {
         warTokenPath = "src/main/resources/game/tokens/WarToken.png";
+        numberOfWarTokens = 0;
     }
     
     public void addWarToken() {

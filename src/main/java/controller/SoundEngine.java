@@ -7,7 +7,7 @@ import javafx.scene.media.MediaPlayer;
 
 public abstract class SoundEngine {
     
-    public static MediaPlayer playWarCorSound(){
+    public static MediaPlayer playWarCorSound() {
         MediaPlayer sound = setupMediaPlayer("src/main/resources/musics/WarMusic2.mp3");
         sound.play();
         return sound;
@@ -15,6 +15,12 @@ public abstract class SoundEngine {
     
     public static MediaPlayer playWarBattleSound() {
         MediaPlayer sound = setupMediaPlayer("src/main/resources/musics/WarMusic1.mp3");
+        sound.play();
+        return sound;
+    }
+    
+    public static MediaPlayer playCatSound() {
+        MediaPlayer sound = setupMediaPlayer("src/main/resources/musics/Cat.mp3");
         sound.play();
         return sound;
     }

@@ -3,7 +3,8 @@ package controller.game;
 import static controller.game.GameController.referenceCardsPositionX;
 import static controller.game.GameController.referenceCardsPositionY;
 
-import controller.AnimationsManager;
+import controller.AnimationsEngine;
+import controller.SoundEngine;
 import game.cards.Card;
 import game.cards.GameCardsStack;
 import game.player.Player;
@@ -46,7 +47,7 @@ public abstract class PlayerActions {
     public static void getProgressToken(ProgressToken progressToken, ImageView token, AnchorPane pane) {
         for (ImageView tokenInBoard : LIST_OF_PROGRESS_TOKENS) {
             tokenInBoard.setDisable(true);
-            AnimationsManager.disableDropShadow(tokenInBoard);
+            AnimationsEngine.disableDropShadow(tokenInBoard);
         }
         double fromCoordinates[] = {token.getLayoutX(), token.getLayoutY()};
         double toX = referenceCardsPositionX[4] + CURRENT_PLAYER.getAnchorPane().getLayoutX() + CURRENT_PLAYER.getCoordinatesForNextProgressToken()[0];
@@ -54,8 +55,8 @@ public abstract class PlayerActions {
         double[] toCoordinates = {toX, toY};
         System.out.println("Sending token to wonder " + CURRENT_PLAYER.getWonderName() + " by coordinates: " + (fromCoordinates[0] - toCoordinates[0]) + " x " + (fromCoordinates[1] - toCoordinates[1]) + " y");
         
-        Animation translate = AnimationsManager.createTranslateTransition(token, 1000, fromCoordinates[0], fromCoordinates[1], toCoordinates[0], toCoordinates[1]);
-        Animation scale = AnimationsManager.createScaleTransition(token, 1000, 0.83, 0.83);
+        Animation translate = AnimationsEngine.createTranslateTransition(token, 1000, fromCoordinates[0], fromCoordinates[1], toCoordinates[0], toCoordinates[1]);
+        Animation scale = AnimationsEngine.createScaleTransition(token, 1000, 0.83, 0.83);
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
@@ -85,8 +86,6 @@ public abstract class PlayerActions {
         CURRENT_PLAYER.addUIcard(newCard);
         newCard.setLayoutX(wonderCardsStack.getLayoutX() + player.getAnchorPane().getLayoutX());
         newCard.setLayoutY(wonderCardsStack.getLayoutY() + player.getAnchorPane().getLayoutY());
-        newCard.setFitWidth(75);
-        newCard.setFitHeight(100);
         addCardUIToPlayer(card, newCard, false);
     }
     
@@ -113,17 +112,10 @@ public abstract class PlayerActions {
             }
             default -> throw new IllegalStateException("Unexpected value: " + card.getCardCategory());
         }
-        Animation translate = AnimationsManager.createTranslateTransition(newCard, 1250, newCard.getLayoutX(), newCard.getLayoutY(), toX, toY);
+        Animation translate = AnimationsEngine.createTranslateTransition(newCard, 1250, newCard.getLayoutX(), newCard.getLayoutY(), toX, toY);
         double scaleX, scaleY;
-        if (fromMainCardStack) {
-            scaleX = 0.5;
-            scaleY = 0.5;
-        } else {
-            scaleX = 0.667;
-            scaleY = 0.667;
-        }
-        Animation scale = AnimationsManager.createScaleTransition(newCard, 1000, scaleX, scaleY);
-        Animation rotation = AnimationsManager.createRotateTransition(newCard, 500, 0, CURRENT_PLAYER.getWonderGroupRotation());
+        Animation scale = AnimationsEngine.createScaleTransition(newCard, 1000, 0.5, 0.5);
+        Animation rotation = AnimationsEngine.createRotateTransition(newCard, 500, 0, CURRENT_PLAYER.getWonderGroupRotation());
         ParallelTransition parallelTransition = new ParallelTransition(translate, scale, rotation);
         parallelTransition.play();
         parallelTransition.setOnFinished(event -> {
@@ -136,6 +128,7 @@ public abstract class PlayerActions {
     }
     
     public static void getCatUI(AnchorPane pane) {
+        SoundEngine.playCatSound();
         if (CAT == null) {
             CAT = new ImageView();
             FastSetup.updateImage(CAT, "src/main/resources/game/tokens/Cat.png");
@@ -146,7 +139,7 @@ public abstract class PlayerActions {
         
         double toX = referenceCardsPositionX[6] + CURRENT_PLAYER.getAnchorPane().getLayoutX();
         double toY = referenceCardsPositionY[6] + CURRENT_PLAYER.getAnchorPane().getLayoutY();
-        Animation translate = AnimationsManager.createTranslateTransitionTo(CAT, 1000, toX, toY);
+        Animation translate = AnimationsEngine.createTranslateTransitionTo(CAT, 1000, toX, toY);
         translate.play();
         translate.setOnFinished(event -> {
             GAME_CONTROLLER.nextPlayer();
