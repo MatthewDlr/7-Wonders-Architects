@@ -4,8 +4,8 @@ import controller.game.GameController;
 import game.cards.GameCardsStack;
 import game.player.Player;
 import game.tokens.TokensBoard;
-import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 
 public class gameUIBridge {
     
@@ -48,10 +48,6 @@ public class gameUIBridge {
     
     public void setCurrentPlayer(Player player) {
         GAME_CONTROLLER.setCurrentPlayer(player);
-    }
-    
-    public ProgressToken getProgressToken() {
-        return TOKENS_BOARD.popProgressToken();
     }
     
     public void setupBoard() {
@@ -126,5 +122,9 @@ public class gameUIBridge {
     
     public void aIplayTakeLeftStackCard(Player leftPlayer) {
         GAME_CONTROLLER.takeLeftStackCard(leftPlayer);
+    }
+    
+    public Pane getPaneUI() {
+        return GAME_CONTROLLER.getPane();
     }
 }

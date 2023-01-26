@@ -15,12 +15,8 @@ public abstract class VictoryPointsCard extends Card {
         cardPath = findCardPath();
     }
     
-    public int GetNumberOfVictoryPoints() {
+    public int getNumberOfVictoryPoints() {
         return numberOfVictoryPoints;
-    }
-    
-    public boolean HasACat() {
-        return hasACat;
     }
     
     

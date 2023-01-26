@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 
 public abstract class FastSetup {
     
@@ -103,6 +104,17 @@ public abstract class FastSetup {
         mockImage.setLayoutX(0);
         mockImage.setLayoutY(0);
         return mockImage;
+    }
+    
+    public static Text createNewText(String text, int x, int y, int size) {
+        Text newText = new Text();
+        newText.setText(text);
+        newText.setLayoutX(x);
+        newText.setLayoutY(y);
+        newText.setOpacity(1);
+        newText.setStyle("-fx-fill: #ffffff;");
+        newText.setStyle("-fx-font-size: " + size + "px;");
+        return newText;
     }
     
 }

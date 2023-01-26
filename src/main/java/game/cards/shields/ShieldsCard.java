@@ -13,8 +13,4 @@ public abstract class ShieldsCard extends Card {
         cardPath = findCardPath();
     }
     
-    public int getNumberOfTrumpet() {
-        return numberOfTrumpet;
-    }
-    
 }

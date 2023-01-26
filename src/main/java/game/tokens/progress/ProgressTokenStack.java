@@ -33,13 +33,13 @@ public class ProgressTokenStack {
     }
     
     public ProgressToken getProgressToken() {
-        if (progressTokenDeckIsEmpty()) {
+        if (isProgressTokenDeckEmpty()) {
             throw new IllegalStateException("Error in TokensBoard.GetProgressToken : this function should never be called when the deck of progress tokens is empty");
         }
         return deckOfProgressTokens.remove(0);
     }
     
-    public boolean progressTokenDeckIsEmpty() {
+    public boolean isProgressTokenDeckEmpty() {
         return deckOfProgressTokens.isEmpty();
     }
     
@@ -47,21 +47,8 @@ public class ProgressTokenStack {
         return deckOfProgressTokens.size();
     }
     
-    public ArrayList<ProgressToken> getDeckOfProgressTokens() {
-        return deckOfProgressTokens;
-    }
-    
     public int getNumberOfProgressToken() {
         return deckOfProgressTokens.size();
     }
-    
-    public ProgressToken getProgressTokenFromName(String id) { // @Copilot
-        for (ProgressToken progressToken : deckOfProgressTokens) {
-            if (progressToken.getName().equalsIgnoreCase(id)) {
-                deckOfProgressTokens.remove(progressToken);
-                return progressToken;
-            }
-        }
-        throw new IllegalArgumentException("Error in ProgressTokenStack.GetProgressTokenFromName : the id " + id + " is not a valid id");
-    }
+
 }

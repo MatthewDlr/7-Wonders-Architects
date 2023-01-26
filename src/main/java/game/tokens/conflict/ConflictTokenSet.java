@@ -46,16 +46,6 @@ public class ConflictTokenSet {
         return numberOfConflictTokens;
     }
     
-    public int getNumberOfConflictTokensSetToWarFace() {
-        int numberOfWarTokensSetToWarFace = 0;
-        for (ConflictToken conflictToken : listOfConflictTokens) {
-            if (conflictToken.isFaceToWar()) {
-                numberOfWarTokensSetToWarFace++;
-            }
-        }
-        return numberOfWarTokensSetToWarFace;
-    }
-    
     public String getPathOfConflictToken(int index) {
         return listOfConflictTokens.get(index).getUsedFacePath();
     }

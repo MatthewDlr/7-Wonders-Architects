@@ -55,7 +55,7 @@ public class GameCardsStack {
         return gameCardsStack.isEmpty();
     }
     
-    public int getSize(){
+    public int getSize() {
         return gameCardsStack.size();
     }
     

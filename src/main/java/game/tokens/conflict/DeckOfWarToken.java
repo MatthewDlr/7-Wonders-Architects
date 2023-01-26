@@ -14,10 +14,6 @@ public class DeckOfWarToken {
         numberOfWarTokens++;
     }
     
-    public String getWarTokenPath() {
-        return warTokenPath;
-    }
-    
     public int getNumberOfVictoryPoints() {
         return numberOfWarTokens * 3;
     }

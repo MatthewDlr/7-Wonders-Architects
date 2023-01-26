@@ -37,14 +37,6 @@ public class PlayerQueue {
         }
     }
     
-    public ArrayList<Player> getListOfHumanPlayers() {
-        return listOfHumansPlayers;
-    }
-    
-    public ArrayList<Player> getListOfAIPlayers() {
-        return listOfAIPlayers;
-    }
-    
     public Player getRightPlayer() {
         int indexToGet = (indexOfActualPlayer + 1) % listOfPlayers.size(); // @Copilot
         return listOfPlayers.get(indexToGet);
@@ -64,10 +56,6 @@ public class PlayerQueue {
     
     public void nextPlayer() {
         indexOfActualPlayer = (indexOfActualPlayer + 1) % listOfPlayers.size();
-    }
-    
-    public void previousPlayer() {
-        indexOfActualPlayer = (indexOfActualPlayer - 1) % listOfPlayers.size();
     }
     
     public void removeTheCatFromAllPlayers() {

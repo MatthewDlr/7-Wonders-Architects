@@ -19,7 +19,7 @@ public class DeckOfVictoryPointsCards {
     
     void addCard(VictoryPointsCard cardToAdd) {
         victoryPointsCardsSet.add(cardToAdd);
-        numberOfVictoryPoints += cardToAdd.GetNumberOfVictoryPoints();
+        numberOfVictoryPoints += cardToAdd.getNumberOfVictoryPoints();
         if (cardToAdd instanceof VictoryPointCardWithCat) {
             PlayerActions.IS_TOUR_FINISHED = false;
             playerCardsDeck.removeCatFromAllPlayers();

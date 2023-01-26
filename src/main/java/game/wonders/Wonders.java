@@ -25,7 +25,7 @@ public abstract class Wonders {
             listOfFloors.add(floor);
         }
         WonderCardsStack stackOfCards = new WonderCardsStack(cardsStackRepartition);
-        cardsStack = stackOfCards.GetCardsStack();
+        cardsStack = stackOfCards.getCardsStack();
     }
     
     private String findCardPath() {
@@ -38,18 +38,6 @@ public abstract class Wonders {
         String path = "src/main/resources/game/wondersDeck/" + wonderName + "Deck.png"; // @Copilot
         DataChecking.checkIfFileIsCorrect(path);
         return path;
-    }
-    
-    public String getBackCardPath() {
-        return backCardPath;
-    }
-    
-    public String getWonderDeckPath() {
-        return wonderDeckPath;
-    }
-    
-    public boolean floorHasSpecialEffect(int floorNumber) {
-        return listOfFloors.get(floorNumber - 1).HasSpecialEffect();
     }
     
     public void addBuiltFloor(int floorNumber) {
@@ -100,10 +88,6 @@ public abstract class Wonders {
     
     public String getStackTopCardPath() {
         return cardsStack.get(0).getCardPath();
-    }
-    
-    public void setFloorAsBuilt(int floorNumber) {
-        listOfFloors.get(floorNumber - 1).setAsBuilt(); // Written by @Copilot
     }
     
     public Card popCard() {

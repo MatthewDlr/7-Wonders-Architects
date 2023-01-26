@@ -17,6 +17,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
@@ -357,5 +358,9 @@ public class GameController extends gameUIBridge {
     
     public void takeLeftStackCard(Player leftPlayer) {
         cardsStackAction(leftPlayer.getAnchorPane());
+    }
+    
+    public Pane getPane() {
+        return pane;
     }
 }

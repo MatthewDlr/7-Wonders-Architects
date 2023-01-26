@@ -35,10 +35,6 @@ public abstract class Player {
         playerCardsDeck.removeTheCat();
     }
     
-    public void gotTheCat() throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException {
-        playerCardsDeck.gotTheCat();
-    }
-    
     public int getWonderLevel() {
         return wonders.getNumberOfFloorsBuilt();
     }
@@ -60,7 +56,7 @@ public abstract class Player {
         deckOfProgressTokens.addProgressToken(progressToken);
     }
     
-    public double[] getCoordinatesForNextProgressToken(){
+    public double[] getCoordinatesForNextProgressToken() {
         int value = deckOfProgressTokens.getCoordinatesForNextProgressToken();
         int rotation = (int) getWonderGroupRotation();
         System.out.println("rotation: " + rotation);
@@ -109,7 +105,7 @@ public abstract class Player {
         System.out.println("Error in add new UI card: " + cardsToAdd.getId() + " is not a valid card");
     }
     
-    public int getNumberOfVictorypoint() {
+    public int getNumberOfVictoryPoints() {
         int numberOfVictoryPoint = 0;
         numberOfVictoryPoint += wonders.getNumberOfVictoryPoints();
         numberOfVictoryPoint += playerCardsDeck.getNumberOfVictoryPoints();

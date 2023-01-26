@@ -14,7 +14,7 @@ public class TokensBoard {
     GameBoard gameBoard;
     
     public TokensBoard(int numberOfPlayers, GameBoard gameBoard) {
-        conflictTokenSet = new ConflictTokenSet(determineNumberOfWarTokens(numberOfPlayers) );
+        conflictTokenSet = new ConflictTokenSet(determineNumberOfWarTokens(numberOfPlayers));
         progressTokenStack = new ProgressTokenStack();
         this.gameBoard = gameBoard;
     }
@@ -63,7 +63,4 @@ public class TokensBoard {
         conflictTokenSet.setConflictTokensToPeace();
     }
     
-    public ProgressToken getProgressTokenFromName(String id) {
-        return progressTokenStack.getProgressTokenFromName(id);
-    }
 }

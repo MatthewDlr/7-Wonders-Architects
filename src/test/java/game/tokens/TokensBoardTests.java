@@ -56,7 +56,7 @@ public class TokensBoardTests {
         assertEquals(14, tokensBoard.progressTokenStack.getNumberOfProgressTokensLeft());
         
         RemoveAllProgressTokens(tokensBoard);
-        assertTrue(tokensBoard.progressTokenStack.progressTokenDeckIsEmpty());
+        assertTrue(tokensBoard.progressTokenStack.isProgressTokenDeckEmpty());
     }
     
     public void RemoveAllProgressTokens(TokensBoard tokensBoard) {

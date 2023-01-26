@@ -24,9 +24,5 @@ public abstract class ProgressToken {
         return name;
     }
     
-    public String getDescription() {
-        return description;
-    }
-    
     
 }

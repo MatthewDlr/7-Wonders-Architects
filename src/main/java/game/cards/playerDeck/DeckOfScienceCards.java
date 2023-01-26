@@ -52,14 +52,6 @@ public class DeckOfScienceCards {
         }
     }
     
-    public void addCardUI(ImageView cardToAdd) {
-        scienceCardsSetUI.add(cardToAdd);
-    }
-    
-    int getNumberOfScienceCards() {
-        return scienceCardsSet.size();
-    }
-    
     private boolean checkForCombinations() {
         
         scienceCardsCombination.clear();

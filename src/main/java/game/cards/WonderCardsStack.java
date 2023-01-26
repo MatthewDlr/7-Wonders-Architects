@@ -67,7 +67,7 @@ public class WonderCardsStack {
         Collections.shuffle(cardsStack);
     }
     
-    public ArrayList<Card> GetCardsStack() {
+    public ArrayList<Card> getCardsStack() {
         return cardsStack;
     }
     

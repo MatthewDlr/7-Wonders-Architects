@@ -51,10 +51,6 @@ public class DeckOfResourcesCards {
         return resourcesCardsSet.isEmpty();
     }
     
-    ResourcesCard getCardFromResourcesCardsSet(int index) {
-        return resourcesCardsSet.get(index);
-    }
-    
     private ArrayList<String> getListOfResourcesCombinations() {
         
         ArrayList<String> listOfResourcesCombinations = new ArrayList<>();

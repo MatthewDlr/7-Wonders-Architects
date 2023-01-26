@@ -116,10 +116,6 @@ public class PlayerCardsDeck {
         return deckOfVictoryPointsCards.getNumberOfVictoryPoints() ;
     }
     
-    public void nextPlayer() {
-        gameBoard.nextPlayerTurn();
-    }
-    
     public void removeTrumpetCards() {
         deckOfShieldsCards.removeTrumpetCards();
     }

@@ -1,5 +1,6 @@
 package game.board;
 
+import controller.ScoreViewController;
 import game.cards.GameCardsStack;
 import game.player.AIPlayer;
 import game.player.Player;
@@ -102,22 +103,19 @@ public class GameBoard {
     private void isGameFinished() {
         for (Player player : listOfPlayers) {
             if (player.getWonderLevel() >= 5) {
-                findWinner();
+                ScoreViewController.setupScoreView(getPlayerScore(), listOfPlayers, gameUIBridge.getPaneUI());
             }
             System.out.println("Player wonder level: " + player.getWonderLevel());
         }
     }
     
-    private void findWinner() {
-        int maxScore = 0;
-        Player winner = null;
+    private ArrayList<Integer> getPlayerScore() {
+        ArrayList<Integer> scores = new ArrayList<>();
         for (Player player : listOfPlayers) {
-            if (player.getNumberOfVictorypoint() > maxScore) {
-                maxScore = player.getNumberOfVictorypoint();
-                winner = player;
-            }
+            scores.add(player.getNumberOfVictoryPoints());
         }
-        //gameUIBridge.UIBridgeShowWinner(winner);
+        scores.sort((o1, o2) -> o2 - o1);
+        return scores;
     }
     
     public void doWar() {
