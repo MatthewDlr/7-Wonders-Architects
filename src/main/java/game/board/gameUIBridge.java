@@ -9,9 +9,9 @@ import javafx.scene.layout.Pane;
 
 public class gameUIBridge {
     
-    private final int[] wondersDispositionX = {5, 595, 1175, 1275, 925, 345, -60};
-    private final int[] wondersDispositionY = {550, 550, 550, 130, 5, 5, 130};
-    private final int[] wondersDispositionRotation = {0, 0, 0, 270, 180, 180, 90};
+    private final int[] wondersDispositionX = {5, 595, 1175, 1275, 1000, 400, -60};
+    private final int[] wondersDispositionY = {550, 550, 550, 130, -100, -100, 130};
+    private final int[] wondersDispositionRotation = {0, 0, 0, 270, 0, 0, 90};
     
     public static GameController GAME_CONTROLLER; // TODO : figure out if encapsulation is really necessary here
     private static ArrayList<Player> LIST_OF_PLAYER;
