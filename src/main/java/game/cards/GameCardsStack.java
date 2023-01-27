@@ -59,6 +59,9 @@ public class GameCardsStack {
         return gameCardsStack.size();
     }
     
+    public String getTopCardPath() {
+        return gameCardsStack.get(0).getCardPath();
+    }
 }
 
 

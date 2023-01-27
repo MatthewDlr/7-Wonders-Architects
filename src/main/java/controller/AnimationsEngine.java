@@ -38,8 +38,6 @@ public abstract class AnimationsEngine {
         TranslateTransition translateTransition = new TranslateTransition();
         translateTransition.setNode(movingNode);
         translateTransition.setDuration(Duration.millis(duration));
-        translateTransition.setFromX(movingNode.getTranslateX());
-        translateTransition.setFromY(movingNode.getTranslateY());
         translateTransition.setToX(toX);
         translateTransition.setToY(toY);
         translateTransition.setInterpolator(Interpolator.EASE_BOTH);

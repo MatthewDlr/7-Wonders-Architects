@@ -35,4 +35,14 @@ public class DeckOfVictoryPointsCards {
     public int getNumberOfCards() {
         return victoryPointsCardsSet.size();
     }
+    
+    public int getNumberOfCatCards() {
+        int counter = 0;
+        for (VictoryPointsCard victoryPointsCard : victoryPointsCardsSet) {
+            if (victoryPointsCard instanceof VictoryPointCardWithCat) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

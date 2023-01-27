@@ -37,7 +37,7 @@ public class GameController extends gameUIBridge {
     @FXML
     ImageView alexandrieCardsStack, babyloneCardsStack, epheseCardsStack, halicarnasseCardsStack, olympieCardsStack, rhodesCardsStack, gizehCardsStack, gameCardsStackReference, progressTokenDeck;
     @FXML
-    ImageView referenceResourceCard, referenceShieldCard, referenceScienceCard, referenceProgressToken, referenceWarToken, referenceCat;
+    ImageView referenceResourceCard, referenceShieldCard, referenceScienceCard, referenceProgressToken, referenceWarToken, referenceCat, catCard;
     @FXML
     AnchorPane pane;
     
@@ -78,6 +78,7 @@ public class GameController extends gameUIBridge {
         System.out.println("Game Started");
         int time2 = (int) System.nanoTime();
         System.out.println("Loading Time : " + (time2 - time1) / 1000000 + " ms \n"); // @Copliot
+
     }
     
     public void setCurrentPlayer(Player currentPlayer) {
@@ -207,6 +208,30 @@ public class GameController extends gameUIBridge {
         if (gameCardsStack.isEmpty()) {
             gameCardsStackReference.setVisible(false);
         }
+    }
+    
+    @FXML
+    public void mainCardsStackActionOnHover(){
+        if (!currentPlayer.hasTheCat()){
+            return;
+        }
+        String cardPath = gameCardsStack.getTopCardPath();
+        FastSetup.updateImage(catCard, cardPath);
+        
+        catCard.setVisible(true);
+        Animation animation1 = AnimationsEngine.createRotateTransition(catCard, 500, 0, 15);
+        Animation animation2 = AnimationsEngine.createTranslateTransitionTo(catCard, 500, 35, -35);
+        ParallelTransition parallelTransition = new ParallelTransition(animation1, animation2);
+        parallelTransition.play();
+    }
+    
+    @FXML
+    public void mainCardsStackActionOnExit(){
+        Animation animation1 = AnimationsEngine.createRotateTransition(catCard, 500, 15, 0);
+        Animation animation2 = AnimationsEngine.createTranslateTransitionTo(catCard, 500, -35, 35);
+        ParallelTransition parallelTransition = new ParallelTransition(animation1, animation2);
+        parallelTransition.setOnFinished(event -> catCard.setVisible(false));
+        parallelTransition.play();
     }
     
     @FXML

@@ -119,4 +119,8 @@ public class PlayerCardsDeck {
     public void removeTrumpetCards() {
         deckOfShieldsCards.removeTrumpetCards();
     }
+    
+    public int getNumberOfCatCards() {
+        return deckOfVictoryPointsCards.getNumberOfCatCards();
+    }
 }

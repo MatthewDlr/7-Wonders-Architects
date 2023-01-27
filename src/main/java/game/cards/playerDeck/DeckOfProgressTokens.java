@@ -1,5 +1,6 @@
 package game.cards.playerDeck;
 
+import game.tokens.progress.Politique;
 import game.tokens.progress.ProgressToken;
 import java.util.ArrayList;
 
@@ -21,6 +22,15 @@ public class DeckOfProgressTokens {
     
     public int getCoordinatesForNextProgressToken() {
         return progressTokensSet.size() * 60;
+    }
+    
+    public boolean hasPolitiqueToken() {
+        for (ProgressToken progressToken : progressTokensSet) {
+            if (progressToken instanceof Politique) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

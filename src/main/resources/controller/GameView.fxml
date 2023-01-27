@@ -12,7 +12,12 @@
   <ImageView fx:id="background" disable="true" fitHeight="1121.0" fitWidth="1758.0" layoutX="-11.0" layoutY="-132.0" pickOnBounds="true">
     <Image url="@../images/Background.jpg" />
   </ImageView>
-  <ImageView fx:id="gameCardsStackReference" fitHeight="150.0" fitWidth="100.0" layoutX="850.0" layoutY="400.0" onMouseClicked="#mainCardsStackAction" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="catCard" fitHeight="150.0" fitWidth="100.0" focusTraversable="true" layoutX="850.0" layoutY="400.0" onMouseClicked="#mainCardsStackAction" onMouseEntered="#mainCardsStackActionOnHover" onMouseExited="#mainCardsStackActionOnExit" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../game/cards/Back/SecretCard.png" />
+      </image>
+   </ImageView>
+  <ImageView fx:id="gameCardsStackReference" fitHeight="150.0" fitWidth="100.0" layoutX="850.0" layoutY="400.0" onMouseClicked="#mainCardsStackAction" onMouseEntered="#mainCardsStackActionOnHover" onMouseExited="#mainCardsStackActionOnExit" pickOnBounds="true" preserveRatio="true">
     <Image url="@../game/cards/Back/SecretCard.png" />
   </ImageView>
   <ImageView fx:id="progressTokenDeck" fitHeight="60.0" fitWidth="60.0" layoutX="775.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">

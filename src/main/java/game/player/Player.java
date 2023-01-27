@@ -113,6 +113,9 @@ public abstract class Player {
         if (hasTheCat()) {
             numberOfVictoryPoint += 2;
         }
+        if (deckOfProgressTokens.hasPolitiqueToken()) {
+            numberOfVictoryPoint += playerCardsDeck.getNumberOfCatCards();
+        }
         return numberOfVictoryPoint;
     }
     
